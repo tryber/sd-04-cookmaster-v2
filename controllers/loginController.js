@@ -11,9 +11,10 @@ const login = async (req, res) => {
 
   const user = await User.getUserByEmail(email);
 
-  if (!user || user.password !== password)
+  if (!user || user.password !== password) {
     return res.status(401).json({ message: 'Incorrect username or password' });
-
+  }
+  
   const { password: _, ...userWhitoutPass } = user;
   const jwtOpt = {
     algorithm: 'HS256',
