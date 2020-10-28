@@ -3,7 +3,6 @@ const express = require('express');
 const router = express.Router();
 
 const UserModel = require('../models/userModel');
-
 const userValidator = require('../middlewares/userValidator');
 
 // criação da rota /users onde é possível cadastrar um novo usuário
