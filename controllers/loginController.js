@@ -1,7 +1,6 @@
 const express = require('express');
 const UserModel = require('../models/userModel');
 const Auth = require('../middlewares/auth');
-const Validation = require('../middlewares/validation');
 
 const router = express.Router();
 
@@ -15,7 +14,7 @@ router.post('/', async (req, res) => {
 
   const user = await UserModel.findByEmail(email);
 
-  if (!user || user.password !== password || !regex.test(email) ) {
+  if (!user || user.password !== password || !regex.test(email)) {
     return res.status(401).json({ message: 'Incorrect username or password' });
   }
 
