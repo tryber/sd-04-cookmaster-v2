@@ -13,7 +13,7 @@ router.post('/', userErrorDealer, async (req, res) => {
   const { name, email, password, role } = req.body;
   const exists = await UserModel.findEmail(email);
   if (!exists) {
-    const userRegistered = await UserModel.registerUser(name, email, password, role);
+    const userRegistered = await UserModel.registerUser(name, email, password);
 
     res.status(201).json({ user: userRegistered });
   } else {
