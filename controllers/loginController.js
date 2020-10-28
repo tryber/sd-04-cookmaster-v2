@@ -16,8 +16,8 @@ router.post('/', loginErrorDealer, async (req, res) => {
     };
     const tokenn = jwt.sign({ data: userWithoutPassword }, secret, jwtConfig);
     res.status(200).json({ token: tokenn });
-  } catch (err) {
-    console.log(err);
+  } catch (er) {
+    console.log(er);
     return res.status(401).json({ message: 'Incorrect username or password' });
   }
 });
