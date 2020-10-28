@@ -22,8 +22,26 @@ const registerRecipe = async (name, ingredients, preparation) =>
       throw err;
     });
 
+const deleteRecipe = async (id) =>
+  connection()
+    .then((db) => db.collection('recipes').deleteOne({ _id: ObjectId(id) }))
+    .catch((err) => {
+      throw err;
+    });
+
+const editRecipe = async (id, name, ingredients, preparation) => {
+  if (!(await getRecipeById(id))) return false;
+
+  await connection().then((db) =>
+    db
+      .collection('recipes')
+      .updateOne({ _id: ObjectId(id) }, { $set: { name, ingredients, preparation } }));
+};
+
 module.exports = {
   getAllRecipes,
   getRecipeById,
   registerRecipe,
+  deleteRecipe,
+  editRecipe,
 };
