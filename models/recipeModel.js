@@ -15,7 +15,15 @@ const getRecipeById = async (id) =>
       throw err;
     });
 
+const registerRecipe = async (name, ingredients, preparation) =>
+  connection()
+    .then((db) => db.collection('recipes').insertOne({ name, ingredients, preparation }))
+    .catch((err) => {
+      throw err;
+    });
+
 module.exports = {
   getAllRecipes,
   getRecipeById,
+  registerRecipe,
 };

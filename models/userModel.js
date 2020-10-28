@@ -29,9 +29,17 @@ const getUserByEmail = async (email) =>
       throw err;
     });
 
+const deleteUser = async (id) =>
+  connection()
+    .then((db) => db.collection('users').deleteOne({ _id: ObjectId(id) }))
+    .catch((err) => {
+      throw err;
+    });
+
 module.exports = {
   registerUser,
   getAllUsers,
   getUserById,
   getUserByEmail,
+  deleteUser,
 };

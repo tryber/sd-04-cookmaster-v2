@@ -12,10 +12,12 @@ const emailMustBeUnique = async (req, res, next) => {
 };
 
 // testando regex novo enviado pelo Eduardo Santos
-
-const validateEmailRegex = async (req, res, next) => {
+const validateEmail = async (req, res, next) => {
   const { email } = req.body;
-  const isEmailValid = email.match(/^[a-z0-9._]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i);
+  if (!email) {
+    return res.status(400).json(responseMessage('Invalid entries. Try again.'));
+  }
+  const isEmailValid = email.match(/\S+@\w+\.\w{2,6}(\.\w{2})?/i);
   if (!isEmailValid) {
     return res.status(400).json(responseMessage('Invalid entries. Try again.'));
   }
@@ -25,5 +27,5 @@ const validateEmailRegex = async (req, res, next) => {
 module.exports = {
   responseMessage,
   emailMustBeUnique,
-  validateEmailRegex,
+  validateEmail,
 };

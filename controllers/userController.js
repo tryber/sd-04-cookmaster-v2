@@ -7,36 +7,35 @@ const UserModel = require('../models/userModel');
 const userValidator = require('../middlewares/userValidator');
 
 // criação da rota /users onde é possível cadastrar um novo usuário
-router.post(
-  '/users',
-  userValidator.validateEmailRegex,
-  userValidator.emailMustBeUnique,
-  async (req, res) => {
-    try {
-      const { name, email, password, role } = req.body;
-
-      if (!name || !email || !password) {
-        return res.status(400).json(userValidator.responseMessage('Invalid entries. Try again.'));
-      }
-
-      const user = await UserModel.registerUser(name, email, password, role);
-
-      res.status(200).json(user);
-    } catch (err) {
-      res.status(400).json(userValidator.responseMessage('Invalid entries. Try again.'));
-    }
-  },
-);
-
-// criação da rota /recipes onde é possível cadastrar uma nova receita
-router.post('/recipes', async (req, res) => {
+router.post('/', userValidator.validateEmail, userValidator.emailMustBeUnique, async (req, res) => {
   try {
-    const { name, ingredients, preparation } = req.body;
-    if (!name || !ingredients || !preparation) {
+    const { name, email, password, role } = req.body;
+
+    if (!name || !email || !password) {
       return res.status(400).json(userValidator.responseMessage('Invalid entries. Try again.'));
     }
+
+    const user = await UserModel.registerUser(name, email, password, role);
+
+    res.status(201).json({ user: user.ops[0] });
   } catch (err) {
-    res.status(400).json({ message: 'Invalid entries, Try again.' });
+    res.status(400).json(userValidator.responseMessage('Invalid entries. Try again.'));
   }
 });
+
+router.get('/', async (req, res) => {
+  try {
+    const users = await UserModel.getAllUsers();
+    res.status(200).json(users);
+  } catch (err) {
+    res.status(400).json(userValidator.responseMessage('Something gone wrong...'));
+  }
+});
+
+router.delete('/:id', async (req, res) => {
+  const { id } = req.params;
+  await UserModel.deleteUser(id);
+  res.status(200).json({ message: 'user deleted...' });
+});
+
 module.exports = router;

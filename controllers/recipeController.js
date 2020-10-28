@@ -3,11 +3,12 @@ const express = require('express');
 const router = express.Router();
 
 const RecipeModel = require('../models/recipeModel');
+
 const recipeValidator = require('../middlewares/recipeValidator');
 
 // const RecipeValidator = require('../middlewares/recipeValidator');
 
-router.get('/recipes', async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const recipes = await RecipeModel.getAllRecipes();
 
@@ -17,7 +18,7 @@ router.get('/recipes', async (req, res) => {
   }
 });
 
-router.get('/recipes/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
     const { id } = req.params;
 
@@ -29,7 +30,28 @@ router.get('/recipes/:id', async (req, res) => {
 
     res.status(200).json(recipe);
   } catch (err) {
-    res.status(400).json({ errorMessage: 'Something gone wrong on recipeController...' });
+    res.status(400).json(recipeValidator.responseMessage('recipe not found'));
+  }
+});
+
+// criação da rota /recipes onde é possível cadastrar uma nova receita
+router.post('/', async (req, res) => {
+  try {
+    const { name, ingredients, preparation } = req.body;
+
+    console.log('linha 42', name);
+
+    if (!name || !ingredients || !preparation) {
+      return res.status(400).json(recipeValidator.responseMessage('Invalid entries. Try again.'));
+    }
+
+    console.log('linha 48', ingredients);
+
+    const recipe = await RecipeModel.registerRecipe(name, ingredients, preparation);
+
+    res.status(201).json({ recipe: recipe.ops[0] });
+  } catch (err) {
+    res.status(400).json(recipeValidator.responseMessage('Invalid entries, Try again.'));
   }
 });
 
