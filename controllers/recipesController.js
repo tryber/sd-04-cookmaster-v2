@@ -18,4 +18,10 @@ router.post('/', recipeValidation.requiredFields, validateToken, async (req, res
   return res.status(201).json({ recipe });
 });
 
+router.get('/', async (_req, res) => {
+  const recipes = await recipesModel.getRecipes();
+
+  return res.status(200).json(recipes);
+});
+
 module.exports = router;
