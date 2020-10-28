@@ -11,14 +11,10 @@ router.post(
   async (req, res) => {
     const { name, email, password } = req.body;
 
-    const user = await usersModel.createUser(name, email, password);
+    const user = await usersModel.registerUser(name, email, password);
 
     return res.status(201).json({ user });
   },
 );
-
-router.post('/', async (req, res) => {
-  console.log(req.body);
-});
 
 module.exports = router;
