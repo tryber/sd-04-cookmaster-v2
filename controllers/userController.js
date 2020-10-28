@@ -1,6 +1,6 @@
 const express = require('express');
 const UserModel = require('../models/userModel');
-const userErrorDealer = require('../middleware/validateInfo');
+const { userErrorDealer } = require('../middleware/validateInfo');
 
 const router = express.Router();
 
