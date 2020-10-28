@@ -14,7 +14,7 @@ const login = async (req, res) => {
   if (!user || user.password !== password) {
     return res.status(401).json({ message: 'Incorrect username or password' });
   }
-  
+
   const { password: _, ...userWhitoutPass } = user;
   const jwtOpt = {
     algorithm: 'HS256',
