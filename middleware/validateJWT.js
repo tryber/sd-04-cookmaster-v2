@@ -3,8 +3,8 @@ const UserModel = require('../models/userModel');
 
 const secret = 'opensecret';
 
-const validateJwt = async (req, res) => {
-  const token = req.headers['authorization'];
+const validateJwt = async (req, res, next) => {
+  const token = req.headers;
 
   if (!token) {
     return res.status(401).json({ error: 'jwt malformed' });
