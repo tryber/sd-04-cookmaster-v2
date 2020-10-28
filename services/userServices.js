@@ -26,7 +26,7 @@ const inserNewUser = async ({ name, email, password, role = 'user' }) => {
     return errorMessageValidation(EMAIL_EXISTS_MESSAGE);
   }
 
-  return await User.inserNewUser({ name, email, password, role });
+  return User.inserNewUser({ name, email, password, role });
 };
 
 module.exports = {

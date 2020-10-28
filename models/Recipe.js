@@ -1,3 +1,3 @@
-const connection = require('./connection');
+// const connection = require('./connection');
 
-const dbCollection = 'recipes';
+// const dbCollection = 'recipes';
