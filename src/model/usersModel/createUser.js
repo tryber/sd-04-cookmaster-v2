@@ -1,11 +1,11 @@
 const connection = require('../connection');
 
-const createUserModel = async (data) => {
+const createUserModel = async (user) => {
   try {
     const db = await connection();
-    const userInserted = await db.collection('users').insertOne({ data });
+    const userInserted = await db.collection('users').insertOne({ ...user });
 
-    return userInserted.ops[0];
+    return { user: userInserted.ops[0] };
   } catch (err) {
     console.error('createUserModel', err);
   }

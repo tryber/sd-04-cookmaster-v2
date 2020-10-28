@@ -6,9 +6,9 @@ const validCreateUser = (req, res, next) => {
   const { name, email, password } = req.body;
 
   switch (true) {
-    case name === null:
-    case email === null:
-    case password === null:
+    case !name:
+    case !email:
+    case !password:
     case !emailValidator.test(email):
       errorsMessages(res, 'Invalid entries. Try again.', 'bad_request');
       break;
