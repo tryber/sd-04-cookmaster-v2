@@ -9,6 +9,7 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use('/users', Controller.userController);
+app.use('/login', Controller.loginController);
 
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (request, response) => {

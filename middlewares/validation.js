@@ -1,5 +1,6 @@
-// Validations
+const jwt = require('jsonwebtoken');
 const UserModel = require('../models/userModel');
+const Auth = require('./auth');
 
 const isValidName = (req, res, next) => {
   const { name } = req.body;
@@ -44,9 +45,22 @@ const emailIsUnique = async (req, res, next) => {
   next();
 };
 
+const isValidToken = (req, res, next) => {
+  const token = req.headers.authorization;
+
+  const valid = jwt.verify(token, Auth.secret);
+
+  if (!valid) {
+    return res.status(500).json({ message: 'Token invalido' });
+  }
+
+  next();
+};
+
 module.exports = {
   isValidEmail,
   isValidName,
   isValidPassword,
   emailIsUnique,
+  isValidToken,
 };
