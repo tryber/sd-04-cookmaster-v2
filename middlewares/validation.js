@@ -12,7 +12,7 @@ const isValidName = (req, res, next) => {
 
 const isValidEmail = (req, res, next) => {
   const { email } = req.body;
-  const regex = /^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$/i;
+  const regex = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
 
   if (!email || !regex.test(email)) {
     // console.log('email');
