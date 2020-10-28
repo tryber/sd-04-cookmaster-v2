@@ -1,6 +1,7 @@
 const { errorsMessages } = require('../service');
+const { userModels } = require('../model');
 
-const emailValidator = /[A-Z0-9]{1,}@[A-Z0-9]{2,}\.[A-Z0-9]{2,}/i;
+const emailValid = /[A-Z0-9]{1,}@[A-Z0-9]{2,}\.[A-Z0-9]{2,}/i;
 
 const validCreateUser = (req, res, next) => {
   const { name, email, password } = req.body;
@@ -9,7 +10,7 @@ const validCreateUser = (req, res, next) => {
     case !name:
     case !email:
     case !password:
-    case !emailValidator.test(email):
+    case !emailValid.test(email):
       errorsMessages(res, 'Invalid entries. Try again.', 'bad_request');
       break;
     default:
@@ -17,17 +18,17 @@ const validCreateUser = (req, res, next) => {
   }
 };
 
-// const emailValidator = async (req, res, next) => {
-//   try {
-//     const { name } = req.body;
-//     const existOrNotProduct = await productModels.getProdByName(name);
-//     if (existOrNotProduct) {
-//       return errorsMessages(res, 'Product already exists', 'invalid_data');
-//     }
-//     next();
-//   } catch (err) {
-//     console.error('validationExistProd', err);
-//   }
-// };
+const emailValidator = async (req, res, next) => {
+  try {
+    const { email } = req.body;
+    const existOrNotProduct = await userModels.getByEmailModel(email);
+    if (existOrNotProduct) {
+      return errorsMessages(res, 'Email already registered', 'conflict');
+    }
+    next();
+  } catch (err) {
+    console.error('validationExistProd', err);
+  }
+};
 
-module.exports = { validCreateUser };
+module.exports = { validCreateUser, emailValidator };

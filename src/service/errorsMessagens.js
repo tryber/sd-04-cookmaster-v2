@@ -4,6 +4,8 @@ const errorMessage = (message) => ({ message });
 
 const errorsMessages = (res, message, code) => {
   switch (code) {
+    case 'conflict':
+      return res.status(HTTPStatus.CONFLICT).json(errorMessage(message));
     case 'bad_request':
       return res.status(HTTPStatus.BAD_REQUEST).json(errorMessage(message));
     case 'invalid_data':

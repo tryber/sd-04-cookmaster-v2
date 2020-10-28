@@ -6,10 +6,11 @@ module.exports = {
   DB_NAME: process.env.DB_NAME,
   HTTPStatus: {
     OK: 200,
-    INTERN_ERROR: 500,
-    NOT_FOUND: 404,
-    UNPROCESSABLE_ENTITY: 422,
-    BAD_REQUEST: 400,
     CREATED: 201,
+    INTERN_ERROR: 500,
+    BAD_REQUEST: 400,
+    NOT_FOUND: 404,
+    CONFLICT: 409,
+    UNPROCESSABLE_ENTITY: 422,
   },
 };

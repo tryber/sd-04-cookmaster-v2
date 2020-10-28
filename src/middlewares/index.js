@@ -1,3 +1,3 @@
-const { validCreateUser } = require('./validCreateUser');
+const { validCreateUser, emailValidator } = require('./validCreateUser');
 
-module.exports = { validCreateUser };
+module.exports = { validCreateUser, emailValidator };
