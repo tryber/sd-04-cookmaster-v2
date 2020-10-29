@@ -7,9 +7,9 @@ const secret = 'Cookmaster';
 const tokenValidator = async (req, res, next) => {
   const token = req.headers.authorization;
 
-  const tokenValid = await jwt.verify(token, secret);
+  const tokenValid = jwt.verify(token, secret);
 
-  const user = await UserModel.getUserByEmail(tokenValid.padStart.email);
+  const user = await UserModel.getUserByEmail(tokenValid.data.email);
 
   if (!user) {
     return res.status(401).json({ message: 'Erro ao procurar usuário do token' });
