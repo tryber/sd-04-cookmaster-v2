@@ -5,5 +5,5 @@ const recipeController = require('./recipesController');
 module.exports = {
   userController,
   loginController,
-  recipeController
+  recipeController,
 };
