@@ -6,7 +6,9 @@ const register = async (req, res) => {
   userServices.isValid(name, email, password, res);
 
   const emailValid = await userModel.findByEmail(email);
-  if (emailValid !== undefined) {
+  console.log(emailValid);
+
+  if (emailValid.length !== 0) {
     return res.status(409).json({ message: 'Email already registered' });
   }
 
