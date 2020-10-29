@@ -42,7 +42,7 @@ const getById = async (req, res) => {
 const update = async (req, res) => {
   try {
     const recipeId = req.params.id;
-    const userId = req.user._id;
+    const { _id: userId } = req.user;
     const { role } = req.user;
     const { name, ingredients, preparation } = req.body;
     const recipe = await recipesModel.getById(recipeId);
