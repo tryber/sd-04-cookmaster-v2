@@ -38,10 +38,17 @@ const updateRecipe = async (id, recipe) => {
   return stmt;
 };
 
+const deleteRecipe = async (id) => {
+  const db = await connection();
+  await db.collection('recipes').deleteOne({ _id: ObjectId(id) });
+  return;
+};
+
 module.exports = {
   findAll,
   findById,
   createRecipe,
   findByName,
   updateRecipe,
+  deleteRecipe
 };

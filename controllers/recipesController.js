@@ -46,4 +46,19 @@ router.put('/:id', auth, async (req, res) => {
   return res.status(401).json({ message: 'missing auth token' });
 });
 
+router.delete('/:id', auth, async (req, res) => {
+  const { id } = req.params;
+  const recipe = await RecipeModel.findById(id);
+  const user = req.user;
+
+  if (!recipe) {
+    return res.status(500).json({ message: 'Receita não existe' });
+  }
+
+  if (user) {
+    await RecipeModel.deleteRecipe(id);
+    return res.status(204).json();
+  }
+});
+
 module.exports = router;
