@@ -11,6 +11,7 @@ app.get('/', (request, response) => {
 });
 
 app.post('/users', userController.register);
+app.post('/login', userController.login);
 
 const PORT = 3000;
 

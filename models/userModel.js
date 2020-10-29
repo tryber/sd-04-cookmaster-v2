@@ -8,22 +8,16 @@ const registerUser = async (name, email, password, role) => {
   return data.ops[0];
 };
 
-/* const findByEmail = async (email) => {
-  const data = await connection().then((db) => db.collection('users').find({ email }).toArray());
-
-  return data[0];
-}; */
-
-const findByEmail = async (email) => {
+const findByEmailOne = async (email) => {
   try {
-    const data = await connection().then((db) => db.collection('users').find({ email }).toArray());
+    const data = await connection().then((db) => db.collection('users').findOne({ email }));
     return data;
   } catch (err) {
-    return 'erro';
+    return 'error';
   }
 };
 
 module.exports = {
   registerUser,
-  findByEmail,
+  findByEmailOne,
 };
