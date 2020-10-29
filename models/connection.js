@@ -1,11 +1,10 @@
 const mongoClient = require('mongodb').MongoClient;
 
-const DB_NAME = 'Coockmaster';
-// local
-// const MONGO_DB_URL = 'mongodb://localhost:27017/Cookmaster';
+const MONGO_DB_URL = 'mongodb://localhost:27017/Cookmaster';
+const DB_NAME = 'Cookmaster';
 
 // avaliador
-const MONGO_DB_URL = 'mongodb://mongodb:27017/Cookmaster';
+// const MONGO_DB_URL = 'mongodb://mongodb:27017/Cookmaster';
 
 const connection = () =>
   mongoClient
