@@ -1,6 +1,5 @@
 const jwt = require('jsonwebtoken');
 const UserModel = require('../models/userModel');
-const Auth = require('./auth');
 
 const isValidName = (req, res, next) => {
   const { name } = req.body;
@@ -45,13 +44,11 @@ const emailIsUnique = async (req, res, next) => {
   next();
 };
 
-const isValidToken = (req, res, next) => {
-  const token = req.headers.authorization;
+const isValidRecipe = (req, res, next) => {
+  const { name, ingredients, preparation } = req.body;
 
-  const valid = jwt.verify(token, Auth.secret);
-
-  if (!valid) {
-    return res.status(500).json({ message: 'Token invalido' });
+  if (!name || !ingredients || !preparation) {
+    return res.status(400).json({ message: 'Invalid entries. Try again.' });
   }
 
   next();
@@ -62,5 +59,5 @@ module.exports = {
   isValidName,
   isValidPassword,
   emailIsUnique,
-  isValidToken,
+  isValidRecipe,
 };

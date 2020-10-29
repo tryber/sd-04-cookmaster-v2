@@ -1,16 +1,24 @@
 const jwt = require('jsonwebtoken');
+const UserModel = require('../models/userModel');
 
-const secret = 'cookmasterv2';
+const auth = async (req, res, next) => {
+  try {
+    const secret = 'cookmasterv2';
+    const token = req.headers.authorization;
 
-const createToken = (payload) => {
-  const jwtConfig = {
-    expiresIn: '15m',
-    algorithm: 'HS256',
-  };
+    if (!token) {
+      return res.status(401).json({ message: 'jwt malformed' });
+    }
 
-  const token = jwt.sign(payload, secret, jwtConfig);
+    const data = jwt.verify(token, secret);
+    const user = await UserModel.findByEmail(data.data.email);
 
-  return token;
+    req.user = user;
+
+    next();
+  } catch (_err) {
+    return res.status(401).json({ message: 'jwt malformed' });
+  }
 };
 
-module.exports = { secret, createToken };
+module.exports = { auth };

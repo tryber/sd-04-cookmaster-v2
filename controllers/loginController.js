@@ -1,6 +1,6 @@
 const express = require('express');
 const UserModel = require('../models/userModel');
-const Auth = require('../middlewares/auth');
+const CreateToken = require('../middlewares/createToken');
 
 const router = express.Router();
 
@@ -19,7 +19,7 @@ router.post('/', async (req, res) => {
   }
 
   const { password: __, ...userWithoutPwd } = user;
-  const token = Auth.createToken(userWithoutPwd);
+  const token = CreateToken.createToken({ data: userWithoutPwd });
 
   return res.status(200).json({ token });
 });

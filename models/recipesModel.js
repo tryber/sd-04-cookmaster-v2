@@ -1,0 +1,38 @@
+const connection = require('./connection');
+const { ObjectId } = require('mongodb');
+
+const findAll = async () => {
+  const db = await connection();
+  const stmt = await db.collection('recipes').find().toArray();
+  return stmt;
+};
+
+const findById = async (id) => {
+  if (!ObjectId.isValid(id)) return null;
+
+  const db = await connection();
+  const stmt = await db.collection('recipes').findOne(ObjectId(id));
+  return stmt;
+};
+
+const findByName = async (name) => {
+  const db = await connection();
+  const stmt = await db.collection('recipes').findOne({ name });
+  return stmt;
+};
+
+const createRecipe = async (name, ingredients, preparation, userId) => {
+  const db = await connection();
+  const user = await db.collection('recipes').insertOne({ name, ingredients, preparation, userId });
+  // Remover a senha do objeto de retorno.
+  const { password: __, ...newUser } = user.ops[0];
+  // Retornar ultimo usuário cadastrado sem a senha
+  return newUser;
+};
+
+module.exports = {
+  findAll,
+  findById,
+  createRecipe,
+  findByName,
+};
