@@ -7,7 +7,7 @@ const createUserModel = async (user) => {
 
     return { user: userInserted.ops[0] };
   } catch (err) {
-    console.error('createUserModel', err);
+    console.error('createUserModel', err.message);
   }
 };
 

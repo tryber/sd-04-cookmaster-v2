@@ -6,11 +6,11 @@ const validateToken = (req, res, next) => {
   try {
     const token = req.headers.authorization;
 
-    const data = jwt.verify(token, secret);
-
-    if (!token || !data) {
-      return errorsMessagens(res, 'token invalid', 'invalid_data');
+    if (!token) {
+      return errorsMessagens(res, 'missing auth token', 'unauthorized');
     }
+
+    const data = jwt.verify(token, secret);
 
     const { iat, exp, ...userData } = data;
     req.user = userData;

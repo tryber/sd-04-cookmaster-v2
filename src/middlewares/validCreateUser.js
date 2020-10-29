@@ -26,7 +26,7 @@ const emailValidator = async (req, res, next) => {
     }
     next();
   } catch (err) {
-    console.error('validationExistProd', err);
+    console.error('validationExistProd', err.message);
   }
 };
 

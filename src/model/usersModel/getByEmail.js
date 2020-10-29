@@ -7,7 +7,7 @@ const getByEmailModel = async (email) => {
 
     return userEmail;
   } catch (err) {
-    console.error('getByEmailModel', err);
+    console.error('getByEmailModel', err.message);
   }
 };
 

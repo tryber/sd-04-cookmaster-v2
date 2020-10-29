@@ -11,7 +11,7 @@ const createRecipeController = async (req, res) => {
 
     return res.status(HTTPStatus.CREATED).json(createRecipe);
   } catch (err) {
-    console.error('createRecipeController', err);
+    console.error('createRecipeController', err.message);
     return errorsMessages(res);
   }
 };

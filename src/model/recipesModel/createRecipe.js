@@ -7,7 +7,7 @@ const createRecipeModel = async (recipe, userId) => {
 
     return { recipe: recipeCreate.ops[0] };
   } catch (err) {
-    console.error('createRecipeModel', err);
+    console.error('createRecipeModel', err.message);
   }
 };
 

@@ -10,7 +10,7 @@ const createUserController = async (req, res) => {
 
     return res.status(HTTPStatus.CREATED).json(userCreate);
   } catch (err) {
-    console.error('createUserController', err);
+    console.error('createUserController', err.message);
     return errorsMessages(res);
   }
 };

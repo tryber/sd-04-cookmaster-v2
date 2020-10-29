@@ -7,4 +7,6 @@ const recipesRouter = Router();
 
 recipesRouter.post('/', validateToken, validCreateRecipe, recipesController.createRecipeController);
 
+recipesRouter.get('/', recipesController.getAllRecipesController);
+
 module.exports = recipesRouter;

@@ -19,7 +19,7 @@ const loginController = async (req, res) => {
 
     return res.status(HTTPStatus.OK).json({ token });
   } catch (err) {
-    console.error('loginController', err);
+    console.error('loginController', err.message);
     return errorsMessages(res);
   }
 };
