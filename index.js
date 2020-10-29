@@ -14,7 +14,7 @@ app.get('/', (request, response) => {
 });
 
 app.use('/users', userMiddleware.validaUser, userController);
-app.use('/login', userMiddleware.validaLogin, userMiddleware.validaToken, UserLogin);
+app.use('/login', userMiddleware.validaLogin, UserLogin);
 
 app.use('*', (req, res) => res.status(404).send('Pagina não encontrada'));
 

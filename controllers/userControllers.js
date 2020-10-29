@@ -8,7 +8,7 @@ router.post('/', async (req, res) => {
     const { name, email, password } = req.body;
     const user = await userModel.cadUser(name, email, password);
 
-    res.status(201).json(user);
+    res.status(201).json({user});
   } catch (error) {
     console.error('Erro user get', error);
   }
