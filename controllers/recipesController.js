@@ -1,5 +1,4 @@
 const recipesModel = require('../models/recipesModel');
-const { ObjectId } = require('mongodb');
 
 const add = async (req, res) => {
   try {
@@ -53,7 +52,7 @@ const update = async (req, res) => {
     const recipeUpdate = await recipesModel.update(id, name, ingredients, preparation);
     return res.status(200).json(recipeUpdate);
   } catch (e) {
-    return res.status(401).send({ message: 'Algo deu errado' })
+    return res.status(401).send({ message: 'Algo deu errado' });
   }
 };
 
