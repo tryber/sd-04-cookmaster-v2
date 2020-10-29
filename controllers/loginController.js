@@ -19,29 +19,30 @@ router.post('/', LoginValidator.validateEmailAndPasswordLogin, async (req, res) 
     const { email, password } = req.body;
 
     const userExistByEmail = await UserModel.getUserByEmail(email);
-    const correctPassword = (await userExistByEmail.password) === password;
 
-    if (!userExistByEmail || !correctPassword) {
+    if (userExistByEmail) {
+      const correctPassword = (await userExistByEmail.password) === password;
+      if (!correctPassword) {
+        return res
+          .status(401)
+          .json(LoginValidator.responseMessage('Incorrect username or password'));
+      }
+    }
+
+    if (!userExistByEmail) {
       return res.status(401).json(LoginValidator.responseMessage('Incorrect username or password'));
     }
 
     const token2 = createNewJWT(userExistByEmail);
 
-    const jwtConfig = {
-      expiresIn: '14d',
-      algorithm: 'HS256',
-    };
+    console.log('linha 37, loginController, token: ', token2);
 
-    const token = jwt.sign({ data: userExistByEmail }, secret, jwtConfig);
-
-    console.log(token);
-
-    console.log('linha 39', req.body);
+    console.log('linha 39, loginController, req.body: ', req.body);
 
     return res.status(200).json({ token2 });
   } catch (err) {
-    console.log('rota login', err);
-    res.status(400).json({ message: 'something gone wrong on login' });
+    console.log('rota login, erro: \n', err);
+    res.status(401).json({ message: 'something gone wrong on login' });
   }
 });
 

@@ -1,7 +1,5 @@
 const responseMessage = (message) => ({ message });
 
-const UserModel = require('../models/userModel');
-
 const validateEmailAndPasswordLogin = async (req, res, next) => {
   const { email, password } = req.body;
   if (!email || !password) {
@@ -14,17 +12,7 @@ const validateEmailAndPasswordLogin = async (req, res, next) => {
   next();
 };
 
-const emailLoginMustBeUnique = async (req, res, next) => {
-  const { email } = req.body;
-  const emailExists = await UserModel.getUserByEmail(email);
-  if (emailExists) {
-    return res.status(409).json(responseMessage('Email already registered'));
-  }
-  next();
-};
-
 module.exports = {
   responseMessage,
   validateEmailAndPasswordLogin,
-  emailLoginMustBeUnique,
 };

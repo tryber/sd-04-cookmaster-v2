@@ -46,7 +46,7 @@ router.post('/', tokenValidator, async (req, res) => {
 
     const user = await UserModel.getUserByEmail(tokenValid.email);
 
-    console.log(('linha 49', tokenValid, user));
+    console.log(('linha 49 recipeController', tokenValid, user));
 
     const { _id } = user;
 
