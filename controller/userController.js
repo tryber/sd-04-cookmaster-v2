@@ -6,16 +6,12 @@ const register = async (req, res) => {
   const { name, email, password } = req.body;
 
   const validaEmail = /[A-Z0-9]{1,}@[A-Z0-9]{2,}\.[A-Z0-9]{2,}/i.test(email);
-  if (!email || !password || !name || validaEmail === false)
-    return userServices.invalideEntries(res);
+  if (!email || !password || !name || validaEmail === false) return userServices.invalideEntries(res);
 
   const emailValid = await userModel.findByEmailOne(email);
-  console.log(emailValid);
-
   if (emailValid) return userServices.alreadyExistEmail(res);
 
   const role = 'user';
-
   const user = await userModel.registerUser(name, email, password, role);
   res.status(201).json({ user });
 };
@@ -38,7 +34,7 @@ const login = async (req, res) => {
     const token = jwt.sign({ data: user }, secret, jwtConfig);
     res.status(200).json({ token });
   } catch (err) {
-    return res.status(500).json({ message: 'Internal Error', error: e });
+    return res.status(500).json({ message: 'Internal Error', error: err });
   }
 };
 
