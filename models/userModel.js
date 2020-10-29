@@ -8,10 +8,7 @@ const createUser = async (name, email, password) =>
   );
 
 // Retorna todos os usuários-------------------------------------------------------------------
-const allUsers = async () => {
-  const allUsers = await connection().then((db) => db.collection('users').find().toArray());
-  return allUsers;
-};
+const allUsers = async () => connection().then((db) => db.collection('users').find().toArray());
 
 // Pega um usuário pelo EMAIL------------------------------------------------------------------
 const getUserByEmail = async (email) =>
