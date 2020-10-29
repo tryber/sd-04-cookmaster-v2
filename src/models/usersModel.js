@@ -11,7 +11,7 @@ const insertUser = async (name, email, password) => {
   const insertedUser = await conn
     .collection('users')
     .insertOne({ name, email, password, role: 'user' });
-  return insertedUser;
+  return insertedUser.ops[0];
 };
 
 module.exports = {
