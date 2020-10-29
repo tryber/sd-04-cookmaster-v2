@@ -1,5 +1,7 @@
 const Joi = require('joi');
-const { INVALID_ENTRIES } = require('../errors');
+const { ObjectID } = require('mongodb');
+const { INVALID_ENTRIES, RECIPE_NOT_FOUND } = require('../errors');
+const { getBy } = require('./genericModel');
 
 const recipeSchema = Joi.object({
   name: Joi.string().required(),
@@ -12,4 +14,11 @@ const recipeValidation = (recipe) => {
   if (result.error) throw INVALID_ENTRIES;
 };
 
-module.exports = { recipeValidation };
+const getById = async (id) => {
+  if (!ObjectID.isValid(id)) throw RECIPE_NOT_FOUND;
+  const result = await getBy('recipes', '_id', ObjectID(id));
+  if (!result) throw RECIPE_NOT_FOUND;
+  return result;
+};
+
+module.exports = { recipeValidation, getById };
