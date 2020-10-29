@@ -36,4 +36,19 @@ router.post('/', recipeValidation.requiredFields, validateToken, async (req, res
   return res.status(201).json({ recipe });
 });
 
+router.put('/:id', recipeValidation.validateUser, validateToken, async (req, res) => {
+  const { name, ingredients, preparation, validToken } = req.body;
+  const { id } = req.params;
+
+  const user = await usersModel.findUserByEmail(validToken.email);
+
+  if (user) {
+    const updatedRecipe = await recipesModel.updateRecipe(id, name, ingredients, preparation);
+    if (updatedRecipe) {
+      const recipeUpdated = await recipesModel.getRecipeById(id);
+      return res.status(200).json(recipeUpdated);
+    }
+  }
+});
+
 module.exports = router;

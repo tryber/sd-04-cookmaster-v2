@@ -1,3 +1,6 @@
+const recipesModel = require('../models/recipesModel');
+const usersModel = require('../models/usersModel');
+
 const requiredFields = async (req, res, next) => {
   const { name, ingredients, preparation } = req.body;
 
@@ -8,4 +11,14 @@ const requiredFields = async (req, res, next) => {
   return next();
 };
 
-module.exports = { requiredFields };
+const validateUser = async (req, res, next) => {
+  const token = req.headers.authorization;
+
+  if (!token) {
+    return res.status(401).json({ message: 'missing auth token' });
+  }
+
+  return next();
+};
+
+module.exports = { requiredFields, validateUser };
