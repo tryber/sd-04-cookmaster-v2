@@ -16,9 +16,9 @@ const getRecipeById = async (id) =>
       throw err;
     });
 
-const registerRecipe = async (userID, name, ingredients, preparation) =>
+const registerRecipe = async (name, ingredients, preparation) =>
   connection()
-    .then((db) => db.collection('recipes').insertOne({ userID, name, ingredients, preparation }))
+    .then((db) => db.collection('recipes').insertOne({ name, ingredients, preparation }))
     .catch((err) => {
       throw err;
     });

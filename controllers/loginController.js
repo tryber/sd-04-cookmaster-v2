@@ -29,9 +29,9 @@ router.post('/', LoginValidator.validateEmailAndPasswordLogin, async (req, res) 
       return res.status(401).json(LoginValidator.responseMessage('Incorrect username or password'));
     }
 
-    const token2 = createNewJWT(userExistByEmail);
+    const token = createNewJWT(userExistByEmail);
 
-    return res.status(200).json({ token2 });
+    return res.status(200).json({ token });
   } catch (err) {
     console.log('rota login, erro: \n', err);
     res.status(401).json({ message: 'something gone wrong on login' });

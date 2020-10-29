@@ -51,16 +51,17 @@ router.post('/', tokenValidator, async (req, res) => {
     const { _id } = user;
 
     if (!name || !ingredients || !preparation) {
-      return res.status(400).json(recipeValidator.responseMessage('Invalid entries. Try again.'));
+      return res.status(401).json(recipeValidator.responseMessage('Invalid entries. Try again.'));
     }
 
-    console.log('linha 48', ingredients);
+    console.log('linha 57, recipeController, req.body', req.body);
 
-    const recipe = await RecipeModel.registerRecipe(_id, name, ingredients, preparation);
+    const recipe = await RecipeModel.registerRecipe(name, ingredients, preparation);
 
     res.status(201).json({ recipe: recipe.ops[0] });
   } catch (err) {
-    res.status(400).json(recipeValidator.responseMessage('Invalid entries, Try again.'));
+    console.log('aqui está o erro: ', err);
+    res.status(400).json(recipeValidator.responseMessage('Invalid entries. Try again.'));
   }
 });
 
