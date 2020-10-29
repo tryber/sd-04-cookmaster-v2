@@ -1,4 +1,5 @@
 const recipesModel = require('../models/recipesModel');
+const { ObjectId } = require('mongodb');
 
 const add = async (req, res) => {
   try {
@@ -39,8 +40,26 @@ const getById = async (req, res) => {
   }
 };
 
+const update = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { user } = req;
+    const { name, ingredients, preparation } = req.body;
+    const recipe = await recipesModel.getById(id);
+    const { userId } = recipe;
+    if (user._id.toString() !== userId.toString() && user.role !== 'admin') {
+      return res.status(401).send({ message: 'Usuário não pode editar a receita' });
+    }
+    const recipeUpdate = await recipesModel.update(id, name, ingredients, preparation);
+    return res.status(200).json(recipeUpdate);
+  } catch (e) {
+    return res.status(401).send({ message: 'Algo deu errado' })
+  }
+};
+
 module.exports = {
   add,
   getAll,
   getById,
+  update,
 };

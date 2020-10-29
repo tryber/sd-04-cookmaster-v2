@@ -33,6 +33,7 @@ const login = async (req, res) => {
       return res.status(401).send({ message: 'All fields must be filled' });
     }
     if (!user || password !== user.password) {
+      console.log('deu ruim aqui')
       return res.status(401).send({ message: 'Incorrect username or password' });
     }
     const jwtData = {

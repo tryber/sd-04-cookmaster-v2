@@ -11,7 +11,7 @@ const authUser = async (req, res, next) => {
     const decoded = jwt.verify(token, secret);
     const user = await usersModel.findByEmail(decoded.data.email);
     if (!user) {
-      return res.status(401).json({ message: 'Erro ao procurar usuário do token.' });
+      return res.status(401).json({ message: 'missing auth token' });
     }
     req.user = user;
     next();

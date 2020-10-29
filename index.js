@@ -27,6 +27,10 @@ app.get('/recipes', controllers.recipesControllers.getAll);
 
 app.get('/recipes/:id', controllers.recipesControllers.getById);
 
+app.put('/recipes/:id', auth.authUser, controllers.recipesControllers.update);
+
+
+
 const PORT = 3000;
 
 app.listen(PORT, () => console.log('Listening on 3000'));
