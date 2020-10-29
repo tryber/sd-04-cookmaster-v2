@@ -1,4 +1,4 @@
-const frisby = require('frisby');
+/* const frisby = require('frisby');
 const fs = require('fs');
 const { MongoClient } = require('mongodb');
 
@@ -144,3 +144,4 @@ describe('11 - Cadastramento de admin', () => {
       });
   });
 });
+ */
