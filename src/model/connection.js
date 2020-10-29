@@ -1,8 +1,12 @@
 const mongoClient = require('mongodb').MongoClient;
-const { URL_MONGO, DB_NAME } = require('../config');
 
-const MONGO_DB_URL = URL_MONGO || 'mongodb://mongodb:27017/Cookmaster';
-const DB = DB_NAME || 'Cookmaster';
+// LOCALMENTE
+const MONGO_DB_URL = 'mongodb://localhost:27017/Cookmaster';
+
+// GITHUB
+// const MONGO_DB_URL = 'mongodb://mongodb:27017/Cookmaster';
+
+const DB_NAME = 'Cookmaster';
 
 const connection = () =>
   mongoClient
@@ -10,7 +14,7 @@ const connection = () =>
       useNewUrlParser: true,
       useUnifiedTopology: true,
     })
-    .then((conn) => conn.db(DB))
+    .then((conn) => conn.db(DB_NAME))
     .catch((err) => {
       console.error(err);
       process.exit(1);

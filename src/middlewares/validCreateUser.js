@@ -1,7 +1,6 @@
 const { errorsMessages } = require('../service');
 const { userModels } = require('../model');
-
-const emailValid = /[A-Z0-9]{1,}@[A-Z0-9]{2,}\.[A-Z0-9]{2,}/i;
+const { emailValid } = require('../config');
 
 const validCreateUser = (req, res, next) => {
   const { name, email, password } = req.body;

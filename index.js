@@ -17,6 +17,7 @@ app.get('/', (request, response) => {
 });
 
 app.use('/users', routers.userRouter);
+app.use('/login', routers.loginRouter);
 
 const port = PORT || 3000;
 

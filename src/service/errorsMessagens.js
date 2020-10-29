@@ -10,6 +10,8 @@ const errorsMessages = (res, message, code) => {
       return res.status(HTTPStatus.BAD_REQUEST).json(errorMessage(message));
     case 'invalid_data':
       return res.status(HTTPStatus.UNPROCESSABLE_ENTITY).json(errorMessage(message));
+    case 'unauthorized':
+      return res.status(HTTPStatus.UNAUTHORIZED).json(errorMessage(message));
     case 'not_found':
       return res.status(HTTPStatus.NOT_FOUND).json(errorMessage(message));
     default:
