@@ -30,4 +30,20 @@ router.get('/:id', async (req, res) => {
   }
   return res.status(200).json(recipe);
 });
+
+router.put('/:id', auth, async (req, res) => {
+  const recipe = req.body;
+  const { id } = req.params;
+  // vem do middleware Auth
+  const user = req.user;
+
+  if (user) {
+    await RecipeModel.updateRecipe(id, recipe);
+    const update = await RecipeModel.findById(id);
+    return res.status(200).json(update);
+  }
+
+  return res.status(401).json({ message: 'missing auth token' });
+});
+
 module.exports = router;
