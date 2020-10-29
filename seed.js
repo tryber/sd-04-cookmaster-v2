@@ -1,3 +1,4 @@
-const { addNew } = require('./models/genericModel');
+const connection = require('./models/connection');
 
-addNew('users', { name: 'Admin ta ON', email: 'root', password: 'admin', role: 'admin' });
+connection().then((db) =>
+  db.users.insertOne({ name: 'admin', email: 'root@email.com', password: 'admin', role: 'admin' }));
