@@ -36,8 +36,7 @@ const editRecipe = async (id, name, ingredients, preparation) => {
   await connection().then((db) =>
     db
       .collection('recipes')
-      .updateOne({ _id: ObjectId(id) }, { $set: { name, ingredients, preparation } }),
-  );
+      .updateOne({ _id: ObjectId(id) }, { $set: { name, ingredients, preparation } }));
 };
 
 module.exports = {

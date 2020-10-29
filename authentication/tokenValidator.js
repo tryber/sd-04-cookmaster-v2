@@ -9,7 +9,9 @@ const tokenValidator = async (req, res, next) => {
 
   const tokenValid = jwt.verify(token, secret);
 
-  const user = await UserModel.getUserByEmail(tokenValid.data.email);
+  console.log('linha 12, tokenValidator, tokenValid', tokenValid);
+
+  const user = await UserModel.getUserByEmail(tokenValid.email);
 
   if (!user) {
     return res.status(401).json({ message: 'Erro ao procurar usuário do token' });

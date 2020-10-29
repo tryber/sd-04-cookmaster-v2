@@ -35,7 +35,7 @@ router.get('/:id', async (req, res) => {
 
     res.status(200).json(recipe);
   } catch (err) {
-    res.status(400).json(recipeValidator.responseMessage('recipe not found'));
+    res.status(404).json(recipeValidator.responseMessage('recipe not found'));
   }
 });
 
@@ -48,7 +48,7 @@ router.post('/', tokenValidator, async (req, res) => {
 
     console.log(('linha 49 recipeController', tokenValid, user));
 
-    const { _id } = user;
+    // const { _id } = user;
 
     if (!name || !ingredients || !preparation) {
       return res.status(401).json(recipeValidator.responseMessage('Invalid entries. Try again.'));
