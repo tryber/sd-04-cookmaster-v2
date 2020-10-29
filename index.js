@@ -16,6 +16,8 @@ app.post('/users', controllers.users.postNew);
 
 app.post('/login', controllers.users.login);
 
+app.post('/recipes', controllers.recipes.postNew);
+
 app.use(({ message, code = 500 }, _req, res, _next) => res.status(code).json({ message }));
 
 app.listen(3000, () => console.log('Xablau'));

@@ -1,5 +1,6 @@
 const Joi = require('joi');
 const { getBy } = require('./genericModel');
+const { INVALID_ENTRIES, EMAIL_REGISTERED, LOGIN_ERROR, MISSING_FIELDS } = require('../errors');
 
 const userSchema = Joi.object({
   name: Joi.string().required(),
@@ -15,20 +16,19 @@ const loginSchema = Joi.object({
 
 const userValidation = async (user = {}) => {
   const result = userSchema.validate(user);
-  if (result.error && result.value) return { message: 'Invalid entries. Try again.', code: 400 };
+  if (result.error) throw INVALID_ENTRIES;
 
   const userInfo = await getBy('users', 'email', user.email);
-  if (userInfo) return { message: 'Email already registered', code: 409 };
+  if (userInfo) throw EMAIL_REGISTERED;
 };
 
 const loginValidation = async (loginInfo = {}) => {
   const result = loginSchema.validate(loginInfo);
-  if (result.error && result.value) return { message: 'All fields must be filled', code: 401 };
+  if (result.error) throw MISSING_FIELDS;
 
   const userInfo = await getBy('users', 'email', loginInfo.email);
-  if (!userInfo || userInfo.password !== loginInfo.password) {
-    return { message: 'Incorrect username or password', code: 401 };
-  }
+  if (!userInfo || userInfo.password !== loginInfo.password) throw LOGIN_ERROR;
+  return userInfo;
 };
 
 module.exports = { userValidation, loginValidation };

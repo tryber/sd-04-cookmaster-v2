@@ -1,19 +1,20 @@
 const rescue = require('express-rescue');
 const { createToken } = require('../auth/jwt');
-const validate = require('../middlewares/validateUser');
+const { validateUser, validateLogin } = require('../middlewares');
 const { addNew } = require('../models/genericModel');
 
-const postNew = rescue(async ({ body: { name, email, password } }, res) => {
+const postNew = rescue(async (req, res) => {
+  const { name, email, password } = req.body;
   const user = await addNew('users', { name, email, password, role: 'user' });
   res.status(201).json({ user });
 });
 
-const login = rescue(async ({ body: { email, password } }, res) => {
-  const token = createToken({ email, password });
+const login = (req, res) => {
+  const token = createToken(req.user);
   res.json({ token });
-});
+};
 
 module.exports = {
-  postNew: [validate('user'), postNew],
-  login: [validate('login'), login],
+  postNew: [validateUser, postNew],
+  login: [validateLogin, login],
 };
