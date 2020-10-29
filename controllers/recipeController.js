@@ -12,4 +12,18 @@ router.post('/', validateJwt, recipeErrorDealer, async (req, res) => {
   res.status(201).json({ recipe: recipeRegistered });
 });
 
+router.get('/', async (req, res) => {
+  const recipes = await RecipeModel.getAllRecipes();
+  res.status(200).json(recipes);
+});
+
+router.get('/:id', async (req, res) => {
+  const { id } = req.params;
+  const recipe = await RecipeModel.getRecipeById(id);
+  if (!recipe) {
+    return res.status(404).json({ message: 'recipe not found' });
+  }
+  res.status(200).json(recipe);
+});
+
 module.exports = router;
