@@ -13,7 +13,9 @@ const validateToken = (req, res, next) => {
       return res.status(401).json({ message: 'jwt malformed' });
     }
 
-    req.body = { ...req.body, validToken };
+    // req.body = { ...req.body, validToken };
+
+    req.user = validToken;
 
     return next();
   } catch (_err) {

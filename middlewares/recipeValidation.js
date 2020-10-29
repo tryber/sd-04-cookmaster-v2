@@ -1,6 +1,3 @@
-const recipesModel = require('../models/recipesModel');
-const usersModel = require('../models/usersModel');
-
 const requiredFields = async (req, res, next) => {
   const { name, ingredients, preparation } = req.body;
 

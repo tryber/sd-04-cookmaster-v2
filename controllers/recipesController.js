@@ -25,9 +25,11 @@ router.get('/:id', async (req, res) => {
 });
 
 router.post('/', recipeValidation.requiredFields, validateToken, async (req, res) => {
-  const { name, ingredients, preparation, validToken } = req.body;
+  const { name, ingredients, preparation } = req.body;
 
-  const user = await usersModel.findUserByEmail(validToken.email);
+  const { email } = req.user;
+
+  const user = await usersModel.findUserByEmail(email);
 
   const { _id } = user;
 
@@ -37,16 +39,32 @@ router.post('/', recipeValidation.requiredFields, validateToken, async (req, res
 });
 
 router.put('/:id', recipeValidation.validateUser, validateToken, async (req, res) => {
-  const { name, ingredients, preparation, validToken } = req.body;
+  const { name, ingredients, preparation } = req.body;
   const { id } = req.params;
+  const { email } = req.user;
 
-  const user = await usersModel.findUserByEmail(validToken.email);
+  const user = await usersModel.findUserByEmail(email);
 
   if (user) {
     const updatedRecipe = await recipesModel.updateRecipe(id, name, ingredients, preparation);
     if (updatedRecipe) {
       const recipeUpdated = await recipesModel.getRecipeById(id);
       return res.status(200).json(recipeUpdated);
+    }
+  }
+});
+
+router.delete('/:id', recipeValidation.validateUser, validateToken, async (req, res) => {
+  const { id } = req.params;
+
+  const { email } = req.user;
+
+  const user = await usersModel.findUserByEmail(email);
+
+  if (user) {
+    const deleted = await recipesModel.removeRecipe(id);
+    if (deleted) {
+      return res.status(204).json({ message: 'deleted' });
     }
   }
 });
