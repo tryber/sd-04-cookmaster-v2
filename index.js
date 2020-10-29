@@ -17,6 +17,8 @@ app.get('/', (request, response) => {
 
 app.post('/users', controllers.usersControllers.add);
 
+app.post('/login', controllers.usersControllers.login);
+
 const PORT = 3000;
 
 app.listen(PORT, () => console.log('Listening on 3000'));
