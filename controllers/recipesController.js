@@ -57,9 +57,30 @@ const update = async (req, res) => {
   }
 };
 
+const exclude = async (req, res) => {
+  try {
+    const recipeId = req.params.id;
+    const { _id: userId } = req.user;
+    const { role } = req.user;
+    const recipe = await recipesModel.getById(recipeId);
+    const userIdRecipe = recipe.userId;
+    if (userId.toString() !== userIdRecipe.toString() && role !== 'admin') {
+      return res.status(401).send({ message: 'Usuário não pode editar a receita' });
+    }
+    if (!recipe) {
+      return res.status(404).send({ message: 'Receita não encontrada' });
+    }
+    await recipesModel.exclude(recipeId);
+    return res.status(204).send('No body returned for response');
+  } catch (e) {
+    return res.status(401).send({ message: 'Algo deu errado' });
+  }
+};
+
 module.exports = {
   add,
   getAll,
   getById,
   update,
+  exclude,
 };

@@ -29,6 +29,8 @@ app.get('/recipes/:id', controllers.recipesControllers.getById);
 
 app.put('/recipes/:id', auth.authUser, controllers.recipesControllers.update);
 
+app.delete('/recipes/:id', auth.authUser, controllers.recipesControllers.exclude);
+
 const PORT = 3000;
 
 app.listen(PORT, () => console.log('Listening on 3000'));
