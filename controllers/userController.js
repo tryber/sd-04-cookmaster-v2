@@ -5,7 +5,8 @@ const router = express.Router();
 const UserModel = require('../models/userModel');
 const userValidator = require('../middlewares/userValidator');
 
-// criação da rota /users onde é possível cadastrar um novo usuário
+// ROTA PARA CADASTRAR NOVO USUÁRIO
+
 router.post('/', userValidator.validateEmail, userValidator.emailMustBeUnique, async (req, res) => {
   try {
     const { name, email, password, role } = req.body;
@@ -16,7 +17,7 @@ router.post('/', userValidator.validateEmail, userValidator.emailMustBeUnique, a
 
     const user = await UserModel.registerUser(name, email, password, role);
 
-    res.status(201).json({ user: user.ops[0] });
+    res.status(201).json({ user });
   } catch (err) {
     res.status(400).json(userValidator.responseMessage('Invalid entries. Try again.'));
   }

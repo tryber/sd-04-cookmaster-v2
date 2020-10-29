@@ -1,12 +1,14 @@
 const { ObjectId } = require('mongodb');
 const connection = require('./connection');
 
-const registerUser = async (name, email, password, role = 'user') =>
-  connection()
+const registerUser = async (name, email, password, role = 'user') => {
+  const result = await connection()
     .then((db) => db.collection('users').insertOne({ name, email, password, role }))
     .catch((err) => {
       throw err;
     });
+  return result.ops[0];
+};
 
 const getAllUsers = async () =>
   connection()
