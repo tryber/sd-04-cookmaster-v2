@@ -1,9 +1,12 @@
 const userModel = require('../models/userModel');
-const userServices = require('../services/userServices');
 
 const register = async (req, res) => {
   const { name, email, password } = req.body;
-  userServices.isValid(name, email, password, res);
+
+  const validaEmail = /[A-Z0-9]{1,}@[A-Z0-9]{2,}\.[A-Z0-9]{2,}/i.test(email);
+  if (!email || !password || !name || validaEmail === false) {
+    return res.status(400).json({ message: 'Invalid entries. Try again.' });
+  }
 
   const emailValid = await userModel.findByEmail(email);
   console.log(emailValid);
@@ -15,7 +18,6 @@ const register = async (req, res) => {
   const role = 'user';
 
   const user = await userModel.registerUser(name, email, password, role);
-  delete user.password;
   res.status(201).json({ user });
 };
 
