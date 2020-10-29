@@ -9,7 +9,6 @@ const validateToken = (req, res, next) => {
     if (!token) {
       return errorsMessagens(res, 'missing auth token', 'unauthorized');
     }
-
     const data = jwt.verify(token, secret);
 
     const { iat, exp, ...userData } = data;
