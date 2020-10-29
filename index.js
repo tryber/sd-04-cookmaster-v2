@@ -21,7 +21,11 @@ app.post('/users', controllers.usersControllers.add);
 
 app.post('/login', controllers.usersControllers.login);
 
-app.post('/recipes', auth.authUser, controllers.recipesControllers.add)
+app.post('/recipes', auth.authUser, controllers.recipesControllers.add);
+
+app.get('/recipes', controllers.recipesControllers.getAll);
+
+app.get('/recipes/:id', controllers.recipesControllers.getById);
 
 const PORT = 3000;
 

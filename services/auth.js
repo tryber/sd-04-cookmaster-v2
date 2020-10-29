@@ -4,7 +4,7 @@ const usersModel = require('../models/usersModel');
 const authUser = async (req, res, next) => {
   const secret = 'secrecttoken';
   try {
-    const token = req.headers['authorization'];
+    const token = req.headers.authorization;
     if (!token) {
       return res.status(401).json({ message: 'jwt malformed' });
     }

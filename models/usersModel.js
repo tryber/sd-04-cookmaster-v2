@@ -16,7 +16,6 @@ const findByEmail = async (email) => {
     const user = await db.collection('users').findOne({ email });
     return user;
   } catch (e) {
-    console.log(e)
     return null;
   }
 };

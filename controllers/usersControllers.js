@@ -45,7 +45,7 @@ const login = async (req, res) => {
   } catch (e) {
     return res.status(400).send({ message: 'Algo deu errado ao tentar fazer o login' });
   }
-}
+};
 
 module.exports = {
   add,
