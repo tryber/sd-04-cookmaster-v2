@@ -7,7 +7,9 @@ const JWT_SECRET = 'cookmasterv2émuitobom';
 const login = async (req, res) => {
   const { email, password } = req.body;
 
-  if (!email || !password) return res.status(401).json({ message: 'All fields must be filled' });
+  if (!email || !password) {
+    return res.status(401).json({ message: 'All fields must be filled' });
+  }
 
   const user = await User.getUserByEmail(email);
 
@@ -18,7 +20,7 @@ const login = async (req, res) => {
   const { password: _, ...userWhitoutPass } = user;
   const jwtOpt = {
     algorithm: 'HS256',
-    expiresIn: '1m',
+    expiresIn: '50m',
   };
 
   const token = jwt.sign(userWhitoutPass, JWT_SECRET, jwtOpt);
