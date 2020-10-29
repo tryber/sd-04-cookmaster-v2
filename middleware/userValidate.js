@@ -1,6 +1,5 @@
 const Joi = require('joi');
 
-const createToken = require('../middleware/userAuthentication');
 const userModel = require('../model/userModel');
 
 const userCadastro = Joi.object({
