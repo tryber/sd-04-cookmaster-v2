@@ -12,7 +12,13 @@ const cadUser = async (name, email, password, role = 'user') => {
 const getByEmail = async (email) =>
   connection().then((db) => db.collection(USERS).findOne({ email: `${email}` }, { email: 1 }));
 
+const getByPassword = async (password) =>
+  connection().then((db) =>
+    db.collection(USERS).findOne({ password: `${password}` }, { password: 1 }),
+  );
+
 module.exports = {
   getByEmail,
+  getByPassword,
   cadUser,
 };

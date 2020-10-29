@@ -1,6 +1,7 @@
 const express = require('express');
 
 const userController = require('./controllers/userControllers');
+const UserLogin = require('./controllers/loginUserController');
 const userMiddleware = require('./middleware/userValidate');
 
 const app = express();
@@ -13,8 +14,8 @@ app.get('/', (request, response) => {
 });
 
 app.use('/users', userMiddleware.validaUser, userController);
-
+app.use('/login', userMiddleware.validaLogin, userMiddleware.validaToken, UserLogin);
 
 app.use('*', (req, res) => res.status(404).send('Pagina não encontrada'));
 
-app.listen(PORT, () => console.log("========== Aplicacao rodando =========="));
+app.listen(PORT, () => console.log('========== Aplicacao rodando =========='));

@@ -10,8 +10,8 @@ router.post('/', async (req, res) => {
 
     res.status(201).json(user);
   } catch (error) {
-    console.error("Erro user get", error)
-  }  
+    console.error('Erro user get', error);
+  }
 });
 
 module.exports = router;
