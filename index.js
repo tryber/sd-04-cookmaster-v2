@@ -7,6 +7,8 @@ const userController = require('./controllers/userController');
 
 const recipeController = require('./controllers/recipeController');
 
+const loginController = require('./controllers/loginController');
+
 app.use(express.json());
 
 // app.use('/images', express.static(path.join(__dirname, 'uploads')));
@@ -14,6 +16,8 @@ app.use(express.json());
 app.use('/users', userController);
 
 app.use('/recipes', recipeController);
+
+app.use('/login', loginController);
 
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (request, response) => {
