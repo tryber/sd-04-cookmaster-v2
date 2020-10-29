@@ -4,7 +4,11 @@ const userServices = require('../services/userServices');
 const register = async (req, res) => {
   const { name, email, password } = req.body;
   userServices.isValid(name, email, password, res);
-  userServices.verifyDuplicated(email, res);
+
+  const emailValid = await userModel.findByEmail(email);
+  if (emailValid !== undefined) {
+    return res.status(409).json({ message: 'Email already registered' });
+  }
 
   const role = 'user';
 

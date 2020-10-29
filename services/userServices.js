@@ -7,14 +7,6 @@ const isValid = (name, email, password, res) => {
   }
 };
 
-const verifyDuplicated = async (email, res) => {
-  const emailValid = await userModel.findByEmail(email);
-  if (emailValid !== undefined) {
-    return res.status(409).json({ message: 'Email already registered' });
-  }
-};
-
 module.exports = {
   isValid,
-  verifyDuplicated,
 };
