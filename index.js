@@ -6,6 +6,8 @@ const bodyParser = require('body-parser');
 
 const controllers = require('./controllers');
 
+const auth = require('./services/auth');
+
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(bodyParser.json());
@@ -18,6 +20,8 @@ app.get('/', (request, response) => {
 app.post('/users', controllers.usersControllers.add);
 
 app.post('/login', controllers.usersControllers.login);
+
+app.post('/recipes', auth.authUser, controllers.recipesControllers.add)
 
 const PORT = 3000;
 
