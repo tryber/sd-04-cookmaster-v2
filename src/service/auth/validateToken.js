@@ -9,8 +9,12 @@ const validateToken = (req, res, next) => {
     const data = jwt.verify(token, secret);
 
     if (!token || !data) {
-      return errorsMessagens(res, 'token invalid', 'invalid_data');
+      return errorsMessagens(res, 'jwt malformed', 'unauthorized');
     }
+
+    const { iat, exp, ...userData } = data;
+    req.user = userData;
+
     next();
   } catch (err) {
     console.error('validateToken', err);

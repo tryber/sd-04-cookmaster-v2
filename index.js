@@ -18,6 +18,7 @@ app.get('/', (request, response) => {
 
 app.use('/users', routers.userRouter);
 app.use('/login', routers.loginRouter);
+app.use('/recipes', routers.recipesRouter);
 
 const port = PORT || 3000;
 
