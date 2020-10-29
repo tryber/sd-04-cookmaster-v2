@@ -6,8 +6,9 @@ const register = async (req, res) => {
   const { name, email, password } = req.body;
 
   const validaEmail = /[A-Z0-9]{1,}@[A-Z0-9]{2,}\.[A-Z0-9]{2,}/i.test(email);
-  if (!email || !password || !name || validaEmail === false) return userServices.invalideEntries(res);
-
+  if (!email || !password || !name || validaEmail === false) {
+    return userServices.invalideEntries(res);
+  }
   const emailValid = await userModel.findByEmailOne(email);
   if (emailValid) return userServices.alreadyExistEmail(res);
 
