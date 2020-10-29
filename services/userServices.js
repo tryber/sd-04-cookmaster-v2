@@ -7,7 +7,7 @@ const errorMessageValidation = (message) => ({ message });
 
 const isFieldsInvalid = (name, email, password) => {
   const emailTest = /[A-Z0-9]{1,}@[A-Z0-9]{2,}\.[A-Z0-9]{2,}/i;
-  console.log(email);
+
   if (!name || !email || !password || !emailTest.test(email)) {
     return true;
   }
@@ -26,7 +26,8 @@ const inserNewUser = async ({ name, email, password, role = 'user' }) => {
     return errorMessageValidation(EMAIL_EXISTS_MESSAGE);
   }
 
-  return User.inserNewUser({ name, email, password, role });
+  const insertResponse = await User.insertNewUser({ name, email, password, role });
+  return insertResponse;
 };
 
 module.exports = {
