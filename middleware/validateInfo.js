@@ -1,7 +1,8 @@
-const { loginSchema, userSchema } = require('../schema/schema');
+const { loginSchema, userSchema, recipeSchema } = require('../schema/schema');
 
 const checkUser = async (user) => userSchema.validate(user);
 const checkLogin = async (user) => loginSchema.validate(user);
+const checkRecipe = async (recipe) => recipeSchema.validate(recipe);
 
 const userErrorDealer = async (req, res, next) => {
   try {
@@ -23,4 +24,14 @@ const loginErrorDealer = async (req, res, next) => {
   }
 };
 
-module.exports = { userErrorDealer, loginErrorDealer };
+const recipeErrorDealer = async (req, res, next) => {
+  try {
+    await checkRecipe(req.body);
+    next();
+  } catch (er) {
+    console.log(er);
+    res.status(400).json({ message: 'Invalid entries. Try again.' });
+  }
+};
+
+module.exports = { userErrorDealer, loginErrorDealer, recipeErrorDealer };
