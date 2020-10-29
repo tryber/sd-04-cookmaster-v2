@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const userController = require('./controller/userController')
+const userController = require('./controller/userController');
 
 const app = express();
 app.use(bodyParser.json());
@@ -10,7 +10,7 @@ app.get('/', (request, response) => {
   response.send();
 });
 
-app.post('/users', userController.register)
+app.post('/users', userController.register);
 
 const PORT = process.env.PORT || 3000;
 

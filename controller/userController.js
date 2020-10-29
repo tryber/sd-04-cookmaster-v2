@@ -18,7 +18,7 @@ const register = async (req, res) => {
   isValid(name, email, password, res);
   verifyDuplicated(email, res);
 
-  const user = await userModel.registerUser(name, email, password, (role = 'user'));
+  const user = await userModel.registerUser(name, email, password, role = 'user');
   delete user.password;
   res.status(201).json({ user });
 };
