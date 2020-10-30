@@ -32,7 +32,8 @@ const tokenValidator = async (req, res, next) => {
 
     next();
   } catch (err) {
-    console.log('linha ', err);
+    console.log('linha 53, err do catch no tokenValidator\n', err);
+
     return res.status(401).json(loginValidator.responseMessage('jwt malformed'));
   }
 };

@@ -9,8 +9,6 @@ const UserModel = require('../models/userModel');
 
 const recipeValidator = require('../middlewares/recipeValidator');
 
-// const RecipeValidator = require('../middlewares/recipeValidator');
-
 // ROTA PARA PEGAR TODAS AS RECEITAS
 router.get('/', async (req, res) => {
   try {
@@ -40,7 +38,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // ROTA PARA CRIAR UMA NOVA RECEITA
-router.post('/', tokenValidator, async (req, res) => {
+router.post('/', recipeValidator.validateCreateRecipe, tokenValidator, async (req, res) => {
   try {
     const { name, ingredients, preparation, tokenValid } = req.body;
 
@@ -49,10 +47,6 @@ router.post('/', tokenValidator, async (req, res) => {
     console.log(('linha 49 recipeController', tokenValid, user));
 
     // const { _id } = user;
-
-    if (!name || !ingredients || !preparation) {
-      return res.status(400).json(recipeValidator.responseMessage('Invalid entries. Try again.'));
-    }
 
     console.log('linha 57, recipeController, req.body', req.body);
 
