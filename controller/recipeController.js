@@ -28,13 +28,11 @@ const listOneRecipe = async (req, res) => {
 
 const editRecipe = async (req, res) => {
   const { id } = req.params;
+  const { _id } = req.user;
   const { name, ingredients, preparation } = req.body;
   const recipe = await recipeModel.listRecipesById(id);
 
-  console.log(String(recipe.userId));
-  console.log(String(req.user._id));
-
-  if (String(recipe.userId) === String(req.user._id) || req.user.name === 'admin') {
+  if (String(recipe.userId) === String(_id) || req.user.name === 'admin') {
     await recipeModel.updateRecipe(id, name, ingredients, preparation);
     const recipe = await recipeModel.listRecipesById(id);
 
