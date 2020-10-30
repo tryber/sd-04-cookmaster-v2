@@ -9,7 +9,8 @@ const recipeCadastro = Joi.object({
 const validaReceita = (req, res, next) => {
   const { body } = req;
   const { error } = recipeCadastro.validate(body);
-
+  console.log(body);
+  console.log(error);
   if (error) {
     return res.status(400).json({ message: 'Invalid entries. Try again.' });
   }

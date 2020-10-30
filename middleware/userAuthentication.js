@@ -14,17 +14,21 @@ function createToken(payload) {
 }
 
 const validaJWT = (req, res, next) => {
-  const token = req.headers.authorization;
+  try {
+    const token = req.headers.authorization;
 
-  const data = jwt.verify(token, SECRET);
+    const data = jwt.verify(token, SECRET);
 
-  if (!data) {
-    return res.status(401).json({ message: 'Jet malformed' });
+    if (!data) {
+      return res.status(401).json({ message: 'jwt malformed' });
+    }
+
+    req.user = data;
+
+    next();
+  } catch (error) {
+    return res.status(401).json({ message: 'jwt malformed' });
   }
-
-  req.user = data;
-
-  next();
 };
 
 module.exports = {
