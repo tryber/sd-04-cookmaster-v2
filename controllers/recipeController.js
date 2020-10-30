@@ -37,9 +37,9 @@ router.put('/:id', validateJwt, recipeErrorDealer, async (req, res) => {
 });
 
 router.delete('/:id', validateJwt, async (req, res) => {
-  const {id} = req.params;
+  const { id } = req.params;
   await RecipeModel.deleteRecipe(id);
   res.status(204).json();
-})
+});
 
 module.exports = router;
