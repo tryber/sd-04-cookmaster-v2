@@ -11,7 +11,7 @@ const connection = () =>
       useNewUrlParser: true,
       useUnifiedTopology: true,
     })
-    .then((connection) => connection.db(DB_NAME))
+    .then((connected) => connected.db(DB_NAME))
     .catch((err) => {
       console.error(err);
       process.exit(1);
