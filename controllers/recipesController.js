@@ -7,13 +7,13 @@ const postCreateRecipesCont = rescue(async (req, res) => {
 
   const result = await postCreateRecipesMod(name, ingredients, preparation, _id);
 
-  return res.status(201).json({ recipe: result});
+  return res.status(201).json({ recipe: result });
 });
 
-const getAllRecipesCont = async (_req, res) => {
+const getAllRecipesCont = rescue(async (_req, res) => {
   const result = await getAllRecipesMod();
 
   return res.status(200).json(result);
-};
+});
 
 module.exports = { postCreateRecipesCont, getAllRecipesCont };
