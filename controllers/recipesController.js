@@ -1,6 +1,5 @@
 const rescue = require('express-rescue');
 const multer = require('multer');
-const path = require('path');
 const {
   postCreateRecipesMod,
   getAllRecipesMod,
