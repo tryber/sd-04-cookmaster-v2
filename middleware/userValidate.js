@@ -1,5 +1,6 @@
 const Joi = require('joi');
 
+const auth = require('../middleware/userAuthentication');
 const userModel = require('../model/userModel');
 
 const userCadastro = Joi.object({
@@ -44,7 +45,7 @@ const validaLogin = async (req, res, next) => {
 
   const { password: _, ...userSafe } = user;
 
-  req.user = userSafe;
+  req.token = auth.createToken(userSafe);
 
   next();
 };

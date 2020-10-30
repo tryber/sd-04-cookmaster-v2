@@ -1,20 +1,18 @@
 const express = require('express');
 
-const userController = require('./controllers/userControllers');
-const UserLogin = require('./controllers/loginUserController');
-const userMiddleware = require('./middleware/userValidate');
+const recipeRouter = require('./routers/recipesRouters');
+const userRouter = require('./routers/usersRouters');
+const loginRouter = require('./routers/loginRouter');
 
 const app = express();
 const PORT = 3000;
 
 app.use(express.json());
-// não remova esse endpoint, e para o avaliador funcionar
-app.get('/', (request, response) => {
-  response.send();
-});
+app.get('/', (request, response) => response.send());
 
-app.use('/users', userMiddleware.validaUser, userController);
-app.use('/login', userMiddleware.validaLogin, UserLogin);
+app.use('/users', userRouter);
+app.use('/login', loginRouter);
+app.use('/recipes', recipeRouter);
 
 app.use('*', (req, res) => res.status(404).send('Pagina não encontrada'));
 

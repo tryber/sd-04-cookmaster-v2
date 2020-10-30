@@ -1,9 +1,6 @@
-const express = require('express');
 const userModel = require('../model/userModel');
 
-const router = express.Router();
-
-router.post('/', async (req, res) => {
+const cadUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;
     const user = await userModel.cadUser(name, email, password);
@@ -12,6 +9,8 @@ router.post('/', async (req, res) => {
   } catch (error) {
     console.error('Erro user get', error);
   }
-});
+};
 
-module.exports = router;
+module.exports = {
+  cadUser,
+};
