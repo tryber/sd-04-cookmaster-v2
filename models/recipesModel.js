@@ -34,7 +34,7 @@ const getByIdRecipesMod = async (id) => {
   return result;
 };
 
-const updateRecipesMod = async (id, name, ingredients, preparation, userId) => {
+const updateRecipesMod = async (id, name, ingredients, preparation) => {
   const db = await connection();
   const result = await db
     .collection('recipes')
@@ -56,5 +56,10 @@ const deleteRecipesMod = async (id) => {
   return result;
 };
 
-
-module.exports = { postCreateRecipesMod, getAllRecipesMod, getByIdRecipesMod, updateRecipesMod, deleteRecipesMod };
+module.exports = {
+  postCreateRecipesMod,
+  getAllRecipesMod,
+  getByIdRecipesMod,
+  updateRecipesMod,
+  deleteRecipesMod,
+};
