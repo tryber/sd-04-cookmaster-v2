@@ -31,9 +31,15 @@ router.put('/:id', validateJwt, recipeErrorDealer, async (req, res) => {
   const { name, ingredients, preparation } = req.body;
 
   await RecipeModel.updateRecipe(id, name, ingredients, preparation);
-  const recipeUpdated = await RecipeModel.getRecipeById(id);
+  const updatedRecipe = await RecipeModel.getRecipeById(id);
 
-  res.status(200).json(recipeUpdated);
+  res.status(200).json(updatedRecipe);
 });
+
+router.delete('/:id', validateJwt, async (req, res) => {
+  const {id} = req.params;
+  await RecipeModel.deleteRecipe(id);
+  res.status(204).json();
+})
 
 module.exports = router;
