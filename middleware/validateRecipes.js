@@ -10,15 +10,10 @@ const validateRecipes = async (req, res, next) => {
   try {
     const { name, ingredients, preparation } = req.body;
     const { error } = schema.validate({ name, ingredients, preparation });
-    console.log('error', error);
 
     if (error) {
       return res.status(400).json({ message: 'Invalid entries. Try again.' });
     }
-
-    // if (!name || !ingredients || !preparation) {
-    //   return res.status(400).json({ message: 'Invalid entries. Try again.' });
-    // }
   } catch (error) {
     console.error('validateUser', error);
   }

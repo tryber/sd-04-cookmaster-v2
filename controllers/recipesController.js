@@ -75,7 +75,6 @@ const updateImageRecipesCont = rescue(async (req, res) => {
   const recipe = await getByIdRecipesMod(id);
 
   const result = await updateImageRecipesMod(id, imagePath, recipe);
-  console.log('result', result);
 
   return res.status(200).json(result);
 });

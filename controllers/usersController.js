@@ -11,14 +11,12 @@ const postCreateUsersCont = rescue(async (req, res) => {
 const postCreateAdminCont = rescue(async (req, res) => {
   const { name, email, password } = req.body;
   const { role } = req.user;
-  console.log('req.user', req.user);
 
   if (role !== 'admin') {
     return res.status(403).json({ message: 'Only admins can register new admins' });
   }
 
   const result = await postCreateAdminMod(name, email, password);
-  console.log('result', result);
 
   return res.status(201).json({ user: result });
 });
