@@ -51,7 +51,7 @@ router.post('/', tokenValidator, async (req, res) => {
     // const { _id } = user;
 
     if (!name || !ingredients || !preparation) {
-      return res.status(401).json(recipeValidator.responseMessage('Invalid entries. Try again.'));
+      return res.status(400).json(recipeValidator.responseMessage('Invalid entries. Try again.'));
     }
 
     console.log('linha 57, recipeController, req.body', req.body);
@@ -66,7 +66,7 @@ router.post('/', tokenValidator, async (req, res) => {
 });
 
 // ROTA PARA DELETAR UMA RECEITA
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', tokenValidator, async (req, res) => {
   try {
     const { id } = req.params;
     const recipeExist = await RecipeModel.getRecipeById(id);
@@ -81,7 +81,7 @@ router.delete('/:id', async (req, res) => {
 });
 
 // ROTA PARA EDITAR UMA RECEITA
-router.put('/:id', async (req, res) => {
+router.put('/:id', tokenValidator, async (req, res) => {
   try {
     const { id } = req.params;
 
