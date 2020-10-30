@@ -31,4 +31,18 @@ const getUserByIdMod = async (id) => {
   return result;
 };
 
-module.exports = { postCreateUsersMod, getUserEmailMod, getUserByIdMod };
+const postCreateAdminMod = async (name, email, password) => {
+  const db = await connection();
+  const postUsers = await db.collection('users').insertOne({ name, email, password });
+  const { insertedId: _id } = postUsers;
+  const result = {
+    name,
+    email,
+    role: 'admin',
+    _id,
+  };
+
+  return result;
+};
+
+module.exports = { postCreateUsersMod, getUserEmailMod, getUserByIdMod, postCreateAdminMod };

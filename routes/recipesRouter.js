@@ -16,4 +16,11 @@ recipesRouter
   .put(validateJWT, controller.updateRecipesCont)
   .delete(validateJWT, controller.deleteRecipesCont);
 
+recipesRouter.put(
+  '/:id/image',
+  validateJWT,
+  controller.upload.single('image'),
+  controller.updateImageRecipesCont,
+);
+
 module.exports = recipesRouter;

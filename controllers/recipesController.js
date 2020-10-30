@@ -1,10 +1,13 @@
 const rescue = require('express-rescue');
+const multer = require('multer');
+const path = require('path');
 const {
   postCreateRecipesMod,
   getAllRecipesMod,
   getByIdRecipesMod,
   updateRecipesMod,
   deleteRecipesMod,
+  updateImageRecipesMod,
 } = require('../models/recipesModel');
 
 const postCreateRecipesCont = rescue(async (req, res) => {
@@ -50,10 +53,40 @@ const deleteRecipesCont = rescue(async (req, res) => {
   return res.status(204).json(result);
 });
 
+// Upload da Imagem, substituindo o nome da imagem pelo ID.
+// O path é um modulo nativo do Node para manipular caminhos de arquivos e pastas.
+// O _dirname é o caminho da pasta onde o arquivo será salvo.
+
+const storage = multer.diskStorage({
+  destination: path.join(__dirname, 'images'),
+  filename: (req, _file, callback) => {
+    const { id } = req.params;
+    callback(null, `${id}.jpeg`);
+  },
+});
+
+const upload = multer({ storage });
+
+const updateImageRecipesCont = rescue(async (req, res) => {
+  const { id } = req.params;
+  // const { filename } = req.file;
+
+  const imagePath = `localhost:3000/images/${id}.jpeg`;
+
+  const recipe = await getByIdRecipesMod(id);
+
+  const result = await updateImageRecipesMod(id, imagePath, recipe);
+  console.log('result', result);
+
+  return res.status(200).json(result);
+});
+
 module.exports = {
   postCreateRecipesCont,
   getAllRecipesCont,
   getByIdRecipesCont,
   updateRecipesCont,
   deleteRecipesCont,
+  upload,
+  updateImageRecipesCont,
 };

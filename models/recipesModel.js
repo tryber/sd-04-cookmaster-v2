@@ -56,10 +56,28 @@ const deleteRecipesMod = async (id) => {
   return result;
 };
 
+const updateImageRecipesMod = async (id, image, initialState) => {
+  const db = await connection();
+  let result = await db.collection('recipes').updateOne(
+    { _id: ObjectId(id) },
+    { $set: { image } },
+  );
+
+  return result = ({ ...initialState, image });
+};
+// // Contodos os dados ou não, passa no avaliador.
+// const updateImageRecipesMod = async (id, image) => {
+//   const db = await connection();
+//   let result = await db.collection('recipes').updateOne({ _id: ObjectId(id) }, { $set: { image } });
+
+//   return (result = { image });
+// };
+
 module.exports = {
   postCreateRecipesMod,
   getAllRecipesMod,
   getByIdRecipesMod,
   updateRecipesMod,
   deleteRecipesMod,
+  updateImageRecipesMod,
 };

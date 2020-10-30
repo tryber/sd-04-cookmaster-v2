@@ -1,5 +1,5 @@
 const rescue = require('express-rescue');
-const { postCreateUsersMod } = require('../models/usersModel');
+const { postCreateUsersMod, postCreateAdminMod } = require('../models/usersModel');
 
 const postCreateUsersCont = rescue(async (req, res) => {
   const { name, email, password } = req.body;
@@ -8,4 +8,19 @@ const postCreateUsersCont = rescue(async (req, res) => {
   return res.status(201).json({ user: result });
 });
 
-module.exports = { postCreateUsersCont };
+const postCreateAdminCont = rescue(async (req, res) => {
+  const { name, email, password } = req.body;
+  const { role } = req.user
+  console.log('req.user', req.user);
+
+  if (role !== 'admin' ) {
+    return res.status(403).json({ message: 'Only admins can register new admins'});
+  }
+
+  const result = await postCreateAdminMod(name, email, password);
+  console.log('result', result);
+
+  return res.status(201).json({ user: result });
+});
+
+module.exports = { postCreateUsersCont, postCreateAdminCont };
