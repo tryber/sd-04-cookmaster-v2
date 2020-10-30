@@ -6,6 +6,9 @@ const secret = 'opensecret';
 const validateJwt = async (req, res, next) => {
   try {
     const token = req.headers.authorization;
+    if (!token) {
+      return res.status(401).json({ message: 'missing auth token' });
+    }
     const decoded = jwt.verify(token, secret);
     const email = await UserModel.findEmail(decoded.data.email);
     if (!email) {

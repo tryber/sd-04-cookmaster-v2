@@ -26,4 +26,14 @@ router.get('/:id', async (req, res) => {
   res.status(200).json(recipe);
 });
 
+router.put('/:id', validateJwt, recipeErrorDealer, async (req, res) => {
+  const { id } = req.params;
+  const { name, ingredients, preparation } = req.body;
+
+  await RecipeModel.updateRecipe(id, name, ingredients, preparation);
+  const recipeUpdated = await RecipeModel.getRecipeById(id);
+
+  res.status(200).json(recipeUpdated);
+});
+
 module.exports = router;
