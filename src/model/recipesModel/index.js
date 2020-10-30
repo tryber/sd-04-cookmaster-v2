@@ -3,6 +3,7 @@ const getAllRecipesModel = require('./getAllRecipes');
 const getRecipeByIdModel = require('./getRecipeById');
 const updateRecipeModel = require('./updateRecipe');
 const deleteRecipeModel = require('./deleteRecipe');
+const updateWithImageModel = require('./updateWithImage');
 
 module.exports = {
   createRecipeModel,
@@ -10,4 +11,5 @@ module.exports = {
   getRecipeByIdModel,
   updateRecipeModel,
   deleteRecipeModel,
+  updateWithImageModel,
 };

@@ -4,8 +4,8 @@ const { errorsMessages } = require('../../service');
 
 const createUserController = async (req, res) => {
   try {
-    const role = 'user';
-    const data = { ...req.body, role };
+    const data = req.body;
+
     const userCreate = await userModels.createUserModel(data);
 
     return res.status(HTTPStatus.CREATED).json(userCreate);
