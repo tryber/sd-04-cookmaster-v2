@@ -15,6 +15,7 @@ app.get('/', (request, response) => {
 app.post('/users', userController.register);
 app.post('/login', userController.login);
 app.post('/recipes', validateJWT, recipeController.registerRecipe);
+app.get('/recipes', recipeController.listRecipes);
 const PORT = 3000;
 
 app.listen(PORT, () => {
