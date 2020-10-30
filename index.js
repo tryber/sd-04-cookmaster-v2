@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const userController = require('./controller/userController');
-const recipeController = require('./controller/recipeController')
+const recipeController = require('./controller/recipeController');
 const validateJWT = require('./auth/validateJWT');
 
 const app = express();
@@ -14,7 +14,7 @@ app.get('/', (request, response) => {
 
 app.post('/users', userController.register);
 app.post('/login', userController.login);
-app.post('/recipes', validateJWT, recipeController.registerRecipe)
+app.post('/recipes', validateJWT, recipeController.registerRecipe);
 const PORT = 3000;
 
 app.listen(PORT, () => {

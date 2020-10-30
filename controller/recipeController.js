@@ -1,4 +1,5 @@
 const recipeServices = require('../services//userServices');
+const recipeModel = require('../models/recipeModel');
 
 const registerRecipe = async (req, res) => {
   const { name, ingredients, preparation } = req.body;
@@ -8,7 +9,9 @@ const registerRecipe = async (req, res) => {
 
   if (!name || !ingredients || !preparation) return recipeServices.invalideEntries(res);
 
-  res.status(201).json({ recipe: { name, ingredients, preparation, _id } });
+  const recipe = await recipeModel.registerRecipe(name, ingredients, preparation, _id);
+
+  res.status(201).json({ recipe });
 };
 
 module.exports = {
