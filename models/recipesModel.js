@@ -62,5 +62,4 @@ module.exports = {
   getByIdRecipesMod,
   updateRecipesMod,
   deleteRecipesMod,
-  deleteRecipesMod,
 };
