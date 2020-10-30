@@ -77,10 +77,15 @@ const exclude = async (req, res) => {
   }
 };
 
+const insertUrlImage = async (req, res) => {
+  console.log(req.files)
+}
+
 module.exports = {
   add,
   getAll,
   getById,
   update,
   exclude,
+  insertUrlImage,
 };
