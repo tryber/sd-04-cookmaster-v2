@@ -1,7 +1,7 @@
 const { ObjectId } = require('mongodb');
 const connection = require('../connection');
 
-const updateWithImageModel = async (id, imagePath, recipe) => {
+const updateWithImageModel = async (id, imagePath) => {
   try {
     if (!ObjectId.isValid(id)) return null;
     const db = await connection();
