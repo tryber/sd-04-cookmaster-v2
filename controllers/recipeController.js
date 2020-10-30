@@ -9,10 +9,10 @@ const adicionarReceita = async (req, res) => {
   res.status(201).json({ result });
 };
 
-const pegarReceitas = async (req, res) => {
+const pegarReceitas = async (_req, res) => {
   const receitas = await recipeModel.getAll();
 
-  console.log(receitas);
+  res.status(200).json(receitas);
 };
 
 module.exports = {

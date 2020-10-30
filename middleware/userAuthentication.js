@@ -19,15 +19,15 @@ const validaJWT = (req, res, next) => {
   const data = jwt.verify(token, SECRET);
 
   if (!data) {
-    return res.status(401).json({ message: 'Jet malformed' })
+    return res.status(401).json({ message: 'Jet malformed' });
   }
 
   req.user = data;
 
   next();
-}
+};
 
 module.exports = {
   validaJWT,
-  createToken
+  createToken,
 };
