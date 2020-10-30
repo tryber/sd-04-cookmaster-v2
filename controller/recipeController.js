@@ -34,11 +34,9 @@ const editRecipe = async (req, res) => {
 
   if (String(recipe.userId) === String(_id) || req.user.name === 'admin') {
     await recipeModel.updateRecipe(id, name, ingredients, preparation);
-    const recipe = await recipeModel.listRecipesById(id);
+    const recipeNew = await recipeModel.listRecipesById(id);
 
-    console.log(recipe);
-
-    res.status(200).json(recipe);
+    res.status(200).json(recipeNew);
   }
 
   res.status(404).json(recipe);
