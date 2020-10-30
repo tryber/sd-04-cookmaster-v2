@@ -3,10 +3,10 @@ const mongoClient = require('mongodb').MongoClient;
 const DB_NAME = 'Cookmaster';
 
 // Rodar localmente
-// const MONGO_DB_URL = 'mongodb://localhost:27017/Cookmaster';
+const MONGO_DB_URL = 'mongodb://localhost:27017/Cookmaster';
 
 // Rodar no avalidador do Github
-const MONGO_DB_URL = 'mongodb://mongodb:27017/Cookmaster';
+// const MONGO_DB_URL = 'mongodb://mongodb:27017/Cookmaster';
 
 // Configurações do MongoDB
 const MONGO_CONFIG = {
