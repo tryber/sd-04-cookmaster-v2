@@ -1,5 +1,4 @@
 const recipeModel = require('../models/recipeModel');
-const { ERR_INVALID_TOKEN } = require('../utils/errorTypes');
 
 const insertRecipe = async (req, res) => {
   try {
