@@ -19,6 +19,7 @@ app.post('/recipes', validateJWT, recipeController.registerRecipe);
 app.get('/recipes', recipeController.listRecipes);
 app.get('/recipes/:id', recipeController.listOneRecipe);
 app.put('/recipes/:id', validateJWT, recipeController.editRecipe);
+app.delete('/recipes/:id', validateJWT, recipeController.deleteRecipe);
 
 const PORT = 3000;
 app.listen(PORT, () => {

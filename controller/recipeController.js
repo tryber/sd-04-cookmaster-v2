@@ -39,7 +39,21 @@ const editRecipe = async (req, res) => {
     res.status(200).json(recipeNew);
   }
 
-  res.status(404).json(recipe);
+  res.status(500).json({ error: 'Internal error' });
+};
+
+const deleteRecipe = async (req, res) => {
+  const { id } = req.params;
+  const { _id } = req.user;
+  const recipe = await recipeModel.listRecipesById(id);
+
+  if (String(recipe.userId) === String(_id) || req.user.name === 'admin') {
+    await recipeModel.deleteRecipe(id);
+
+    await recipeModel.listRecipesById(id);
+
+    res.status(204).json('');
+  }
 };
 
 module.exports = {
@@ -47,4 +61,5 @@ module.exports = {
   listRecipes,
   listOneRecipe,
   editRecipe,
+  deleteRecipe,
 };
