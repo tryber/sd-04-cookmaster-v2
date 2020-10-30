@@ -9,7 +9,6 @@ const recipesRouter = require('./routes/recipesRouter');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use('/images', express.static(path.join(__dirname, 'updoads')));
 
 app.use(express.json());
 
@@ -21,5 +20,6 @@ app.get('/', (request, response) => {
 app.use('/users', usersRouter);
 app.use('/login', loginRouter);
 app.use('/recipes', recipesRouter);
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 app.listen(PORT, () => console.log(`Listening PORT ${PORT}`));
