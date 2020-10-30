@@ -13,12 +13,6 @@ const authMiddleware = async (req, res, next) => {
 
     const user = await User.getUserByEmail(payload.email);
 
-    // if (!user) {
-    //   return res.status(401).json({ message: 'sem usuario' });
-    // }
-    // if (!token) {
-    //   return res.status(401).json({ message: 'nao ta no catch' });
-    // }
     req.user = user;
     next();
   } catch (err) {

@@ -57,4 +57,23 @@ const deleteRecipe = async (req, res) => {
   return res.status(204).send();
 };
 
-module.exports = { createRecipe, allRecipes, getRecipeById, updateRecipe, deleteRecipe };
+// ADICIONAR FOTO NA RECEITA -------------------------------------------------------------------
+const uploadPhoto = async (req, res) => {
+  const { id } = req.params;
+  const photo = `localhost:3000/images/${id}.jpeg`;
+
+  await RecipesModel.addPhoto(id, photo);
+
+  const recipeWithPhoto = await RecipesModel.getRecipeById(id);
+  console.log(recipeWithPhoto);
+  return res.status(200).json(recipeWithPhoto);
+};
+
+module.exports = {
+  createRecipe,
+  allRecipes,
+  getRecipeById,
+  updateRecipe,
+  deleteRecipe,
+  uploadPhoto,
+};

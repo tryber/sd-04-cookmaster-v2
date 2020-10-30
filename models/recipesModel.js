@@ -25,10 +25,26 @@ const updateRecipe = async (id, name, ingredients, preparation) =>
       .updateOne({ _id: ObjectId(id) }, { $set: { name, ingredients, preparation } }),
   );
 
+// Atualiza uma receita(imagem)----------------------------------------------------------------
+const addPhoto = async (id, image, originalRecipe) =>
+  connection().then((db) =>
+    db
+      .collection('recipes')
+      .updateOne({ _id: ObjectId(id) }, { $set: { image } })
+      .then(() => ({ ...originalRecipe, image })),
+  );
+
 // Exclui uma receita -------------------------------------------------------------------------
 const deleteRecipe = async (id) =>
   (ObjectId.isValid(id)
     ? connection().then((db) => db.collection('recipes').deleteOne({ _id: ObjectId(id) }))
     : null);
 
-module.exports = { createRecipe, getAllRecipes, getRecipeById, updateRecipe, deleteRecipe };
+module.exports = {
+  createRecipe,
+  getAllRecipes,
+  getRecipeById,
+  updateRecipe,
+  deleteRecipe,
+  addPhoto,
+};
