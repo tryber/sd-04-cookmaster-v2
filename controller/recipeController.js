@@ -21,14 +21,34 @@ const listOneRecipe = async (req, res) => {
   const { id } = req.params;
   const recipe = await recipeModel.listRecipesById(id);
 
-  console.log(recipe);
   if (recipe === 'error') return recipeServices.recipeNotFOund(res);
 
   res.status(200).json(recipe);
+};
+
+const editRecipe = async (req, res) => {
+  const { id } = req.params;
+  const { name, ingredients, preparation } = req.body;
+  const recipe = await recipeModel.listRecipesById(id);
+
+  console.log(String(recipe.userId));
+  console.log(String(req.user._id));
+
+  if (String(recipe.userId) === String(req.user._id) || req.user.name === 'admin') {
+    await recipeModel.updateRecipe(id, name, ingredients, preparation);
+    const recipe = await recipeModel.listRecipesById(id);
+
+    console.log(recipe);
+
+    res.status(200).json(recipe);
+  }
+
+  res.status(404).json(recipe);
 };
 
 module.exports = {
   registerRecipe,
   listRecipes,
   listOneRecipe,
+  editRecipe,
 };
