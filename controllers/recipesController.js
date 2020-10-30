@@ -58,7 +58,7 @@ const deleteRecipesCont = rescue(async (req, res) => {
 // O _dirname é o caminho da pasta onde o arquivo será salvo.
 
 const storage = multer.diskStorage({
-  destination: path.join(__dirname, 'images'),
+  destination: 'images',
   filename: (req, _file, callback) => {
     const { id } = req.params;
     callback(null, `${id}.jpeg`);
@@ -69,9 +69,9 @@ const upload = multer({ storage });
 
 const updateImageRecipesCont = rescue(async (req, res) => {
   const { id } = req.params;
-  // const { filename } = req.file;
+  const { filename } = req.file;
 
-  const imagePath = `localhost:3000/images/${id}.jpeg`;
+  const imagePath = `localhost:3000/images/${filename}`;
 
   const recipe = await getByIdRecipesMod(id);
 
