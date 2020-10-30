@@ -1,4 +1,3 @@
-const { valid } = require('joi');
 const loginSchema = require('../schemas/loginSchema');
 
 const validateLoginInput = (req, res, next) => {
