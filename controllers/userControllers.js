@@ -1,6 +1,7 @@
 const express = require('express');
 const userModel = require('../models/userModel');
 const userValidation = require('../middlewares/userValidation');
+
 const router = express.Router();
 
 // Post/Create one user

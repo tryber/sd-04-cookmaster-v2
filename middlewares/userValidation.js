@@ -26,11 +26,8 @@ const validateEmail = (req, res, next) => {
 // Check if POST request contain an unique email
 const validateEmailIsUnique = async (req, res, next) => {
   const { email } = req.body;
-  console.log('email', email);
   const emailFromDB = await userModel.findEmail(email);
-console.log('inside validateEmailIsUnique', emailFromDB);
   if (emailFromDB) {
-    console.log('inside if ');
     return res.status(409).json({
       message: 'Email already registered',
     });

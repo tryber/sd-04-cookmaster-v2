@@ -14,4 +14,4 @@ app.get('/', (request, response) => {
 app.use('/users', userControllers);
 app.get('/helloworld', (req, res) => res.send('Hello World!'));
 
-app.listen(port, () => console.log(`Example app listening on port: ` + port));
+app.listen(port, () => console.log('Example app listening on port: ', port));
