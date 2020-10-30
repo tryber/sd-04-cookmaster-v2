@@ -1,9 +1,6 @@
 const connection = require('./connection');
 // const { ObjectId } = require('mongodb');
 
-// { "name" : "Erick Jacquin", "email" : "erickjacquin@gmail.com",
-// "password" : "12345678", "role" : "user" }
-
 // cadastrar usuario no banco de dados
 const addUser = async (body) => {
   const { name, email, password, role } = body;

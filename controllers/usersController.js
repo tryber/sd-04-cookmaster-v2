@@ -1,5 +1,5 @@
 const userModel = require('../models/usersModel');
-const validador = require('../service/validator');
+const validador = require('../service/validador');
 
 // validar dados da req e adicionar usuario
 const addUserController = async (req, res) => {

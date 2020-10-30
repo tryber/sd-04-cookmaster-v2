@@ -20,7 +20,14 @@ const schemaLogin = yup.object().shape({
     .required('All fields must be filled'),
 });
 
+const schemaRecipe = yup.object().shape({
+  name: yup.string().required('Invalid entries. Try again.'),
+  ingredients: yup.string().required('Invalid entries. Try again.'),
+  preparation: yup.string().required('Invalid entries. Try again.'),
+});
+
 module.exports = {
   schemaAdd,
   schemaLogin,
+  schemaRecipe,
 };

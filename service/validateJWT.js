@@ -8,12 +8,12 @@ const validateJWT = (req, res, next) => {
     const data = jwt.verify(token, secret);
 
     if (!data) {
-      return res.status(500).json({ message: 'token invalido' });
+      return res.status(401).json({ message: 'jwt malformed' });
     }
 
-    next();
+    next(data);
   } catch (error) {
-    return res.status(500).json({ message: 'token invalido' });
+    return res.status(401).json({ message: 'jwt malformed' });
   }
 };
 
