@@ -7,6 +7,7 @@ const storage = multer.diskStorage({
   filename: (req, _file, callback) => {
     const { id } = req.params;
     callback(null, `${id}.jpeg`);
+    // retorna a extensão do arquivo enviado.
     // callback(null, `${id}${path.extname(file.originalname)}`);
   },
 });
