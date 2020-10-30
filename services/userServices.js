@@ -13,9 +13,14 @@ const incorrectEmailOrPassword = (res) => {
 const emptyFields = (res) => {
   res.status(401).json({ message: 'All fields must be filled' });
 };
+
+const recipeNotFOund = (res) => {
+  res.status(404).json({ message: 'recipe not found' });
+};
 module.exports = {
   invalideEntries,
   alreadyExistEmail,
   incorrectEmailOrPassword,
   emptyFields,
+  recipeNotFOund,
 };

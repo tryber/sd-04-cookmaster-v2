@@ -17,7 +17,18 @@ const listRecipes = async (_, res) => {
   res.status(200).json(recipe);
 };
 
+const listOneRecipe = async (req, res) => {
+  const { id } = req.params;
+  const recipe = await recipeModel.listRecipesById(id);
+
+  console.log(recipe);
+  if (recipe === 'error') return recipeServices.recipeNotFOund(res);
+
+  res.status(200).json(recipe);
+};
+
 module.exports = {
   registerRecipe,
   listRecipes,
+  listOneRecipe,
 };
