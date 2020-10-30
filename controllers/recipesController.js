@@ -1,9 +1,9 @@
 const router = require('express').Router();
 const rescue = require('express-rescue');
 const { validateRecipe, validateToken } = require('../middlewares');
+const validateUserAuth = require('../middlewares/validateUserAuth');
 const { generic: { addNew, getAll }, recipes } = require('../models');
-const { update } = require('../models/genericModel');
-const verifyUserAuth = require('../services/verifyUserAuth');
+const { update, remove } = require('../models/genericModel');
 
 router.get('/', rescue(async (_req, res) => {
   const result = await getAll('recipes');
@@ -15,11 +15,16 @@ router.get('/:id', rescue(async (req, res) => {
   res.json(result);
 }));
 
-router.put('/:id', validateToken, validateRecipe, rescue(async (req, res) => {
-  const { body, params: { id }, user } = req;
-  await verifyUserAuth(id, user);
+router.put('/:id', validateToken, validateUserAuth, validateRecipe, rescue(async (req, res) => {
+  const { body, params: { id } } = req;
   const result = await update('recipes', id, body);
   res.json(result.value);
+}));
+
+router.delete('/:id', validateToken, validateUserAuth, rescue(async (req, res) => {
+  const { id } = req.params;
+  await remove('recipes', id);
+  res.status(204).send();
 }));
 
 router.post('/', validateToken, validateRecipe, rescue(async (req, res) => {

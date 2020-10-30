@@ -18,4 +18,11 @@ const update = (collection, id, info) => {
     .findOneAndUpdate({ _id: ObjectId(id) }, { $set: info }, { returnOriginal: false }));
 };
 
-module.exports = { getBy, addNew, getAll, update };
+const remove = async (collection, id) => {
+  if (!ObjectId.isValid(id)) return INVALID_ENTRIES;
+  const { deletedCount } = await connection()
+    .then((db) => db.collection(collection).deleteOne({ _id: ObjectId(id) }));
+  return deletedCount;
+};
+
+module.exports = { getBy, addNew, getAll, update, remove };
