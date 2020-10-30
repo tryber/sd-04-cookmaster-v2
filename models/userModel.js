@@ -1,4 +1,3 @@
-// const { ObjectId } = require('mongodb');
 const connection = require('./connection');
 
 // Cria um novo usuário-----------------------------------------------------------------------
@@ -14,4 +13,10 @@ const allUsers = async () => connection().then((db) => db.collection('users').fi
 const getUserByEmail = async (email) =>
   connection().then((db) => db.collection('users').findOne({ email }));
 
-module.exports = { createUser, getUserByEmail, allUsers };
+// Cria um novo admin-----------------------------------------------------------------------
+const createAdmin = async (name, email, password) =>
+  connection().then((db) =>
+    db.collection('users').insertOne({ name, email, password, role: 'admin' }),
+  );
+
+module.exports = { createUser, getUserByEmail, allUsers, createAdmin };

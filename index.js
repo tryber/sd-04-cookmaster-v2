@@ -1,9 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
-// const Users = require('./models/userModel');
-// const jwtValidation = require('./middlewares/auth/validateJWT');
-
 const UsersController = require('./controllers/usersController');
 const LoginController = require('./controllers/loginController');
 const RecipesController = require('./controllers/recipesController');
@@ -21,16 +18,21 @@ app.get('/', (_request, response) => {
 
 // Cadastra novo usuário----------------------------------------------
 app.post('/users', UsersController.createUser);
+// Cadastra novo admin----------------------------------------------
+app.post('/users/admin', authMiddleware, UsersController.createAdmin);
 
 // Realiza o Login (gera o token)-------------------------------------
 app.post('/login', LoginController.login);
 
+// Cadastra nova receita----------------------------------------------
 app.post('/recipes', authMiddleware, RecipesController.createRecipe);
-
+// Busca todas as receitas--------------------------------------------
 app.get('/recipes', RecipesController.allRecipes);
+// Busca receita pelo ID----------------------------------------------
 app.get('/recipes/:id', RecipesController.getRecipeById);
-
-app.get('/home', RecipesController.allRecipes);
-app.get('/hme/:id', RecipesController.getRecipeById);
+// Atualiza uma receita-----------------------------------------------
+app.put('/recipes/:id', authMiddleware, RecipesController.updateRecipe);
+// Deleta uma receita-------------------------------------------------
+app.delete('/recipes/:id', authMiddleware, RecipesController.deleteRecipe);
 
 app.listen(port, () => console.log(`App voando na ${port}`));

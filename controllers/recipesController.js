@@ -13,8 +13,6 @@ const createRecipe = async (req, res) => {
     return res.status(400).json(err);
   }
 
-  // não me perguntem sobre isso aqui não. Foi a única forma que deu certo, não faço
-  // idéia do porquê :)
   const newRecipe = await RecipesModel.createRecipe(name, ingredients, preparation, userId);
   const newRecipeReturn = {
     recipe: { name, ingredients, preparation, userId, _id: newRecipe.insertedId },
@@ -32,10 +30,31 @@ const allRecipes = async (_req, res) => {
 // RETORNA AS RECEITAS POR ID------------------------------------------------------------------
 const getRecipeById = async (req, res) => {
   const { id } = req.params;
+
   const recipe = await RecipesModel.getRecipeById(id);
 
   if (!recipe) return res.status(404).json({ message: 'recipe not found' });
   res.status(200).json(recipe);
 };
 
-module.exports = { createRecipe, allRecipes, getRecipeById };
+// ATUALIZA UMA RECEITA -------------------------------------------------------------------------
+const updateRecipe = async (req, res) => {
+  const { id } = req.params;
+  const { name, ingredients, preparation } = req.body;
+
+  await RecipesModel.updateRecipe(id, name, ingredients, preparation);
+
+  const updatedRecipe = await RecipesModel.getRecipeById(id);
+
+  res.status(200).json(updatedRecipe);
+};
+
+// DELETA UMA RECEITA -------------------------------------------------------------------------
+const deleteRecipe = async (req, res) => {
+  const { id } = req.params;
+
+  await RecipesModel.deleteRecipe(id);
+  return res.status(204).send();
+};
+
+module.exports = { createRecipe, allRecipes, getRecipeById, updateRecipe, deleteRecipe };
