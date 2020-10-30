@@ -3,6 +3,8 @@ const usersController = require('./controllers/usersController');
 
 const app = express();
 
+app.use(express.json());
+
 app.use('/users', usersController);
 
 // não remova esse endpoint, e para o avaliador funcionar
