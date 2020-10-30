@@ -10,4 +10,10 @@ recipesRouter
   .post(validateJWT, middleware.validateRecipes, controller.postCreateRecipesCont)
   .get(controller.getAllRecipesCont);
 
+recipesRouter
+  .route('/:id')
+  .get(controller.getByIdRecipesCont)
+  .put(validateJWT, controller.updateRecipesCont)
+  .delete(validateJWT, controller.deleteRecipesCont);
+
 module.exports = recipesRouter;
