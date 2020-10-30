@@ -2,6 +2,7 @@ const express = require('express');
 const RecipeModel = require('../models/recipesModel');
 const Validation = require('../middlewares/validation');
 const { auth } = require('../middlewares/auth');
+const uploads = require('../middlewares/uploads');
 
 const router = express.Router();
 
@@ -60,5 +61,8 @@ router.delete('/:id', auth, async (req, res) => {
     return res.status(204).json();
   }
 });
+
+// Upload de imagem com Multer
+router.put('/:id/image', auth, uploads);
 
 module.exports = router;
