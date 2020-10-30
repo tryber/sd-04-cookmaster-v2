@@ -1,5 +1,5 @@
 const userSchema = require('../schemas/userSchema');
-const usersModel = require('../models/usersModel');
+const usersModel = require('../models/userModel');
 
 const validateUserInput = async (req, res, next) => {
   const validationResult = userSchema.validate(req.body);

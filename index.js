@@ -19,4 +19,6 @@ app.use('/users', routes.userRoute);
 
 app.use('/login', routes.loginRoute);
 
+app.use('/recipes', routes.recipeRoute);
+
 app.listen(port, () => console.log(`Listening on port ${port}`));

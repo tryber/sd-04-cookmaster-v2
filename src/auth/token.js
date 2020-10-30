@@ -1,6 +1,7 @@
 const JWT = require('jsonwebtoken');
 const { ERR_INVALID_TOKEN } = require('../utils/errorTypes');
 const secretKey = require('./secretKey');
+const { ALGORITHM, EXPIRES_IN } = require('./config');
 
 const generate = (payload) =>
   new Promise((resolve) => {
@@ -8,7 +9,8 @@ const generate = (payload) =>
       payload,
       secretKey,
       {
-        algorithm: 'HS256',
+        algorithm: ALGORITHM,
+        expiresIn: EXPIRES_IN,
       },
       (err, token) => {
         if (err) {

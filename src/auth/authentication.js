@@ -1,6 +1,8 @@
-const usersModel = require('../models/usersModel');
+const usersModel = require('../models/userModel');
 const { ERR_USER_NOT_FOUND, ERR_INVALID_PASSWORD } = require('../utils/errorTypes');
 const Token = require('./token');
+
+/* eslint-disable no-param-reassign, no-underscore-dangle */
 
 const login = async (email, password) => {
   const user = await usersModel.findUserByEmail(email);
@@ -14,7 +16,7 @@ const login = async (email, password) => {
   }
 
   const token = await Token.generate({
-    userId: user.id,
+    userId: user._id,
     userEmail: user.email,
     userRole: user.role,
   });

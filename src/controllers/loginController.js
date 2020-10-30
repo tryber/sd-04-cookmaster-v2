@@ -7,7 +7,6 @@ const login = async (req, res) => {
     const token = await authenticate.login(email, password);
     res.status(200).json({ token });
   } catch (err) {
-    console.error(err);
     if (err.message === ERR_USER_NOT_FOUND || err.message === ERR_INVALID_PASSWORD) {
       res.status(401).json({ message: 'Incorrect username or password' });
     }
