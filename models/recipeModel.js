@@ -1,14 +1,20 @@
 const connection = require('./connection');
+const { ObjectId } = require('mongodb');
 
-const addRecipe = async (body) => {
-  console.log('model body', body);
-  const { name, ingredients, preparation, urlImage, userId } = body;
+const addRecipe = async (name, ingredients, preparation, urlImage, userId) => {
   const recipe = await connection().then((db) =>
     db.collection('recipes').insertOne({ name, ingredients, preparation, urlImage, userId }));
-  console.log('model recipe.ops', recipe);
   return recipe.ops[0];
 };
 
+const getAllRecipes = async () =>
+  connection().then((db) => db.collection('recipes').find({}).toArray());
+
+const recipeById = async (id) =>
+  connection().then((db) => db.collection('recipes').findOne(ObjectId(id)));
+
 module.exports = {
   addRecipe,
+  getAllRecipes,
+  recipeById,
 };

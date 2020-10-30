@@ -11,8 +11,9 @@ const validateJWT = (req, res, next) => {
       return res.status(401).json({ message: 'jwt malformed' });
     }
 
-    next(data);
+    next();
   } catch (error) {
+    console.log('erro validate', error);
     return res.status(401).json({ message: 'jwt malformed' });
   }
 };

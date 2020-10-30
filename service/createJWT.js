@@ -10,7 +10,7 @@ function createToken(payload) {
 
   const token = jwt.sign(payload, secret, headers);
 
-  console.log(token);
+  // console.log(token);
 
   return token;
 }
