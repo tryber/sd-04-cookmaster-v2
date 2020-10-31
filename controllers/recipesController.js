@@ -65,7 +65,7 @@ const exclude = async (req, res) => {
     const recipe = await recipesModel.getById(recipeId);
     const userIdRecipe = recipe.userId;
     if (userId.toString() !== userIdRecipe.toString() && role !== 'admin') {
-      return res.status(401).send({ message: 'Usuário não pode editar a receita' });
+      return res.status(401).send({ message: 'Usuário não pode excluir a receita' });
     }
     if (!recipe) {
       return res.status(404).send({ message: 'Receita não encontrada' });
@@ -86,7 +86,7 @@ const insertUrlImage = async (req, res) => {
     const recipe = await recipesModel.getById(recipeId);
     const userIdRecipe = recipe.userId;
     if (userId.toString() !== userIdRecipe.toString() && role !== 'admin') {
-      return res.status(401).send({ message: 'Usuário não pode editar a receita' });
+      return res.status(401).send({ message: 'Usuário não pode inserir imagem na receita' });
     }
     if (!recipe) {
       return res.status(404).send({ message: 'Receita não encontrada' });
@@ -97,7 +97,7 @@ const insertUrlImage = async (req, res) => {
   } catch (e) {
     return res.status(401).send({ message: 'Algo deu errado' });
   }
-}
+};
 
 const getImage = (_req, res) => {
   res.status(200).send('Sucesso');
@@ -110,5 +110,5 @@ module.exports = {
   update,
   exclude,
   insertUrlImage,
-  getImage
+  getImage,
 };
