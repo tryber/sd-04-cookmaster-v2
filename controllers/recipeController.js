@@ -45,10 +45,12 @@ const updateRecipe = async (req, res) => {
 const deleteRecipe = async (req, res) => {
   try {
     const { id } = req.params;
-    const result = await recipeModel.deleteRecipe(id);
+    await recipeModel.deleteRecipe(id);
 
     res.status(204).json({});
-  } catch (error) {}
+  } catch (error) {
+    res.status(401).json({ messe: 'error' });
+  }
 };
 
 module.exports = {
