@@ -13,6 +13,16 @@ const findByEmail = async (email) => {
   }
 };
 
+const findUserByEmail = async (email) => {
+  try {
+    const db = await connection();
+    const { _id, role } = await db.collection(dbCollection).findOne({ email });
+    return { _id, email, role };
+  } catch (error) {
+    return process.exit(1);
+  }
+};
+
 const findPassword = async (password) => {
   try {
     const db = await connection();
@@ -39,6 +49,7 @@ const insertNewUser = async (userData) => {
 
 module.exports = {
   findByEmail,
+  findUserByEmail,
   findPassword,
   insertNewUser,
 };

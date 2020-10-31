@@ -1,5 +1,6 @@
 const User = require('../models/User');
 const validation = require('../utils/validation');
+const jwt = require('jsonwebtoken');
 
 // const ENTRIES_MESSAGE = 'Invalid entries. Try again.';
 // const EMAIL_EXISTS_MESSAGE = 'Email already registered';
@@ -31,7 +32,15 @@ const loginOperation = async ({ email, password }) => {
   }
 };
 
+const searchUserAndGenerateToken = async (email) => {
+  const SECRET = 'mysecret';
+  const userInfo = await User.findUserByEmail(email);
+  const token = jwt.sign({ data: userInfo }, SECRET, validation.JWT_CONFIG);
+  return token;
+};
+
 module.exports = {
   inserNewUser,
   loginOperation,
+  searchUserAndGenerateToken,
 };

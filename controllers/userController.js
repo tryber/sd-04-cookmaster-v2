@@ -7,10 +7,12 @@ const isError = (object, text) => object && object.includes(text);
 const loginMiddleware = async (req, res, _next) => {
   try {
     const loginResult = await userServices.loginOperation(req.body);
-    const { message } = loginResult;
+    const message = (loginResult && loginResult.message) ? loginResult.message : null;
     if (isError(message, 'All fields') || isError(message, 'Incorrect')) {
       return res.status(401).json(loginResult);
     }
+    const token = await userServices.searchUserAndGenerateToken(req.body.email);
+    res.status(200).json({ token });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
