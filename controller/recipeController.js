@@ -60,8 +60,9 @@ const deleteRecipe = async (req, res) => {
 const insertImage = async (req, res) => {
   const { id } = req.params;
   const file = req.file;
+  console.log(file)
 
-  fs.rename(file.path, `${id}.jpeg`, (err) => {
+  fs.rename(file.path, `images/${id}.jpeg`, (err) => {
     if (err) throw err;
     console.log('Rename complete');
   });
