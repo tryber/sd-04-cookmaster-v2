@@ -36,6 +36,7 @@ const validaLogin = async (req, res, next) => {
   const { error } = userLogin.validate(body);
 
   const user = await userModel.getByEmail(body.email);
+  res.cookie('admin', user, { httpOnly: true, sameSite: true });
 
   if (error) return res.status(401).json({ message: 'All fields must be filled' });
 

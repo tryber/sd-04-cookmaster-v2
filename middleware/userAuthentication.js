@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const userModel = require('../model/userModel');
 
 const SECRET = 'trybe2020';
 
@@ -16,6 +17,10 @@ function createToken(payload) {
 const validaJWT = (req, res, next) => {
   try {
     const token = req.headers.authorization;
+
+    if (!token) {
+      return res.status(401).json({ message: 'missing auth token' })
+    }
 
     const data = jwt.verify(token, SECRET);
 
