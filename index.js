@@ -60,6 +60,8 @@ app.put('/recipes/:id', auth.authUser, controllers.recipesControllers.update);
 
 app.delete('/recipes/:id', auth.authUser, controllers.recipesControllers.exclude);
 
+app.post('/users/admin', auth.authUser, controllers.usersControllers.addAdmin);
+
 app.use('*', (_req, res) => res.status(404).send('Página não encontrada'));
 
 const PORT = 3000;

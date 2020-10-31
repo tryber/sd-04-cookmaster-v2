@@ -13,7 +13,8 @@ const add = async (req, res) => {
     if (findUserEmail) {
       return res.status(409).send({ message: 'Email already registered' });
     }
-    const user = await usersModel.add(name, email, password);
+    const role = 'user';
+    const user = await usersModel.add(name, email, password, role);
     return res.status(201).json({ user });
   } catch (e) {
     return res.status(400).send({ message: 'Algo deu errado ao tentar cadastrar usuário' });
@@ -47,7 +48,25 @@ const login = async (req, res) => {
   }
 };
 
+const addAdmin = async (req, res) => {
+  try {
+    const { role } = req.user;
+    const { name, email, password } = req.body;
+    if (role !== 'admin') {
+      return res.status(403).send({ message: 'Only admins can register new admins' });
+    }
+    if (!name || !email || !password) {
+      return res.status(403).send({ message: 'Invalid entries. Try again.' });
+    }
+    const user = await usersModel.add(name, email, password, role);
+    return res.status(201).json({ user });
+  } catch (e) {
+    return res.status(403).send({ message: 'Only admins can register new admins' });
+  }
+};
+
 module.exports = {
   add,
   login,
+  addAdmin,
 };
