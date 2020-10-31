@@ -20,7 +20,9 @@ const mailCheck = async (req, res, next) => {
   const { email } = req.body;
   const result = await model.findByMail(email);
   if (!email.includes('@') || !email.includes('.')) res.status(400).json({ message });
-  if (result !== null) res.status(409).json({ message: 'Email already registered' });
+  if (result !== null) {
+    return res.status(409).json({ message: 'Email already registered' });
+  }
   next();
 };
 
