@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const userController = require('./controller/userController');
 const recipeController = require('./controller/recipeController');
+const adminController = require('./controller/adminController');
 const validateJWT = require('./auth/validateJWT');
 const multer = require('multer');
 
@@ -19,6 +20,7 @@ app.get('/', (request, response) => {
 
 app.post('/users', userController.register);
 app.post('/login', userController.login);
+app.post('/users/admin', validateJWT, adminController.registerAdmin);
 
 app.post('/recipes', validateJWT, recipeController.registerRecipe);
 app.get('/recipes', recipeController.listRecipes);
