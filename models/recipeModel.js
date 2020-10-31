@@ -44,10 +44,18 @@ const deleteRecipe = async (id) => {
   );
 };
 
+const insertImage = async (id, url) => {
+  const myQuery = { _id: ObjectId(id) };
+  const newValues = { $set: { image: url } };
+
+  await connection().then((db) => db.collection('recipes').updateOne(myQuery, newValues));
+};
+
 module.exports = {
   registerRecipe,
   listRecipesModel,
   listRecipesById,
   updateRecipe,
   deleteRecipe,
+  insertImage,
 };

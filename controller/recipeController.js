@@ -1,5 +1,6 @@
 const recipeServices = require('../services//userServices');
 const recipeModel = require('../models/recipeModel');
+const fs = require('fs');
 
 const registerRecipe = async (req, res) => {
   const { name, ingredients, preparation } = req.body;
@@ -56,10 +57,28 @@ const deleteRecipe = async (req, res) => {
   }
 };
 
+const insertImage = async (req, res) => {
+  const { id } = req.params;
+  const file = req.file;
+
+  fs.rename(file.path, `${id}.jpeg`, (err) => {
+    if (err) throw err;
+    console.log('Rename complete');
+  });
+  const url = `localhost:3000/images/${id}.jpeg`;
+  await recipeModel.insertImage(id, url);
+  const recipe = await recipeModel.listRecipesById(id);
+
+  console.log({ recipe });
+
+  res.status(200).json(recipe);
+};
+
 module.exports = {
   registerRecipe,
   listRecipes,
   listOneRecipe,
   editRecipe,
   deleteRecipe,
+  insertImage,
 };
