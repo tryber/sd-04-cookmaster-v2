@@ -78,8 +78,30 @@ const exclude = async (req, res) => {
 };
 
 const insertUrlImage = async (req, res) => {
-  console.log(req.files)
+  try {
+    const recipeId = req.params.id;
+    const { filename } = req.file;
+    const { _id: userId } = req.user;
+    const { role } = req.user;
+    const recipe = await recipesModel.getById(recipeId);
+    const userIdRecipe = recipe.userId;
+    if (userId.toString() !== userIdRecipe.toString() && role !== 'admin') {
+      return res.status(401).send({ message: 'Usuário não pode editar a receita' });
+    }
+    if (!recipe) {
+      return res.status(404).send({ message: 'Receita não encontrada' });
+    }
+    const urlImage = `localhost:3000/images/${filename}`;
+    const recipeUpdate = await recipesModel.insertUrlImage(recipeId, urlImage);
+    return res.status(200).json(recipeUpdate);
+  } catch (e) {
+    return res.status(401).send({ message: 'Algo deu errado' });
+  }
 }
+
+const getImage = (_req, res) => {
+  res.status(200).send('Sucesso');
+};
 
 module.exports = {
   add,
@@ -88,4 +110,5 @@ module.exports = {
   update,
   exclude,
   insertUrlImage,
+  getImage
 };
