@@ -7,7 +7,7 @@ const schema = Joi.object({
   password: Joi.string().required(),
 });
 
-const validateUser = async (req, res, next) => {
+const validateUsers = async (req, res, next) => {
   try {
     const { body } = req;
     const { error } = schema.validate(body);
@@ -28,4 +28,4 @@ const validateUser = async (req, res, next) => {
   next();
 };
 
-module.exports = { validateUser };
+module.exports = validateUsers;

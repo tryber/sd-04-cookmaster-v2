@@ -21,4 +21,4 @@ const validateRecipes = async (req, res, next) => {
   next();
 };
 
-module.exports = { validateRecipes };
+module.exports = validateRecipes;

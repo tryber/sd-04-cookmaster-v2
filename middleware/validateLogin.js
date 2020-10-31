@@ -31,4 +31,4 @@ const validateLogin = async (req, res, next) => {
   next();
 };
 
-module.exports = { validateLogin };
+module.exports = validateLogin;

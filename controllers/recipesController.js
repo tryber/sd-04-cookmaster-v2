@@ -7,7 +7,7 @@ const {
   updateRecipesMod,
   deleteRecipesMod,
   updateImageRecipesMod,
-} = require('../models/recipesModel');
+} = require('../models');
 
 const postCreateRecipesCont = rescue(async (req, res) => {
   const { name, ingredients, preparation } = req.body;

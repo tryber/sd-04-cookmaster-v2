@@ -2,13 +2,10 @@ require('dotenv').config();
 const path = require('path');
 
 const express = require('express');
-const usersRouter = require('./routes/usersRouter');
-const loginRouter = require('./routes/loginRouter');
-const recipesRouter = require('./routes/recipesRouter');
+const route = require('./routes');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-
 
 app.use(express.json());
 
@@ -17,9 +14,9 @@ app.get('/', (request, response) => {
   response.send();
 });
 
-app.use('/users', usersRouter);
-app.use('/login', loginRouter);
-app.use('/recipes', recipesRouter);
+app.use('/users', route.users);
+app.use('/login', route.login);
+app.use('/recipes', route.recipes);
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
 app.listen(PORT, () => console.log(`Listening PORT ${PORT}`));

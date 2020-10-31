@@ -62,6 +62,7 @@ const updateImageRecipesMod = async (id, image, initialState) => {
 
   return { ...initialState, image };
 };
+
 // Contodos os dados ou não, passa no avaliador.
 // const updateImageRecipesMod = async (id, image) => {
 //   const db = await connection();

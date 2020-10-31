@@ -1,5 +1,5 @@
 const rescue = require('express-rescue');
-const { postCreateUsersMod, postCreateAdminMod } = require('../models/usersModel');
+const { postCreateUsersMod, postCreateAdminMod } = require('../models');
 
 const postCreateUsersCont = rescue(async (req, res) => {
   const { name, email, password } = req.body;
