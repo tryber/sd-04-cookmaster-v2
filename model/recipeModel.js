@@ -23,15 +23,17 @@ const update = async (id, name, ingredients, preparation) => {
   if (!(await getById(id))) throw new Error();
 
   await connection().then((db) =>
-    db.collection(RECIPES).updateOne({ _id: ObjectId(id) }, { $set: { name, ingredients, preparation } }),
+    db
+      .collection(RECIPES)
+      .updateOne({ _id: ObjectId(id) }, { $set: { name, ingredients, preparation } }),
   );
 };
 
 const deleteRecipe = async (id) => {
   if (!(await getById(id))) throw new Error();
 
-  await connection().then((db) => db.collection(RECIPES).deleteOne({_id: ObjectId(id)}));
-}
+  await connection().then((db) => db.collection(RECIPES).deleteOne({ _id: ObjectId(id) }));
+};
 
 module.exports = {
   getById,

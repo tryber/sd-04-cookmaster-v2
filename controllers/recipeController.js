@@ -40,7 +40,7 @@ const updateRecipe = async (req, res) => {
   } catch (_error) {
     return res.status(401).json({ message: 'Id invalid' });
   }
-}
+};
 
 const deleteRecipe = async (req, res) => {
   try {
@@ -48,10 +48,8 @@ const deleteRecipe = async (req, res) => {
     const result = await recipeModel.deleteRecipe(id);
 
     res.status(204).json({});
-  } catch (error) {
-    
-  }
-}
+  } catch (error) {}
+};
 
 module.exports = {
   updateRecipe,
