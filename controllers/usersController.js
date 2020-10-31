@@ -1,6 +1,7 @@
 const rescue = require('express-rescue');
 const { createToken } = require('../auth/jwt');
-const { validateUser, validateLogin } = require('../middlewares');
+const { ONLY_ADMINS } = require('../errors');
+const { validateUser, validateLogin, validateToken } = require('../middlewares');
 const { addNew } = require('../models/genericModel');
 
 const postNew = rescue(async (req, res) => {
@@ -14,7 +15,15 @@ const login = (req, res) => {
   res.json({ token });
 };
 
+const postNewAdmin = rescue(async (req, res) => {
+  if (req.user.role !== 'admin') throw ONLY_ADMINS;
+  const { name, email, password } = req.body;
+  const user = await addNew('users', { name, email, password, role: 'admin' });
+  res.status(201).json({ user });
+});
+
 module.exports = {
+  postNewAdmin: [validateUser, validateToken, postNewAdmin],
   postNew: [validateUser, postNew],
   login: [validateLogin, login],
 };

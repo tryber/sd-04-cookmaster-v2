@@ -14,6 +14,8 @@ app.get('/', (request, response) => {
 
 app.post('/users', controllers.users.postNew);
 
+app.post('/users/admin', controllers.users.postNewAdmin);
+
 app.post('/login', controllers.users.login);
 
 app.use('/recipes', controllers.recipes);
