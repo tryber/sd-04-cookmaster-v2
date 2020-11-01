@@ -1,4 +1,4 @@
-const connection = require('./');
+const connection = require('./connection');
 
 const createRecipeModel = async (recipe, userId) => {
   try {
@@ -10,7 +10,6 @@ const createRecipeModel = async (recipe, userId) => {
     console.error('createRecipeModel', err.message);
   }
 };
-
 
 module.exports = {
   createRecipeModel,
