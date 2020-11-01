@@ -12,4 +12,4 @@ const getByEmailModel = async (email) =>
 module.exports = {
   createUserModel,
   getByEmailModel,
-}
+};

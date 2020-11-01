@@ -1,4 +1,4 @@
-const errorsMessages = require('./errorsMessages')
+const errorsMessages = require('./errorsMessages');
 const { userModels } = require('../model');
 
 
@@ -28,4 +28,4 @@ const emailValidator = async (req, res, next) => {
 module.exports = {
   validCreateUser,
   emailValidator,
-}
+};
