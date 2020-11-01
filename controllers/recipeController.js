@@ -8,7 +8,7 @@ const newRecipe = rescue(async (req, res) => {
   const recipeCreated = await recipeService.newRecipe(name, ingredients, preparation, user);
 
   if (recipeCreated.message) {
-    return res.status(409).json({ message: recipeCreated.message });
+    return res.status(400).json({ message: recipeCreated.message });
   }
 
   return res.status(201).json({ recipe: recipeCreated });
