@@ -2,7 +2,7 @@ const recipeModel = require('../models/recipeModel');
 
 const newRecipe = async (name, ingredients, preparation, user) => {
   if (!name || !ingredients || !preparation || !user) {
-    return { code: 'invalid_data', message: 'Invalid entries. Try again.' };
+    return { message: 'Invalid entries. Try again.' };
   }
 
   const { _id: id } = user;
