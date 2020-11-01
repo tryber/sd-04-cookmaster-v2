@@ -5,7 +5,9 @@ const newRecipe = async (name, ingredients, preparation, user) => {
     return { code: 'invalid_data', message: 'Invalid entries. Try again.' };
   }
 
-  const { _id: { id } } = user;
+  const id = user._id;
+
+  console.log('id user ', id);
 
   const recipe = await recipeModel.newRecipe(name, ingredients, preparation, id);
 
