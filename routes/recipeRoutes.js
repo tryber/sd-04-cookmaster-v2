@@ -4,6 +4,6 @@ const { recipeControllers } = require('../controllers');
 
 const routes = express.Router();
 
-routes.post('/recipes',  auth, recipeControllers.newRecipeMiddleware);
+routes.post('/recipes', auth, recipeControllers.newRecipeMiddleware);
 
 module.exports = routes;

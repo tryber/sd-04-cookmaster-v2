@@ -4,7 +4,7 @@ const validation = require('../utils/validation');
 const jwtConfig = require('../utils/configs');
 
 const auth = async (req, res, next) => {
-  const token = req.headers['authorization'];
+  const token = req.headers.authorization;
   if (!token) {
     return res.status(400).json({ message: 'Token não encontrado!' });
   }
