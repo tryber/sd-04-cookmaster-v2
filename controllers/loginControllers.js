@@ -17,8 +17,9 @@ router.post(
       const { password, email } = req.body;
 
       const emailFromDB = await userModel.findEmail(email);
-      if (!emailFromDB || emailFromDB.password !== password)
+      if (!emailFromDB || emailFromDB.password !== password) {
         return res.status(401).json({ message: 'Incorrect username or password' });
+      }
 
       const { password: _, ...userWithoutPassword } = emailFromDB;
 
