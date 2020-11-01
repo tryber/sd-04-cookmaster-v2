@@ -4,6 +4,8 @@ const validations = require('../middlewares/loginValidations');
 
 const services = require('../services/token');
 
+const model = require('../models/login');
+
 const router = express.Router();
 
 router.post(
@@ -11,9 +13,8 @@ router.post(
   validations.existingElements,
   validations.existingUser,
   services.tokenCreation,
-  services.tokenValidation,
-  async (req, res) => {
-    const token = req.headers.authorization;
+  async (_, res) => {
+    const token = await model.checkToken();
     res.status(200).json({ token });
   },
 );
