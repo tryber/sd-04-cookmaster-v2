@@ -12,7 +12,7 @@ const getRecipeById = async (recipeId) => {
     const recipe = await db
       .collection(DB_COLLECTION)
       .findOne({ _id: ObjectId(recipeId) });
-    return ((recipe) ? recipe : null);
+    return recipe;
   } catch (error) {
     return process.exit(1);
   }
