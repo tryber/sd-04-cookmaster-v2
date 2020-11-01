@@ -7,4 +7,6 @@ const router = express.Router();
 
 router.post('/', tokenAuthorization, recipeValidation, recipeController.insertRecipe);
 
+router.get('/', recipeController.listRecipes);
+
 module.exports = router;
