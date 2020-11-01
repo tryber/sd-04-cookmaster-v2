@@ -1,5 +1,4 @@
-const errorsMessagens = require('../service');
-
+const { errorsMessages } = require('../service');
 const jwt = require('jsonwebtoken');
 // O JWT te disponibiliza um token/hash/código criptografado que você pode enviar para uma API
 // e validá-lo como preferir.
@@ -25,7 +24,7 @@ const validateToken = (req, res, next) => {
     const token = req.headers.authorization;// 1
 
     if (!token) { // 2
-      return errorsMessagens(res, 'missing auth token', 'unauthorized');
+      return errorsMessages(res, 'missing auth token', 'unauthorized');
     }
     const data = jwt.verify(token, secret);// 3
 
@@ -35,7 +34,7 @@ const validateToken = (req, res, next) => {
     next();
   } catch (err) {
     console.error('validateToken', err.message);
-    return errorsMessagens(res, 'jwt malformed', 'unauthorized');
+    return errorsMessages(res, 'jwt malformed', 'unauthorized');
   }
 };
 
