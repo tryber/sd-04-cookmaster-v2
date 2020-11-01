@@ -15,5 +15,6 @@ app.get('/', (request, response) => {
 });
 
 app.use('/users', routers.userRouter);
+app.use('/login', routers.loginRouter);
 
 app.listen(PORT, console.log(`Server listening on port ${PORT}`));
