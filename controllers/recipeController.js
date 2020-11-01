@@ -5,11 +5,11 @@ const newRecipe = rescue(async (req, res) => {
   const { name, ingredients, preparation } = req.body;
   const { user } = req;
 
-  const recipeCreated = await recipeService.newRecipe(name, ingredients, preparation, user);
-
-  if (recipeCreated.message) {
+  if (!name || !ingredients || !preparation || !user) {
     return res.status(400).json({ message: 'Invalid entries. Try again.' });
   }
+
+  const recipeCreated = await recipeService.newRecipe(name, ingredients, preparation, user);
 
   return res.status(201).json({ recipe: recipeCreated });
 });
