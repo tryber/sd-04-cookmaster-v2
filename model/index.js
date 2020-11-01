@@ -1,5 +1,5 @@
 const userModels = require('./userModels');
-const recipesModel = require('./recipesModel')
+const recipesModel = require('./recipesModel');
 
 module.exports = {
   userModels,
