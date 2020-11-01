@@ -11,17 +11,27 @@ const insertRecipe = async (req, res) => {
   }
 };
 
-const listRecipes = async (req, res) => {
+const listAllRecipes = async (_req, res) => {
   try {
-    const recipes = await recipeModel.listRecipes();
+    const recipes = await recipeModel.listAllRecipes();
     res.status(200).json(recipes);
   } catch (err) {
-    console.error(err);
     res.status(500).json({ message: 'internal error' });
+  }
+};
+
+const listRecipeById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const recipe = await recipeModel.listRecipeById(id);
+    res.status(200).json(recipe);
+  } catch (_err) {
+    res.status(404).json({ message: 'recipe not found' });
   }
 };
 
 module.exports = {
   insertRecipe,
-  listRecipes,
+  listAllRecipes,
+  listRecipeById,
 };
