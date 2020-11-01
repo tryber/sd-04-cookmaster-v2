@@ -1,5 +1,5 @@
 const { userModels } = require('../model');
-const { createToken } = require('../middlewares/auth')
+const { createToken } = require('../middlewares/auth');
 const { errorsMessages } = require('../service');
 
 const createUserController = async (req, res) => {

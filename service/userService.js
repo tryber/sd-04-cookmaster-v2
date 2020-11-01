@@ -28,8 +28,9 @@ const emailValidator = async (req, res, next) => {
 const validLogin = (req, res, next) => {
   const { email, password } = req.body;
 
-  if (!email || !password)
+  if (!email || !password) {
     return errorsMessages(res, 'All fields must be filled', 'unauthorized');
+  }
   next();
 };
 
