@@ -1,6 +1,14 @@
 const recipeServices = require('../services/recipeServices');
+const { isError } = require('../utils/validation');
 
-const isError = (object, text) => object && object.includes(text);
+const getRecipesMiddleware = async (req, res, _next) => {
+  try {
+    const response = await recipeServices.listService();
+    res.status(200).json(response);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
 
 const newRecipeMiddleware = async (req, res, _next) => {
   try {
@@ -18,5 +26,6 @@ const newRecipeMiddleware = async (req, res, _next) => {
 };
 
 module.exports = {
+  getRecipesMiddleware,
   newRecipeMiddleware,
 };

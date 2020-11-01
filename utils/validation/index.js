@@ -16,7 +16,7 @@ const isFieldsInvalid = (name, emailIng, passwordPrep) => (!name || !emailIng ||
 
 const isLoginInvalid = (email, password) => (!email || !password);
 
-// Controllers validation (optional)
+// Controllers validation
 const isError = (object, text) => object && object.includes(text);
 
 module.exports = {

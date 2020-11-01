@@ -9,6 +9,9 @@ const insertNewRecipe = async ({ name, ingredients, preparation }, { _id }) => {
   return insertResponse;
 };
 
+const listService = async () => Recipe.listAllRecipes();
+
 module.exports = {
   insertNewRecipe,
+  listService,
 };

@@ -1,6 +1,5 @@
 const userServices = require('../services/userServices');
-
-const isError = (object, text) => object && object.includes(text);
+const { isError } = require('../utils/validation');
 
 const loginMiddleware = async (req, res, _next) => {
   try {

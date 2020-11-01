@@ -1,11 +1,11 @@
 const connection = require('./connection');
 
-const dbCollection = 'users';
+const DB_COLLECTION = 'users';
 
 const findByEmail = async (email) => {
   try {
     const db = await connection();
-    const result = await db.collection(dbCollection).findOne({ email });
+    const result = await db.collection(DB_COLLECTION).findOne({ email });
     if (result) return true;
     return false;
   } catch (error) {
@@ -16,7 +16,7 @@ const findByEmail = async (email) => {
 const findUserByEmail = async (email) => {
   try {
     const db = await connection();
-    const { _id, role } = await db.collection(dbCollection).findOne({ email });
+    const { _id, role } = await db.collection(DB_COLLECTION).findOne({ email });
     return { _id, email, role };
   } catch (error) {
     return process.exit(1);
@@ -26,7 +26,7 @@ const findUserByEmail = async (email) => {
 const findPassword = async (password) => {
   try {
     const db = await connection();
-    const result = await db.collection(dbCollection).findOne({ password });
+    const result = await db.collection(DB_COLLECTION).findOne({ password });
     if (result) return true;
     return false;
   } catch (error) {
@@ -37,7 +37,7 @@ const findPassword = async (password) => {
 const insertNewUser = async (userData) => {
   try {
     const db = await connection();
-    const { ops } = await db.collection(dbCollection).insertOne(userData);
+    const { ops } = await db.collection(DB_COLLECTION).insertOne(userData);
     const { password, ...withouPassword } = ops[0];
     return {
       user: { ...withouPassword },
