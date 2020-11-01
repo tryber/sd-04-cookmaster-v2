@@ -3,8 +3,8 @@ const jwtConfig = require('./jwtConfig');
 const userModel = require('../models/userModel');
 
 const generateToken = (data) => {
-  const token = jwt.sign({ data }, jwtConfig.secret, jwtConfig.tokenConfig);
-  return { token };
+  const token = jwt.sign(data, jwtConfig.secret, jwtConfig.tokenConfig);
+  return token;
 };
 
 const validateJWT = async (req, res, next) => {

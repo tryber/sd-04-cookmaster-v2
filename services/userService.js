@@ -1,5 +1,5 @@
 const userModel = require('../models/userModel');
-const generateToken = require('../middlewares/auth');
+const { generateToken } = require('../middlewares/auth');
 
 const validateEmail = /^[a-zA-Z0-9._]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
 
@@ -25,7 +25,9 @@ const userLogin = async (email, password) => {
 
   if (!user || user.password !== password) return { message: 'Incorrect username or password' };
 
-  return generateToken(user);
+  const token = generateToken(user);
+
+  return token;
 };
 
 module.exports = {
