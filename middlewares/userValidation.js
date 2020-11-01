@@ -1,6 +1,6 @@
 const userModel = require('../models/userModel');
 
-// Check if POST request contain a name
+// Check if POST request contain a name, password and email
 const validatePresenceOfUsernameEmailPassword = (req, res, next) => {
   const { name, email, password } = req.body;
   if (!name || !email || !password) {
@@ -35,8 +35,20 @@ const validateEmailIsUnique = async (req, res, next) => {
   next();
 };
 
+// Check if POST/login request contain a email, and password
+const validatePresenceOfEmailPassword = (req, res, next) => {
+  const { email, password } = req.body;
+  if (!email || !password) {
+    return res.status(401).json({
+      message: 'All fields must be filled',
+    });
+  }
+  next();
+};
+
 module.exports = {
   validatePresenceOfUsernameEmailPassword,
   validateEmail,
   validateEmailIsUnique,
+  validatePresenceOfEmailPassword,
 };

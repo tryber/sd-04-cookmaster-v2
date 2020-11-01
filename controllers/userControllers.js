@@ -12,8 +12,6 @@ router.post(
   userValidation.validateEmail,
   userValidation.validateEmailIsUnique,
   async (req, res) => {
-    console.log('inside post user', req.body);
-
     try {
       const { name, email, password } = req.body;
       const user = await userModel.registerUser(name, email, password);

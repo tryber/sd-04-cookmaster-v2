@@ -1,5 +1,6 @@
 const express = require('express');
 const userControllers = require('./controllers/userControllers');
+const loginControllers = require('./controllers/loginControllers');
 const bodyParser = require('body-parser');
 
 const app = express();
@@ -12,6 +13,7 @@ app.get('/', (request, response) => {
   response.send();
 });
 app.use('/users', userControllers);
+app.use('/login', loginControllers);
 app.get('/helloworld', (req, res) => res.send('Hello World!'));
 
 app.listen(port, () => console.log('Example app listening on port: ', port));
