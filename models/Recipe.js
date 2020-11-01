@@ -1,6 +1,22 @@
 const connection = require('./connection');
+const { ObjectId } = require('mongodb');
 
 const DB_COLLECTION = 'recipes';
+
+const getRecipeById = async (recipeId) => {
+  try {
+    if (!ObjectId.isValid(recipeId)) {
+      return null;
+    }
+    const db = await connection();
+    const recipe = await db
+      .collection(DB_COLLECTION)
+      .findOne({ _id: ObjectId(recipeId) });
+    return ((recipe) ? recipe : null);
+  } catch (error) {
+    return process.exit(1);
+  }
+};
 
 const insertNewRecipe = async (recipeData, userId) => {
   try {
@@ -23,6 +39,7 @@ const listAllRecipes = async () => {
 };
 
 module.exports = {
+  getRecipeById,
   insertNewRecipe,
   listAllRecipes,
 };
