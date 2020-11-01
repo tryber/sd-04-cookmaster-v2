@@ -1,7 +1,5 @@
 const userServices = require('../services/userServices');
 
-// const SERVER_ERR_MESSAGE = { message: 'Server error. Sorry!' };
-
 const isError = (object, text) => object && object.includes(text);
 
 const loginMiddleware = async (req, res, _next) => {
@@ -20,7 +18,7 @@ const loginMiddleware = async (req, res, _next) => {
 
 const newUserMiddleware = async (req, res, _next) => {
   try {
-    const resultOfInsertion = await userServices.inserNewUser(req.body);
+    const resultOfInsertion = await userServices.insertNewUser(req.body);
     const { message } = resultOfInsertion;
 
     if (isError(message, 'Invalid')) {

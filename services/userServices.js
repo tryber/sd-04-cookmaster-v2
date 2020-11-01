@@ -1,19 +1,15 @@
 const User = require('../models/User');
 const validation = require('../utils/validation');
+const jwtConfig = require('../utils/configs');
 const jwt = require('jsonwebtoken');
 
-// const ENTRIES_MESSAGE = 'Invalid entries. Try again.';
-// const EMAIL_EXISTS_MESSAGE = 'Email already registered';
-
-const errorMessageValidation = (message) => ({ message });
-
-const inserNewUser = async ({ name, email, password, role = 'user' }) => {
-  if (validation.isFieldsInvalid(name, email, password)) {
-    return errorMessageValidation(validation.ENTRIES_MESSAGE);
+const insertNewUser = async ({ name, email, password, role = 'user' }) => {
+  if (validation.isFieldsInvalid(name, email, password) || validation.isEmailInvalid(email)) {
+    return validation.errMessage(validation.ENTRIES_MESSAGE);
   }
 
   if (await User.findByEmail(email)) {
-    return errorMessageValidation(validation.EMAIL_EXISTS_MESSAGE);
+    return validation.errMessage(validation.EMAIL_EXISTS_MESSAGE);
   }
 
   const insertResponse = await User.insertNewUser({ name, email, password, role });
@@ -22,25 +18,24 @@ const inserNewUser = async ({ name, email, password, role = 'user' }) => {
 
 const loginOperation = async ({ email, password }) => {
   if (validation.isLoginInvalid(email, password)) {
-    return errorMessageValidation(validation.ALL_FIELDS_MESSAGE);
+    return validation.errMessage(validation.ALL_FIELDS_MESSAGE);
   }
   if (validation.isEmailInvalid(email)) {
-    return errorMessageValidation(validation.EMAIL_OR_PASS_INVALID);
+    return validation.errMessage(validation.EMAIL_OR_PASS_INVALID);
   }
   if (!await User.findPassword(password)) {
-    return errorMessageValidation(validation.EMAIL_OR_PASS_INVALID);
+    return validation.errMessage(validation.EMAIL_OR_PASS_INVALID);
   }
 };
 
 const searchUserAndGenerateToken = async (email) => {
-  const SECRET = 'mysecret';
   const userInfo = await User.findUserByEmail(email);
-  const token = jwt.sign({ data: userInfo }, SECRET, validation.JWT_CONFIG);
+  const token = jwt.sign({ data: userInfo }, jwtConfig.SECRET, jwtConfig.JWT_CONFIG);
   return token;
 };
 
 module.exports = {
-  inserNewUser,
+  insertNewUser,
   loginOperation,
   searchUserAndGenerateToken,
 };
