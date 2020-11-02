@@ -47,9 +47,26 @@ const getRecipeByIdController = async (req, res) => {
   }
 };
 
+const updateRecipeController = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const data = req.body;
+
+    await recipesModel.updateRecipeModel(data, id);
+
+    const updated = await recipesModel.getRecipeByIdModel(id);
+
+    return res.status(200).json(updated);
+  } catch (err) {
+    console.error('updateRecipeController', err.message);
+    return errorsMessages(res);
+  }
+};
+
 
 module.exports = {
   createRecipeController,
   getAllRecipesController,
   getRecipeByIdController,
+  updateRecipeController,
 };
