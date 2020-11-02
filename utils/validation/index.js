@@ -7,6 +7,7 @@ const ALL_FIELDS_MESSAGE = 'All fields must be filled';
 const EMAIL_OR_PASS_INVALID = 'Incorrect username or password';
 const INVALID_TOKEN = 'jwt malformed';
 const RECIPE_NOT_FOUND = 'recipe not found';
+const MISSING_TOKEN = 'missing auth token';
 
 // Services validation
 const errMessage = (message) => ({ message });
@@ -27,6 +28,7 @@ module.exports = {
   EMAIL_OR_PASS_INVALID,
   INVALID_TOKEN,
   RECIPE_NOT_FOUND,
+  MISSING_TOKEN,
   errMessage,
   isEmailInvalid,
   isFieldsInvalid,

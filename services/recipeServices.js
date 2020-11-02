@@ -1,6 +1,11 @@
 const validation = require('../utils/validation');
 const Recipe = require('../models/Recipe');
 
+const changeARecipeInformation = async (recipeInfo, { id }) => {
+  const result = await Recipe.updateRecipeById(recipeInfo, id);
+  return result;
+};
+
 const getRecipeById = async ({ id }) => {
   const recipe = await Recipe.getRecipeById(id);
   if (!recipe) {
@@ -20,6 +25,7 @@ const insertNewRecipe = async ({ name, ingredients, preparation }, { _id }) => {
 const listService = async () => Recipe.listAllRecipes();
 
 module.exports = {
+  changeARecipeInformation,
   getRecipeById,
   insertNewRecipe,
   listService,

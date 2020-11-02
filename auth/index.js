@@ -6,7 +6,7 @@ const jwtConfig = require('../utils/configs');
 const auth = async (req, res, next) => {
   const token = req.headers.authorization;
   if (!token) {
-    return res.status(400).json({ message: 'Token não encontrado!' });
+    return res.status(401).json({ message: validation.MISSING_TOKEN });
   }
   try {
     const decoded = jwt.verify(token, jwtConfig.SECRET);

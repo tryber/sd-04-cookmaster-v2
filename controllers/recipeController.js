@@ -1,7 +1,17 @@
 const recipeServices = require('../services/recipeServices');
 const { isError } = require('../utils/validation');
 
-const getASpecificRecipe = async (req, res, _next) => {
+const changeRecipeMiddleware = async (req, res, _next) => {
+  try {
+    const { body, params } = req;
+    const response = await recipeServices.changeARecipeInformation(body, params);
+    res.status(200).json(response);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+const getASpecificRecipeMiddleware = async (req, res, _next) => {
   try {
     const response = await recipeServices.getRecipeById(req.params);
     const message = (response && response.message) ? response.message : null;
@@ -39,7 +49,8 @@ const newRecipeMiddleware = async (req, res, _next) => {
 };
 
 module.exports = {
-  getASpecificRecipe,
+  changeRecipeMiddleware,
+  getASpecificRecipeMiddleware,
   getRecipesMiddleware,
   newRecipeMiddleware,
 };

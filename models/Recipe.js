@@ -38,8 +38,25 @@ const listAllRecipes = async () => {
   }
 };
 
+const updateRecipeById = async (recipeInfo, recipeId) => {
+  if (!ObjectId.isValid(recipeId)) {
+    return null;
+  }
+  try {
+    const db = await connection();
+    await db
+      .collection(DB_COLLECTION)
+      .updateOne({ _id: ObjectId(recipeId) }, { $set: recipeInfo });
+    const result = await getRecipeById(recipeId);
+    return result;
+  } catch (error) {
+    return process.exit(1);
+  }
+};
+
 module.exports = {
   getRecipeById,
   insertNewRecipe,
   listAllRecipes,
+  updateRecipeById,
 };
