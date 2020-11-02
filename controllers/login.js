@@ -14,8 +14,8 @@ router.post(
   validations.existingUser,
   services.tokenCreation,
   async (_, res) => {
-    const token = await model.checkToken();
-    res.status(200).json({ token });
+    const result = await model.checkToken();
+    res.status(200).json({ token: result.token });
   },
 );
 
