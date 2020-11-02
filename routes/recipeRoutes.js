@@ -10,9 +10,10 @@ routes.get('/recipes/:id', recipeControllers.getASpecificRecipeMiddleware);
 
 routes.get('/recipes', recipeControllers.getRecipesMiddleware);
 
-routes.put('/recipes/:id', auth, recipeControllers.changeRecipeMiddleware);
-
 routes.post('/recipes', auth, recipeControllers.newRecipeMiddleware);
 
+routes.put('/recipes/:id/image', auth, recipeControllers.newRecipeMiddleware);
+
+routes.put('/recipes/:id', auth, recipeControllers.changeRecipeMiddleware);
 
 module.exports = routes;
