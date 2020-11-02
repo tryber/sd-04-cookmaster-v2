@@ -1,10 +1,8 @@
-var validator = require('validator');
+const validator = require('validator');
 
 const userModel = require('../model/usersModel');
 
-const buildResponse = (message) => {
-  return { message };
-};
+const buildResponse = (message) => ({ message });
 
 const validationRequiredData = (req, res, next) => {
   const { name, email, password } = req.body;
