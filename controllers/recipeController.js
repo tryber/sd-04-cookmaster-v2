@@ -11,6 +11,14 @@ const changeRecipeMiddleware = async (req, res, _next) => {
   }
 };
 
+const deleteRecipeMiddleware = async (req, res, _next) => {
+  try {
+    console.log(req.params);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 const getASpecificRecipeMiddleware = async (req, res, _next) => {
   try {
     const response = await recipeServices.getRecipeById(req.params);
@@ -50,6 +58,7 @@ const newRecipeMiddleware = async (req, res, _next) => {
 
 module.exports = {
   changeRecipeMiddleware,
+  deleteRecipeMiddleware,
   getASpecificRecipeMiddleware,
   getRecipesMiddleware,
   newRecipeMiddleware,
