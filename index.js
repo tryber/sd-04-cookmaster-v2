@@ -10,6 +10,8 @@ app.get('/', (request, response) => {
   response.send();
 });
 
+app.use('/images', express.static('images'));
+
 app.use(routes);
 
 const PORT = 3000;
