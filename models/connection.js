@@ -6,7 +6,7 @@ const DB_URL = 'mongodb://mongodb:27017/Cookmaster'; // Roda Projeto evaluetor
 const DB_NAME = 'Cookmaster';
 
 const connection = async () =>
-  await mongoClient
+  mongoClient
     .connect(DB_URL, {
       useNewUrlParser: true,
       useUnifiedTopology: true,

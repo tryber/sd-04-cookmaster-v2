@@ -8,8 +8,8 @@ app.use(express.json());
 app.use('/users', usersController);
 
 // não remova esse endpoint, e para o avaliador funcionar
-app.get('/', (request, response) => {
-  response.send();
+app.get('/', (req, res) => {
+  res.send();
 });
 
 app.listen(port, () => {
