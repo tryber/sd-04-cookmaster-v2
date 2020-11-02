@@ -4,6 +4,8 @@ const routes = require('./routes');
 
 const app = express();
 
+app.use(express.static(__dirname + '/uploads'));
+
 app.use(express.json());
 app.use(bodyParse.urlencoded({ extended: false }));
 app.use('/', routes.userRoutes, routes.recipeRoutes);

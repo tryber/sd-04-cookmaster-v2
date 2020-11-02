@@ -31,6 +31,18 @@ const getRecipeById = async (recipeId) => {
   }
 };
 
+const insertRecipeImage = async (recipeId, image) => {
+  try {
+    const db = await connection();
+    const result = await db
+      .collection(DB_COLLECTION)
+      .updateOne({ _id: ObjectId(recipeId) }, { $set: { image } });
+    return result;
+  } catch (error) {
+    return process.exit(1);
+  }
+};
+
 const insertNewRecipe = async (recipeData, userId) => {
   try {
     const db = await connection();
@@ -70,6 +82,7 @@ const updateRecipeById = async (recipeInfo, recipeId) => {
 module.exports = {
   deleteRecipeById,
   getRecipeById,
+  insertRecipeImage,
   insertNewRecipe,
   listAllRecipes,
   updateRecipeById,

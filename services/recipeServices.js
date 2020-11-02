@@ -16,6 +16,8 @@ const getRecipeById = async ({ id }) => {
   return recipe;
 };
 
+const insertImageForRecipe = async (id, url) => Recipe.insertRecipeImage(id, url);
+
 const insertNewRecipe = async ({ name, ingredients, preparation }, { _id }) => {
   if (validation.isFieldsInvalid(name, ingredients, preparation)) {
     return validation.errMessage(validation.ENTRIES_MESSAGE);
@@ -30,6 +32,7 @@ module.exports = {
   changeARecipeInformation,
   deleteService,
   getRecipeById,
+  insertImageForRecipe,
   insertNewRecipe,
   listService,
 };

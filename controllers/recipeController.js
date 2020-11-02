@@ -1,5 +1,10 @@
 const recipeServices = require('../services/recipeServices');
 const { isError } = require('../utils/validation');
+// const multer = require('multer');
+const storage = require('../utils/storage');
+const fs = require('fs');
+
+// const upload = multer({ storage });
 
 const changeRecipeMiddleware = async (req, res, _next) => {
   try {
@@ -42,6 +47,28 @@ const getRecipesMiddleware = async (_req, res, _next) => {
   }
 };
 
+const inserImageMiddleware = async (req, res, _next) => {
+  try {
+    const { params: { id }, file } = req;
+    const url = `localhost:3000/images/${id}.jpeg`;
+    // console.log(id);
+    // console.log(file.path);
+    // console.log(req.params);
+    // console.log(req.file);
+    // console.log(storage.getFilename(req, req.file, () => {}, _id));
+    fs.rename(file.path, `images/${id}.jpeg`, (err) => {
+      // if (err) throw err;
+      console.log('Done!');
+    });
+    await recipeServices.insertImageForRecipe(id, url);
+    const result = await recipeServices.getRecipeById(req.params);
+    res.status(200).json(result);
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ message: error.message });
+  }
+};
+
 const newRecipeMiddleware = async (req, res, _next) => {
   try {
     const { body, user } = req;
@@ -62,5 +89,6 @@ module.exports = {
   deleteRecipeMiddleware,
   getASpecificRecipeMiddleware,
   getRecipesMiddleware,
+  inserImageMiddleware,
   newRecipeMiddleware,
 };
