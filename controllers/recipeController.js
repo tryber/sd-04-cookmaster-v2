@@ -47,7 +47,7 @@ const deleteRecipe = rescue(async (req, res) => {
 });
 
 const storage = multer.diskStorage({
-  destination: path.join(__dirname, 'images'),
+  destination: path.join(__dirname, '../images'),
   filename: (req, _file, callback) => {
     const { id } = req.params;
     callback(null, `${id}.jpeg`);
