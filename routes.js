@@ -11,4 +11,6 @@ routes.post('/login', userController.userLogin);
 routes.post('/recipes', validateJWT, recipeController.newRecipe);
 routes.get('/recipes', recipeController.getAllRecipes);
 
+routes.put('/recipes/:id', validateJWT, recipeController.editRecipe);
+
 module.exports = routes;
