@@ -12,6 +12,11 @@ const validations = require('../middlewares/recipesValidations');
 
 const router = express.Router();
 
+router.get('/', async (_, res) => {
+  const recipes = await model.getAll();
+  res.status(200).json(recipes);
+});
+
 router.post('/', login.tokenValidation, validations.existingElements, async (req, res) => {
   const { mail } = await token.checkToken();
   const { _id } = await users.findByMail(mail);
