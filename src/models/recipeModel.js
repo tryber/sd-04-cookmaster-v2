@@ -31,9 +31,15 @@ const updateRecipe = async (recipeId, name, ingredients, preparation) => {
   return updatedRecipe;
 };
 
+const deleteRecipe = async (recipeId) => {
+  const conn = await connection();
+  await conn.collection('recipes').deleteOne({ _id: ObjectId(recipeId) });
+};
+
 module.exports = {
   insertRecipe,
   listAllRecipes,
   listRecipeById,
   updateRecipe,
+  deleteRecipe,
 };

@@ -1,6 +1,4 @@
 const recipeModel = require('../models/recipeModel');
-const recipeService = require('../services/recipeService');
-const { ERR_INVALID_USER, ERR_NOT_AN_ADMIN } = require('../utils/errorTypes');
 
 const insertRecipe = async (req, res) => {
   try {
@@ -35,24 +33,24 @@ const listRecipeById = async (req, res) => {
 
 const updateRecipe = async (req, res) => {
   try {
-    const recipe = req.body;
     const { id: recipeId } = req.params;
-    const { _id: tokenUserId, role: userRole } = req.user;
+    const { name, ingredients, preparation } = req.body;
 
-    const updatedRecipe = await recipeService.updateRecipe(recipeId, tokenUserId, userRole, recipe);
+    const updatedRecipe = await recipeModel.updateRecipe(recipeId, name, ingredients, preparation);
 
-    return res.status(200).json(updatedRecipe);
+    return res.status(200).json(updatedRecipe.value);
   } catch (err) {
-    switch (err.message) {
-      case ERR_INVALID_USER:
-        res.status(401).json({ message: 'invalid user' });
-        break;
-      case ERR_NOT_AN_ADMIN:
-        res.status(401).json({ message: 'you are not an admin' });
-        break;
-      default:
-        res.status(500).json({ message: 'internal error' });
-    }
+    res.status(500).json({ message: 'internal error' });
+  }
+};
+
+const deleteRecipe = async (req, res) => {
+  try {
+    const { id: recipeId } = req.params;
+    await recipeModel.deleteRecipe(recipeId);
+    res.status(204).end();
+  } catch (err) {
+    res.status(500).json({ message: 'internal error' });
   }
 };
 
@@ -61,4 +59,5 @@ module.exports = {
   listAllRecipes,
   listRecipeById,
   updateRecipe,
+  deleteRecipe,
 };
