@@ -16,8 +16,19 @@ const editRecipe = async (id, name, ingredients, preparation) => {
   return recipe;
 };
 
+const findRecipeById = async (id) => {
+  if (id.length < 24) return { message: 'recipe not found' };
+
+  const recipe = await recipeModel.findRecipeById(id);
+
+  if (!recipe) return { message: 'recipe not found' };
+
+  return recipe;
+};
+
 module.exports = {
   newRecipe,
   getAllRecipes,
   editRecipe,
+  findRecipeById,
 };

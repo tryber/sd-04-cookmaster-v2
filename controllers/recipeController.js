@@ -1,4 +1,5 @@
 const rescue = require('express-rescue');
+const recipeModel = require('../models/recipeModel');
 const recipeService = require('../services/recipeService');
 
 const newRecipe = rescue(async (req, res) => {
@@ -29,8 +30,18 @@ const editRecipe = rescue(async (req, res) => {
   return res.status(200).json(recipe);
 });
 
+const findRecipeById = rescue(async (req, res) => {
+  const { id } = req.params;
+  const recipe = await recipeModel.findRecipeById(id);
+
+  if (recipe.message) return res.status(404).json(recipe);
+
+  return res.status(200).json(recipe);
+});
+
 module.exports = {
   newRecipe,
   getAllRecipes,
   editRecipe,
+  findRecipeById,
 };
