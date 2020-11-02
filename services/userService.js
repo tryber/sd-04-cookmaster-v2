@@ -25,9 +25,7 @@ const userLogin = async (email, password) => {
 
   if (!user || user.password !== password) return { message: 'Incorrect username or password' };
 
-  const token = generateToken(user);
-
-  return token;
+  return generateToken(user);
 };
 
 module.exports = {
