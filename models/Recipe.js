@@ -3,6 +3,19 @@ const { ObjectId } = require('mongodb');
 
 const DB_COLLECTION = 'recipes';
 
+const deleteRecipeById = async (recipeId) => {
+  try {
+    const db = await connection();
+    await db
+      .collection(DB_COLLECTION)
+      .deleteOne({ _id: ObjectId(recipeId) });
+    return true;
+  } catch (error) {
+    console.log(error.message);
+    return process.exit(1);
+  }
+};
+
 const getRecipeById = async (recipeId) => {
   try {
     if (!ObjectId.isValid(recipeId)) {
@@ -55,6 +68,7 @@ const updateRecipeById = async (recipeInfo, recipeId) => {
 };
 
 module.exports = {
+  deleteRecipeById,
   getRecipeById,
   insertNewRecipe,
   listAllRecipes,
