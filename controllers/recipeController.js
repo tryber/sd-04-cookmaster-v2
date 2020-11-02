@@ -1,4 +1,6 @@
 const rescue = require('express-rescue');
+const multer = require('multer');
+const path = require('path');
 const recipeService = require('../services/recipeService');
 
 const newRecipe = rescue(async (req, res) => {
@@ -44,10 +46,31 @@ const deleteRecipe = rescue(async (req, res) => {
   return res.status(204).end();
 });
 
+const storage = multer.diskStorage({
+  destination: path.join(__dirname, 'images'),
+  filename: (req, _file, callback) => {
+    const { id } = req.params;
+    callback(null, `${id}.jpeg`);
+  },
+});
+
+const upload = multer({ storage });
+
+const uploadImage = rescue(async (req, res) => {
+  const { id } = req.params;
+  const { filename } = req.file;
+
+  const uploadedImage = await recipeService.uploadImage(id, filename);
+
+  return res.status(200).json(uploadedImage);
+});
+
 module.exports = {
   newRecipe,
   getAllRecipes,
   editRecipe,
   findRecipeById,
   deleteRecipe,
+  upload,
+  uploadImage,
 };

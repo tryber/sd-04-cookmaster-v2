@@ -30,10 +30,23 @@ const deleteRecipe = async (id) => {
   await recipeModel.deleteRecipe(id);
 };
 
+const uploadImage = async (id, filename) => {
+  const imagePath = `localhost:3000/images/${filename}`;
+
+  const recipe = await recipeModel.findRecipeById(id);
+
+  if (!recipe) return { message: 'recipe not found' };
+
+  const uploadedImage = await recipeModel.uploadImage(id, imagePath, recipe);
+
+  return uploadedImage;
+};
+
 module.exports = {
   newRecipe,
   getAllRecipes,
   editRecipe,
   findRecipeById,
   deleteRecipe,
+  uploadImage,
 };
