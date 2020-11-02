@@ -1,6 +1,5 @@
 const { errorsMessages } = require('../service');
 const { recipesModel } = require('../model');
-const { updateRecipeModel } = require('../model/recipesModel');
 
 const createRecipeController = async (req, res) => {
   try {
@@ -52,7 +51,7 @@ const updateRecipeController = async (req, res) => {
   try {
     const { id } = req.params;
     const data = req.body;
-    console.log(data)
+    console.log(data);
     await recipesModel.updateRecipeModel(data, id);
 
     const updated = await recipesModel.getRecipeByIdModel(id);
