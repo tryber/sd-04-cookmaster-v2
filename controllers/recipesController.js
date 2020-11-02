@@ -1,25 +1,18 @@
 const rescue = require('express-rescue');
 const multer = require('multer');
-const {
-  postCreateRecipesMod,
-  getAllRecipesMod,
-  getByIdRecipesMod,
-  updateRecipesMod,
-  deleteRecipesMod,
-  updateImageRecipesMod,
-} = require('../models');
+const { recipesModel } = require('../models');
 
 const postCreateRecipesCont = rescue(async (req, res) => {
   const { name, ingredients, preparation } = req.body;
   const { _id } = req.user;
 
-  const result = await postCreateRecipesMod(name, ingredients, preparation, _id);
+  const result = await recipesModel.postCreateRecipesMod(name, ingredients, preparation, _id);
 
   return res.status(201).json({ recipe: result });
 });
 
 const getAllRecipesCont = rescue(async (_req, res) => {
-  const result = await getAllRecipesMod();
+  const result = await recipesModel.getAllRecipesMod();
 
   return res.status(200).json(result);
 });
@@ -27,7 +20,7 @@ const getAllRecipesCont = rescue(async (_req, res) => {
 const getByIdRecipesCont = rescue(async (req, res) => {
   const { id } = req.params;
 
-  const result = await getByIdRecipesMod(id);
+  const result = await recipesModel.getByIdRecipesMod(id);
   if (!result) {
     return res.status(404).json({ message: 'recipe not found' });
   }
@@ -39,7 +32,7 @@ const updateRecipesCont = rescue(async (req, res) => {
   const { id } = req.params;
   const { name, ingredients, preparation } = req.body;
 
-  const result = await updateRecipesMod(id, name, ingredients, preparation);
+  const result = await recipesModel.updateRecipesMod(id, name, ingredients, preparation);
 
   return res.status(200).json(result);
 });
@@ -47,7 +40,7 @@ const updateRecipesCont = rescue(async (req, res) => {
 const deleteRecipesCont = rescue(async (req, res) => {
   const { id } = req.params;
 
-  const result = await deleteRecipesMod(id);
+  const result = await recipesModel.deleteRecipesMod(id);
 
   return res.status(204).json(result);
 });
@@ -72,9 +65,9 @@ const updateImageRecipesCont = rescue(async (req, res) => {
 
   const imagePath = `localhost:3000/images/${filename}`;
 
-  const recipe = await getByIdRecipesMod(id);
+  const recipe = await recipesModel.getByIdRecipesMod(id);
 
-  const result = await updateImageRecipesMod(id, imagePath, recipe);
+  const result = await recipesModel.updateImageRecipesMod(id, imagePath, recipe);
 
   return res.status(200).json(result);
 });

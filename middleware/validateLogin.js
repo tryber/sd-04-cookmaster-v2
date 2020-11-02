@@ -21,9 +21,10 @@ const validateLogin = async (req, res, next) => {
       return res.status(401).json({ message: 'Incorrect username or password' });
     }
 
-    const { password: _, ...userWhitoutPass } = user;
+    // const { password: _, ...userWhitoutPass } = user;
+    // req.userWhitoutPass = userWhitoutPass;
 
-    req.userWhitoutPass = userWhitoutPass;
+    req.user = user;
   } catch (error) {
     console.error('validateLogin', error);
   }

@@ -1,28 +1,8 @@
-
-const {
-  postCreateUsersMod,
-  getUserEmailMod,
-  getUserByIdMod,
-  postCreateAdminMod,
-} = require('./usersModel');
-const {
-  postCreateRecipesMod,
-  getAllRecipesMod,
-  getByIdRecipesMod,
-  updateRecipesMod,
-  deleteRecipesMod,
-  updateImageRecipesMod,
-} = require('./recipesModel');
+const usersModel = require('./usersModel');
+const recipesModel = require('./recipesModel');
 
 module.exports = {
-  postCreateUsersMod,
-  getUserEmailMod,
-  getUserByIdMod,
-  postCreateAdminMod,
-  postCreateRecipesMod,
-  getAllRecipesMod,
-  getByIdRecipesMod,
-  updateRecipesMod,
-  deleteRecipesMod,
-  updateImageRecipesMod,
+  usersModel,
+
+  recipesModel,
 };

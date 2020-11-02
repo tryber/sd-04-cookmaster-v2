@@ -1,25 +1,25 @@
 const { Router } = require('express');
-const controller = require('../controllers');
+const { recipesController } = require('../controllers');
 const middleware = require('../middleware');
 
 const recipesRouter = Router();
 
 recipesRouter
   .route('/')
-  .post(middleware.validateJWT, middleware.validateRecipes, controller.postCreateRecipesCont)
-  .get(controller.getAllRecipesCont);
+  .post(middleware.validateJWT, middleware.validateRecipes, recipesController.postCreateRecipesCont)
+  .get(recipesController.getAllRecipesCont);
 
 recipesRouter
   .route('/:id')
-  .get(controller.getByIdRecipesCont)
-  .put(middleware.validateJWT, controller.updateRecipesCont)
-  .delete(middleware.validateJWT, controller.deleteRecipesCont);
+  .get(recipesController.getByIdRecipesCont)
+  .put(middleware.validateJWT, recipesController.updateRecipesCont)
+  .delete(middleware.validateJWT, recipesController.deleteRecipesCont);
 
 recipesRouter.put(
   '/:id/image',
   middleware.validateJWT,
-  controller.upload.single('image'),
-  controller.updateImageRecipesCont,
+  recipesController.upload.single('image'),
+  recipesController.updateImageRecipesCont,
 );
 
 module.exports = recipesRouter;
