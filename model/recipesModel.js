@@ -11,6 +11,10 @@ const createRecipeModel = async (recipe, userId) => {
   }
 };
 
+const getAllRecipesModel = async () =>
+  connection().then((db) => db.collection('recipes').aggregate({}).toArray());
+
 module.exports = {
   createRecipeModel,
+  getAllRecipesModel,
 };
