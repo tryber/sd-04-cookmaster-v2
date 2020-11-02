@@ -1,5 +1,5 @@
 const rescue = require('express-rescue');
-const createToken = require('../middleware/createToken')
+const createToken = require('../middleware/createToken');
 
 // const jwt = require('jsonwebtoken');
 // const secret = 'cookmasterv2';
@@ -14,7 +14,7 @@ const loginUsers = rescue(async (req, res) => {
 
   // const token = jwt.sign(userWhitoutPass, secret, headers);
 
-  const { password: _ , ...userWithoutPassword } = user;
+  const { password: _, ...userWithoutPassword } = user;
   const token = createToken(userWithoutPassword);
 
   return res.status(200).json({ token });
