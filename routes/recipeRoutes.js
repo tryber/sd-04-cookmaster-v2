@@ -4,7 +4,7 @@ const { recipeControllers } = require('../controllers');
 
 const routes = express.Router();
 
-routes.delete('/recipes/:id', recipeControllers.deleteRecipeMiddleware);
+// routes.delete('/recipes/:id', recipeControllers.deleteRecipeMiddleware);
 
 routes.get('/recipes/:id', recipeControllers.getASpecificRecipeMiddleware);
 

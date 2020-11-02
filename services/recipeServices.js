@@ -6,7 +6,7 @@ const changeARecipeInformation = async (recipeInfo, { id }) => {
   return result;
 };
 
-const deleteService = async ({ id }) => {};
+// const deleteService = async ({ id }) => {};
 
 const getRecipeById = async ({ id }) => {
   const recipe = await Recipe.getRecipeById(id);
@@ -28,7 +28,7 @@ const listService = async () => Recipe.listAllRecipes();
 
 module.exports = {
   changeARecipeInformation,
-  deleteService,
+  // deleteService,
   getRecipeById,
   insertNewRecipe,
   listService,

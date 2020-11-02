@@ -11,13 +11,13 @@ const changeRecipeMiddleware = async (req, res, _next) => {
   }
 };
 
-const deleteRecipeMiddleware = async (req, res, _next) => {
-  try {
-    console.log(req.params);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
+// const deleteRecipeMiddleware = async (req, res, _next) => {
+//   try {
+//     console.log(req.params);
+//   } catch (error) {
+//     res.status(500).json({ message: error.message });
+//   }
+// };
 
 const getASpecificRecipeMiddleware = async (req, res, _next) => {
   try {
@@ -58,7 +58,7 @@ const newRecipeMiddleware = async (req, res, _next) => {
 
 module.exports = {
   changeRecipeMiddleware,
-  deleteRecipeMiddleware,
+  // deleteRecipeMiddleware,
   getASpecificRecipeMiddleware,
   getRecipesMiddleware,
   newRecipeMiddleware,
