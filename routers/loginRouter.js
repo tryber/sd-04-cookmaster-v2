@@ -4,9 +4,9 @@ const middlewares = require('../middlewares/user');
 
 const router = express.Router();
 
-const { createUserController } = userController;
-const { emailVerify, namePasswordEmailVerify } = middlewares;
+const { loginController } = userController;
+const { emailPasswordVerify } = middlewares;
 
-router.post('/', namePasswordEmailVerify, emailVerify, createUserController);
+router.post('/', emailPasswordVerify, loginController);
 
 module.exports = router;
