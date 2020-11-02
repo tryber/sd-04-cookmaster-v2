@@ -13,5 +13,6 @@ recipesRouter.post(
 );
 
 recipesRouter.get('/', recipesController.getAllRecipesController);
+recipesRouter.get('/:id', recipesController.getRecipeByIdController);
 
 module.exports = recipesRouter;
