@@ -1,5 +1,6 @@
 const { errorsMessages } = require('../service');
 const { recipesModel } = require('../model');
+const { updateRecipeModel } = require('../model/recipesModel');
 
 const createRecipeController = async (req, res) => {
   try {
@@ -7,7 +8,7 @@ const createRecipeController = async (req, res) => {
     const { _id } = req.user;
 
     const createRecipe = await recipesModel.createRecipeModel(data, _id);
-    console.log('createRecipe', createRecipe);
+    // console.log('createRecipe', createRecipe);
     return res.status(201).json(createRecipe);
   } catch (err) {
     console.error('createRecipeController', err.message);
@@ -51,7 +52,7 @@ const updateRecipeController = async (req, res) => {
   try {
     const { id } = req.params;
     const data = req.body;
-
+    console.log(data)
     await recipesModel.updateRecipeModel(data, id);
 
     const updated = await recipesModel.getRecipeByIdModel(id);

@@ -21,11 +21,10 @@ const getRecipeByIdModel = async (id) =>
     return db.collection('recipes').findOne(ObjectId(id));
   });
 
-const updateRecipeModel = async ({ name, ingredients, preparation, userId }, id) =>
+const updateRecipeModel = async ({ name, ingredients, preparation }, id) =>
   connection()
-    .then((db) => db.collection('recipe')
-      .updateOne({ _id: ObjectId(id) }, { $set: { name, ingredients, preparation } }))
-    .then(() => ({ _id: id, name, ingredients, preparation, userId }));
+    .then((db) => db.collection('recipes')
+      .updateOne({ _id: ObjectId(id) }, { $set: { name, ingredients, preparation } }));
 
 
 module.exports = {
