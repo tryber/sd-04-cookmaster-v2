@@ -9,7 +9,7 @@ const deleteRecipeById = async (recipeId) => {
     await db
       .collection(DB_COLLECTION)
       .deleteOne({ _id: ObjectId(recipeId) });
-    return true;
+    return;
   } catch (error) {
     console.log(error.message);
     return process.exit(1);

@@ -14,7 +14,7 @@ const changeRecipeMiddleware = async (req, res, _next) => {
 const deleteRecipeMiddleware = async (req, res, _next) => {
   try {
     await recipeServices.deleteService(req.params);
-    res.status(204);
+    res.status(204).json({ message: 'Deleted' });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
