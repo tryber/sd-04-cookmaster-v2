@@ -6,10 +6,7 @@ const changeARecipeInformation = async (recipeInfo, { id }) => {
   return result;
 };
 
-const deleteService = async ({ id }) => {
-  await Recipe.deleteRecipeById(id);
-  return;
-};
+const deleteService = async ({ id }) => Recipe.deleteRecipeById(id);
 
 const getRecipeById = async ({ id }) => {
   const recipe = await Recipe.getRecipeById(id);
