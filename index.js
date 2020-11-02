@@ -1,10 +1,11 @@
 const express = require('express');
 const bodyParse = require('body-parser');
 const routes = require('./routes');
+const path = require('path');
 
 const app = express();
 
-app.use(express.static(__dirname + '/uploads'));
+app.use(express.static(path.join(__dirname + '/uploads')));
 
 app.use(express.json());
 app.use(bodyParse.urlencoded({ extended: false }));

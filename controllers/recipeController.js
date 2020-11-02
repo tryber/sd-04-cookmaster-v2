@@ -1,7 +1,7 @@
 const recipeServices = require('../services/recipeServices');
 const { isError } = require('../utils/validation');
 // const multer = require('multer');
-const storage = require('../utils/storage');
+// const storage = require('../utils/storage');
 const fs = require('fs');
 
 // const upload = multer({ storage });
@@ -56,7 +56,7 @@ const inserImageMiddleware = async (req, res, _next) => {
     // console.log(req.params);
     // console.log(req.file);
     // console.log(storage.getFilename(req, req.file, () => {}, _id));
-    fs.rename(file.path, `images/${id}.jpeg`, (err) => {
+    fs.rename(file.path, `images/${id}.jpeg`, (_err) => {
       // if (err) throw err;
       console.log('Done!');
     });
