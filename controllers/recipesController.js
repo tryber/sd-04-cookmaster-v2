@@ -23,15 +23,33 @@ const listAllRecipes = async (req, res) => {
 };
 
 const listOneRecipe = async (req, res) => {
-  const { id } = req.params;
-  const recipe = await recipesModel.getById(id);
-  if (!recipe) return res.status(404).json({ message: 'recipe not found' });
+  try {
+    const { id } = req.params;
+    const recipe = await recipesModel.getById(id);
+    if (!recipe) return res.status(404).json({ message: 'recipe not found' });
 
-  return res.status(200).json(recipe);
+    return res.status(200).json(recipe);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const editRecipe = async (req, res) => {
+  try {
+    const { name, ingredients, preparation } = req.body;
+    const { id } = req.params;
+    const userId = req.user._id;
+    await recipesModel.editRecipe(id, name, ingredients, preparation, userId);
+    const recipe = await recipesModel.getById(id);
+    res.status(200).json(recipe);
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 module.exports = {
   createRecipeController,
   listAllRecipes,
   listOneRecipe,
+  editRecipe,
 };
