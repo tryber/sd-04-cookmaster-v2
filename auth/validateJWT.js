@@ -1,11 +1,13 @@
+require('dotenv').config();
 const jwt = require('jsonwebtoken');
 
-const secret = 'cookmasterV2';
+const secret = process.env.SECRET || 'cookmasterV2';
 
 const validateToken = async (req, res, next) => {
   const token = req.headers.authorization;
 
   const validToken = jwt.verify(token, secret);
+  /* console.log(validToken) -> objeto payload */
 
   if (!validToken) {
     return res.status(401).json({ message: 'jwt malformed' });

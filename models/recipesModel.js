@@ -1,3 +1,4 @@
+require('dotenv').config();
 const connection = require('./connection');
 
 const registerRecipe = async (name, ingredients, preparation, userId) => {
