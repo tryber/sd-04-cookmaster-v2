@@ -19,15 +19,11 @@ const listRecipeById = async (recipeId) => {
   return conn.collection('recipes').findOne(ObjectId(recipeId));
 };
 
-const updateRecipe = async (recipeId, name, ingredients, preparation) => {
+const updateRecipe = async (recipeId, recipeInfo) => {
   const conn = await connection();
   const updatedRecipe = await conn
     .collection('recipes')
-    .findOneAndUpdate(
-      { _id: ObjectId(recipeId) },
-      { $set: { name, ingredients, preparation } },
-      { returnOriginal: false },
-    );
+    .findOneAndUpdate({ _id: ObjectId(recipeId) }, { $set: recipeInfo }, { returnOriginal: false });
   return updatedRecipe;
 };
 

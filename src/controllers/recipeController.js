@@ -34,9 +34,9 @@ const listRecipeById = async (req, res) => {
 const updateRecipe = async (req, res) => {
   try {
     const { id: recipeId } = req.params;
-    const { name, ingredients, preparation } = req.body;
+    const recipeInfo = req.body;
 
-    const updatedRecipe = await recipeModel.updateRecipe(recipeId, name, ingredients, preparation);
+    const updatedRecipe = await recipeModel.updateRecipe(recipeId, recipeInfo);
 
     return res.status(200).json(updatedRecipe.value);
   } catch (err) {
@@ -54,10 +54,20 @@ const deleteRecipe = async (req, res) => {
   }
 };
 
+const insertRecipeImage = async (req, res) => {
+  const { id: recipeId } = req.params;
+  const { filename: imageFileName } = req.file;
+  const updatedRecipe = await recipeModel.updateRecipe(recipeId, {
+    image: `localhost:3000/images/${imageFileName}`,
+  });
+  res.status(200).json(updatedRecipe.value);
+};
+
 module.exports = {
   insertRecipe,
   listAllRecipes,
   listRecipeById,
   updateRecipe,
   deleteRecipe,
+  insertRecipeImage,
 };
