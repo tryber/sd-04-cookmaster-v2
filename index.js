@@ -13,9 +13,8 @@ app.get('/', (request, response) => {
   response.send();
 });
 
-//Routes
+// Routes
 app.use('/users', usersController);
 app.use('/login', loginController);
-
 
 app.listen(port, () => console.log(`Server listening on port ${port}`));

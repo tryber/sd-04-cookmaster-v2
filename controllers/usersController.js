@@ -17,7 +17,7 @@ router.post(
   },
 );
 
-router.post('/', async (req, res) => {
+router.post('/', async (req, _res) => {
   console.log(req.body);
 });
 
