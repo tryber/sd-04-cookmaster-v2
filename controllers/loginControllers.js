@@ -2,7 +2,6 @@
 const express = require('express');
 const createToken = require('../auth/createJWT');
 const userModel = require('../models/userModel');
-const userValidation = require('../middlewares/userValidation');
 const loginValidation = require('../middlewares/loginValidation');
 
 const router = express.Router();

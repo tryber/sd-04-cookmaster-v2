@@ -1,8 +1,3 @@
-const userModel = require('../models/userModel');
-
-
-
-
 // Check if POST/login request contain a email, and password
 const validatePresenceOfEmailPassword = (req, res, next) => {
   const { email, password } = req.body;
@@ -25,7 +20,6 @@ const validateEmail = (req, res, next) => {
   }
   next();
 };
-
 
 module.exports = {
   validateEmail,
