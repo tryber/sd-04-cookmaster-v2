@@ -3,7 +3,6 @@ const usersModel = require('../models/usersModel');
 const validate = require('../middlewares/middleValidateUser');
 const validateAuth = require('../middlewares/middleAuthentication');
 const creatToken = require('../authorization/createToken');
-const validateToken = require('../middlewares/middleValidateToken');
 
 const router = express.Router();
 
