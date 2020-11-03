@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const userRouter = require('./routers/userRouter');
 const loginRouter = require('./routers/loginRouter');
+const recipesRouter = require('./routers/recipesRouter');
 
 const app = express();
 
@@ -16,5 +17,7 @@ app.get('/', (request, response) => {
 app.use('/users', userRouter);
 
 app.use('/login', loginRouter);
+
+app.use('/recipes', recipesRouter);
 
 app.listen(3000, () => console.log('Ouvindo porta 3000'));

@@ -20,7 +20,8 @@ const loginController = async (req, res) => {
     if (!user || user.password !== password) {
       return res.status(401).json({ message: 'Incorrect username or password' });
     }
-    const token = createToken({ email });
+    const { password: _, ...userData } = user;
+    const token = createToken(userData);
 
     return res.status(200).json({ token });
   } catch (error) {
