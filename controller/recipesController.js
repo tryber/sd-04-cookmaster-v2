@@ -63,10 +63,35 @@ const updateRecipeController = async (req, res) => {
   }
 };
 
+const uploadWithImageController = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { filename } = req.file;
+
+    const imagePath = `localhost:3000/images/${filename}`;
+
+    const recipe = await recipesModel.getRecipeByIdModel(id);
+
+    if (!recipe) {
+      return errorsMessages(res, 'Recipe not found', 'not_found');
+    }
+
+    await recipesModel.updateWithImageModel(id, imagePath);
+
+    const recipeWithImg = await recipesModel.getRecipeByIdModel(id);
+
+    return res.status(200).json(recipeWithImg);
+  } catch (err) {
+    console.error('updateRecipeController', err.message);
+    return errorsMessages(res);
+  }
+};
+
 
 module.exports = {
   createRecipeController,
   getAllRecipesController,
   getRecipeByIdController,
   updateRecipeController,
+  uploadWithImageController,
 };

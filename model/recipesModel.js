@@ -27,9 +27,15 @@ const updateRecipeModel = async ({ name, ingredients, preparation }, id) =>
       .updateOne({ _id: ObjectId(id) }, { $set: { name, ingredients, preparation } }));
 
 
+const updateWithImageModel = async (id, imagePath) =>
+  connection()
+    .then((db) => db.collection('recipes').updateOne({ _id: ObjectId(id) }, { $set: { image: imagePath } }));
+
+
 module.exports = {
   createRecipeModel,
   getAllRecipesModel,
   getRecipeByIdModel,
   updateRecipeModel,
+  updateWithImageModel,
 };
