@@ -1,7 +1,6 @@
-require('dotenv').config();
 const jwt = require('jsonwebtoken');
 
-const secret = process.env.SECRET || 'cookmasterV2';
+const secret = 'cookmasterV2';
 
 const validateToken = async (req, res, next) => {
   const token = req.headers.authorization;

@@ -1,7 +1,6 @@
-require('dotenv').config();
 const jwt = require('jsonwebtoken');
 
-const secret = process.env.SECRET || 'cookmasterV2';
+const secret = 'cookmasterV2';
 
 const createToken = (payload) => {
   const options = {
