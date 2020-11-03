@@ -5,7 +5,7 @@ const app = express();
 const port = 3000;
 
 app.use(express.json());
-app.use('/users', usersController);
+app.use('/', usersController);
 
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (req, res) => {
