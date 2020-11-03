@@ -10,9 +10,7 @@ router.post(
   '/',
   loginValidation.validatePresenceOfEmailPassword,
   loginValidation.validateEmail,
-  // userValidation.validateEmailIsUnique,
   async (req, res) => {
-    console.log('inside logincontrollers', req.body);
     try {
       const { password, email } = req.body;
 
@@ -20,11 +18,7 @@ router.post(
       if (!emailFromDB || emailFromDB.password !== password) {
         return res.status(401).json({ message: 'Incorrect username or password' });
       }
-
       const { password: _, ...userWithoutPassword } = emailFromDB;
-
-      console.log('inside logincontrollers - TRY', userWithoutPassword);
-
       const token = await createToken(userWithoutPassword);
       return res.status(200).json({ token });
     } catch (_e) {

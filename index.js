@@ -1,7 +1,9 @@
 const express = require('express');
 const userControllers = require('./controllers/userControllers');
 const loginControllers = require('./controllers/loginControllers');
+const recipeControllers = require('./controllers/recipeControllers');
 const bodyParser = require('body-parser');
+const validateJWT = require('./auth/validateJWT');
 
 const app = express();
 const port = 3000;
@@ -14,6 +16,7 @@ app.get('/', (request, response) => {
 });
 app.use('/users', userControllers);
 app.use('/login', loginControllers);
+app.use('/recipes', validateJWT, recipeControllers);
 app.get('/helloworld', (req, res) => res.send('Hello World!'));
 
 app.listen(port, () => console.log('Example app listening on port: ', port));
