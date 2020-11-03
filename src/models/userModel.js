@@ -13,11 +13,11 @@ const findUserById = async (userId) => {
   return userFound;
 };
 
-const insertUser = async (name, email, password) => {
+const insertUser = async (name, email, password, role) => {
   const conn = await connection();
   const insertedUser = await conn
     .collection('users')
-    .insertOne({ name, email, password, role: 'user' });
+    .insertOne({ name, email, password, role: role || 'user' });
   return insertedUser.ops[0];
 };
 
