@@ -1,5 +1,5 @@
 const rescue = require('express-rescue');
-const createToken = require('../middleware/createToken');
+const createToken = require('../services/createToken');
 
 // const jwt = require('jsonwebtoken');
 // const secret = 'cookmasterv2';
