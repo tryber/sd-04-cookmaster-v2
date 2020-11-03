@@ -19,7 +19,7 @@ const routes = express.Router();
 
 routes.delete('/recipes/:id', auth, recipeControllers.deleteRecipeMiddleware);
 
-routes.get('/images/:id.jpeg', );
+// routes.get('/images/:id.jpeg', );
 
 routes.get('/recipes/:id', recipeControllers.getASpecificRecipeMiddleware);
 
@@ -28,7 +28,9 @@ routes.get('/recipes', recipeControllers.getRecipesMiddleware);
 routes.post('/recipes', auth, recipeControllers.newRecipeMiddleware);
 
 routes.put('/recipes/:id/image', auth, upload.single('image'), recipeControllers.inserImageMiddleware);
-// routes.put('/recipes/:id/image', auth, upload.single('image'), recipeControllers.inserImageMiddleware);
+// routes.put(
+// '/recipes/:id/image', auth, upload.single('image'), recipeControllers.inserImageMiddleware
+// );
 
 routes.put('/recipes/:id', auth, recipeControllers.changeRecipeMiddleware);
 
