@@ -69,6 +69,19 @@ const inserImageMiddleware = async (req, res, _next) => {
   }
 };
 
+// const inserImageMiddleware = async (req, res, _next) => {
+//   try {
+//     const { id } = req.params;
+//     const url = `localhost:3000/images/${id}.jpeg`;
+//     await recipeServices.insertImageForRecipe(id, url);
+//     const result = await recipeServices.getRecipeById(req.params);
+//     res.status(200).json(result);
+//   } catch (error) {
+//     console.log(error.message);
+//     res.status(500).json({ message: error.message });
+//   }
+// };
+
 const newRecipeMiddleware = async (req, res, _next) => {
   try {
     const { body, user } = req;
