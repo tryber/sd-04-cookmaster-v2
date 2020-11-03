@@ -1,5 +1,5 @@
 const express = require('express');
-const recipesModel = require('../models/recipesModel');
+const recipesModel = require('../models/recipesModels');
 const usersModel = require('../models/usersModel');
 const recipeValidation = require('../middlewares/recipeValidation');
 const validateToken = require('../auth/validateJWT');
