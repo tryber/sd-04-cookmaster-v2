@@ -35,20 +35,8 @@ const validateEmailIsUnique = async (req, res, next) => {
   next();
 };
 
-// Check if POST/login request contain a email, and password
-const validatePresenceOfEmailPassword = (req, res, next) => {
-  const { email, password } = req.body;
-  if (!email || !password) {
-    return res.status(401).json({
-      message: 'All fields must be filled',
-    });
-  }
-  next();
-};
-
 module.exports = {
   validatePresenceOfUsernameEmailPassword,
   validateEmail,
   validateEmailIsUnique,
-  validatePresenceOfEmailPassword,
 };
