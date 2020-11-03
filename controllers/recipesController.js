@@ -38,8 +38,8 @@ const editRecipe = async (req, res) => {
   try {
     const { name, ingredients, preparation } = req.body;
     const { id } = req.params;
-    const userId = req.user._id;
-    await recipesModel.editRecipe(id, name, ingredients, preparation, userId);
+    const { _id } = req.user;
+    await recipesModel.editRecipe(id, name, ingredients, preparation, _id);
     const recipe = await recipesModel.getById(id);
     res.status(200).json(recipe);
   } catch (error) {
