@@ -11,7 +11,6 @@ router.post(
   recipeValidation.validatePresenceOfNameIngredientsPreparation,
   async (req, res) => {
     try {
-      console.log('here is recipeModel', req.body);
       const { name, ingredients, preparation } = req.body;
       const recipe = await recipeModel.registerRecipe(name, ingredients, preparation);
       res.status(201).json({ recipe });
