@@ -16,7 +16,7 @@ app.get('/', (request, response) => {
 });
 app.use('/users', userControllers);
 app.use('/login', loginControllers);
-app.use('/recipes', validateJWT, recipeControllers);
-app.get('/helloworld', (req, res) => res.send('Hello World!'));
+app.use('/recipes', recipeControllers);
+app.get('/hello World', (req, res) => res.send('Hello World!'));
 
 app.listen(port, () => console.log('Example app listening on port: ', port));

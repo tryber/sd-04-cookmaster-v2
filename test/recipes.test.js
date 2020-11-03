@@ -233,6 +233,7 @@ describe('4 - Crie um endpoint para a listagem de receitas', () => {
       .then((response) => {
         const { body } = response;
         const result = JSON.parse(body);
+        console.log('test result', result);
         expect(result[0].name).toBe('banana caramelizada');
         expect(result[0].ingredients).toBe('banana, açúcar');
         expect(result[0].preparation).toBe(
