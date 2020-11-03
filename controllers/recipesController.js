@@ -24,4 +24,16 @@ router.get('/', async (_req, res) => {
   return res.status(200).json(recipes);
 });
 
+router.get('/:id', async (req, res) => {
+  const { id } = req.params;
+
+  const recipe = await recipesModel.getRecipeById(id);
+
+  if (!recipe) {
+    res.status(404).json({ message: 'recipe not found' });
+  }
+
+  return res.status(200).json(recipe);
+});
+
 module.exports = router;
