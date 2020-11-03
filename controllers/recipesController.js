@@ -47,9 +47,20 @@ const editRecipe = async (req, res) => {
   }
 };
 
+const deleteRecipe = async (req, res) => {
+  try {
+    const { id } = req.params;
+    await recipesModel.deleteRecipe(id);
+    return res.status(204).end();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 module.exports = {
   createRecipeController,
   listAllRecipes,
   listOneRecipe,
   editRecipe,
+  deleteRecipe,
 };
