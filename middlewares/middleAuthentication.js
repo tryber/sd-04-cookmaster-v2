@@ -21,7 +21,7 @@ const userAuthentication = async (req, res, next) => {
 
   // Construindo novo objeto
   const user = {
-    id: existEmail._id,
+    id: existEmail.id,
     email: existEmail.user.email,
     role: existEmail.user.role,
   };
