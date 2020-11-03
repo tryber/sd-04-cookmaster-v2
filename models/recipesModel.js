@@ -33,4 +33,21 @@ const removeRecipe = async (id) => {
   return true;
 };
 
-module.exports = { getRecipes, getRecipeById, registerRecipe, updateRecipe, removeRecipe };
+const addImage = async (id) => {
+  await connection().then((db) =>
+    db
+      .collection('recipes')
+      .updateOne({ _id: ObjectId(id) }, { $set: { image: `localhost:3000/images/${id}.jpeg` } }),
+  );
+
+  return true;
+};
+
+module.exports = {
+  getRecipes,
+  getRecipeById,
+  registerRecipe,
+  updateRecipe,
+  removeRecipe,
+  addImage,
+};

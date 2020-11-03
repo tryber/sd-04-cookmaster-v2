@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const usersController = require('./controllers/usersController');
 const loginController = require('./controllers/loginController');
 const recipesController = require('./controllers/recipesController');
+const path = require('path');
 
 const app = express();
 
@@ -18,5 +19,6 @@ app.get('/', (request, response) => {
 app.use('/users', usersController);
 app.use('/login', loginController);
 app.use('/recipes', recipesController);
+app.use('/image', express.static(path.join(__dirname, '/uploads')));
 
 app.listen(port, () => console.log(`Server listening on port ${port}`));
