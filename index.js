@@ -3,7 +3,6 @@ const userControllers = require('./controllers/userControllers');
 const loginControllers = require('./controllers/loginControllers');
 const recipeControllers = require('./controllers/recipeControllers');
 const bodyParser = require('body-parser');
-const validateJWT = require('./auth/validateJWT');
 
 const app = express();
 const port = 3000;

@@ -8,7 +8,6 @@ const getAllRecipes = async () => {
 
     return allRecipes;
   } catch (err) {
-    res.status(501).json({ message: 'Erro ao puxar todas receitas!' });
     console.log('Error', err);
   }
 };
