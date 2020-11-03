@@ -64,6 +64,6 @@ app.post('/users/admin', auth.authUser, controllers.usersControllers.addAdmin);
 
 app.use('*', (_req, res) => res.status(404).send('Página não encontrada'));
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => console.log('Listening on 3000'));
