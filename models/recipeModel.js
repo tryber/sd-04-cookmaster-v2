@@ -21,8 +21,13 @@ const registerRecipe = async (name, ingredients, preparation) => {
 
 const findRecipeById = async (id) => {
   if (!ObjectId.isValid(id)) return null;
-
-  return await connection().then((db) => db.collection('recipes').findOne(ObjectId(id)));
+  try {
+    const db = await connection();
+    const recipe = await db.collection('recipes').findOne(ObjectId(id));
+    return recipe;
+  } catch (err) {
+    console.log('Error', err);
+  }
 };
 
 module.exports = {
