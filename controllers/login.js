@@ -6,8 +6,6 @@ module.exports = async (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
 
-    console.log(email, password);
-
     if (!email || !password) return res.status(401).json({ message: 'All fields must be filled' });
 
     const user = await findByEmail(email);

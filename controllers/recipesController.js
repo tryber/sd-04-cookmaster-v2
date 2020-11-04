@@ -8,17 +8,17 @@ const router = express.Router();
 router.post('/', validateJWT, recipesValidations.fieldExistsValidation, async (req, res) => {
   try {
     const { name, ingredients, preparation } = req.body;
-    console.log(req.user);
-
-    console.log('linha 13', name, ingredients, preparation);
 
     const recipeSaved = await recipesModel.addRecipe(name, ingredients, preparation);
-    console.log('REGISTERED', recipeSaved);
+    console.log(recipeSaved);
 
-    return res.status(201).json(recipeSaved);
+    return res.status(201).json({ recipe: recipeSaved });
   } catch (_e) {
     res.status(400).json({ message: 'Invalid entries. recipesController Try again.' });
   }
 });
+
+router.get('/', recipesValidations.listRecipes);
+// router.get('/', validateJWT, recipesValidations.listRecipes);
 
 module.exports = router;

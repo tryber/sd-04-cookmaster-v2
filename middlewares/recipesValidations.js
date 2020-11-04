@@ -1,3 +1,5 @@
+const recipesModel = require('../model/recipesModel');
+
 const fieldExistsValidation = (req, res, next) => {
   const { name, ingredients, preparation } = req.body;
 
@@ -8,4 +10,18 @@ const fieldExistsValidation = (req, res, next) => {
   next();
 };
 
-module.exports = { fieldExistsValidation };
+const listRecipes = async (req, res, next) => {
+  try {
+    console.log('entrou no listRecipes');
+    const listOfRecipes = await recipesModel.listOfRecipes();
+    console.log(listOfRecipes.recipe);
+
+    return res.status(200).json(listOfRecipes);
+  } catch (_e) {
+    return res.status(404).json({ message: 'Invalid entries AA. Try again.' });
+  }
+  next();
+};
+
+module.exports = { fieldExistsValidation, listRecipes };
+// desestruturar a saída do cadastro da receita com o receita:
