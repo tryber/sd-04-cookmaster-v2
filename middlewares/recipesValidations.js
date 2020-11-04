@@ -10,7 +10,7 @@ const fieldExistsValidation = (req, res, next) => {
   next();
 };
 
-const listRecipes = async (req, res, next) => {
+const listRecipes = async (_req, res) => {
   try {
     console.log('entrou no listRecipes');
     const listOfRecipes = await recipesModel.listOfRecipes();
