@@ -4,7 +4,6 @@ const { recipeErrorDealer } = require('../middleware/validateInfo');
 const imageDealer = require('../middleware/imageDealer');
 const RecipeModel = require('../models/recipeModel');
 
-const app = express();
 const router = express.Router();
 
 router.post('/', validateJwt, recipeErrorDealer, async (req, res) => {
