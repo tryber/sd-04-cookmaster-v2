@@ -5,7 +5,7 @@ const recipesModel = require('../model/recipesModel');
 
 const router = express.Router();
 
-router.post('/', validateJWT, recipesValidations.fieldExistsValidation, async (req, res, next) => {
+router.post('/', validateJWT, recipesValidations.fieldExistsValidation, async (req, res) => {
   try {
     const { name, ingredients, preparation } = req.body;
     console.log(req.user);

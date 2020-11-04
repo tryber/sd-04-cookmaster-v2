@@ -2,7 +2,6 @@ const express = require('express');
 const usersController = require('./controllers/usersController');
 const recipesController = require('./controllers/recipesController');
 const login = require('./controllers/login');
-const validateJWT = require('./auth/validateJWT');
 
 const app = express();
 const port = 3000;
