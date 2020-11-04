@@ -16,7 +16,9 @@ module.exports = async (req, res) => {
       return res.status(401).json({ message: 'Incorrect username or password' });
     }
 
-    const token = createToken(user);
+    const { password: _, ...userWithoutPassword } = user;
+
+    const token = createToken(userWithoutPassword);
     return res.status(200).json({ token });
   } catch (_e) {
     return res.status(401).json({ message: 'Incorrect username or password' });
