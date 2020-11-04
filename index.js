@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 
-const userController = require('./controllers/userController');
+const router = require('./router');
 
 const app = express();
 const port = 3000;
@@ -23,6 +23,6 @@ app.get('/', (request, response) => {
 });
 
 // Cadastrar usuário
-app.use('/users', userController);
+app.use('/users', router.usersRouter);
 
 app.listen(port, () => console.log(`Funfou!!! Listening on port: ${port}`));

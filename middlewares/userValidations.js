@@ -1,7 +1,7 @@
 const userModel = require('../models/userModel');
 
-// Validações
-const requiredFields = (req, res, next) => {
+// Validações - Cadastro
+const registerRequiredFields = (req, res, next) => {
   const { name, email, password } = req.body;
 
   if (!name || !email || !password) {
@@ -37,8 +37,10 @@ const validateUserExistsByEmail = async (req, res, next) => {
   next();
 };
 
+// Validações - Login
+
 module.exports = {
-  requiredFields,
+  registerRequiredFields,
   isValidEmail,
   validateUserExistsByEmail,
 };
