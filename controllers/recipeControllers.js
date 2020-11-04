@@ -59,24 +59,39 @@ router.put(
   recipeValidation.validateRecipeExistsById,
   validateJWT.validateJWTToUpdate,
   async (req, res) => {
-    console.log('put/:id');
-
     try {
       const { name, ingredients, preparation } = req.body;
-
       const recipeUpdated = await recipeModel.updateRecipe(
         req.params.id,
         name,
         ingredients,
         preparation,
       );
-
-      console.log('put recipeUpdated', recipeUpdated);
-      // res.status(200).json(res.recipeUpdated);
       res.status(200).json(recipeUpdated);
     } catch (_e) {
       res.status(501).json({
         message: 'Erro ao atualizar essa receita',
+        _e,
+      });
+    }
+  },
+);
+
+router.delete(
+  '/:id',
+  recipeValidation.validateRecipeExistsById,
+  validateJWT.validateJWTToUpdate,
+  async (req, res) => {
+    try {
+      const recipeDelete = await recipeModel.removeRecipe(req.params.id);
+      if (recipeDelete === true) {
+        res.status(204).json({
+          message: 'Ok',
+        });
+      }
+    } catch (_e) {
+      res.status(501).json({
+        message: 'Erro ao deletar essa receita',
         _e,
       });
     }

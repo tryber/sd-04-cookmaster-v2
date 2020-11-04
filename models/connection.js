@@ -11,8 +11,11 @@ const connection = () =>
       useNewUrlParser: true,
       useUnifiedTopology: true,
     })
-    .then((connected) => connected.db(DB_NAME))
-    .catch((err) => {
+    .then((connected) => {
+      console.log('connected');
+     return connected.db(DB_NAME)
+    })
+      .catch((err) => {
       console.error(err);
       process.exit(1);
     });
