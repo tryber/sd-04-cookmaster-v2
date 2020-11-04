@@ -28,13 +28,27 @@ router.post(
 // Get all recipes
 
 router.get('/', async (req, res) => {
+  console.log('get/');
   try {
     const recipes = await recipeModel.getAllRecipes();
-    console.log('Controler Recipe get all', recipes);
     res.status(200).json(recipes);
   } catch (_e) {
     res.status(501).json({
       message: 'Erro ao puxar todas receitas',
+      _e,
+    });
+  }
+});
+
+// Get one specific recipe by id
+
+router.get('/:id', recipeValidation.validateRecipeExistsById, async (req, res) => {
+  try {
+    console.log('get/:id', res.recipe);
+    res.status(200).json(res.recipe);
+  } catch (_e) {
+    res.status(501).json({
+      message: 'Erro ao baixar essa receita',
       _e,
     });
   }
