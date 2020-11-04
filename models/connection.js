@@ -13,9 +13,9 @@ const connection = () =>
     })
     .then((connected) => {
       console.log('connected');
-     return connected.db(DB_NAME)
+      return connected.db(DB_NAME);
     })
-      .catch((err) => {
+    .catch((err) => {
       console.error(err);
       process.exit(1);
     });
