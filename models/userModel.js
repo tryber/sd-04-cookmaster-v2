@@ -11,9 +11,7 @@ const findUser = async (username) =>
   connection().then((db) => db.collection('users').findOne({ username }));
 
 const findEmail = async (email) => {
-  console.log('userModel is here', email);
   const result = await connection().then((db) => db.collection('users').findOne({ email }));
-  console.log('result', result);
   return result;
 };
 

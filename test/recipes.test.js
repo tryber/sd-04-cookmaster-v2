@@ -698,6 +698,7 @@ describe('7 - Crie um endpoint para a edição de uma receita', () => {
       .then((response) => {
         const { body } = response;
         result = JSON.parse(body);
+        console.log('resposnse 7 - update', result);
         expect(result.name).toBe('Receita de frango do Jacquin editado');
         expect(result.ingredients).toBe('Frango editado');
         expect(result.preparation).toBe('10 min no forno editado');

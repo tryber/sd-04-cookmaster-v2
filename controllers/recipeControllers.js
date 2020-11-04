@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.post(
   '/',
-  validateJWT,
+  validateJWT.validateJWTBasic,
   recipeValidation.validatePresenceOfNameIngredientsPreparation,
   async (req, res) => {
     try {
@@ -28,7 +28,6 @@ router.post(
 // Get all recipes
 
 router.get('/', async (req, res) => {
-  console.log('get/');
   try {
     const recipes = await recipeModel.getAllRecipes();
     res.status(200).json(recipes);
@@ -44,7 +43,6 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', recipeValidation.validateRecipeExistsById, async (req, res) => {
   try {
-    console.log('get/:id', res.recipe);
     res.status(200).json(res.recipe);
   } catch (_e) {
     res.status(501).json({
@@ -53,5 +51,36 @@ router.get('/:id', recipeValidation.validateRecipeExistsById, async (req, res) =
     });
   }
 });
+
+// Update one specific recipe by id
+
+router.put(
+  '/:id',
+  recipeValidation.validateRecipeExistsById,
+  validateJWT.validateJWTToUpdate,
+  async (req, res) => {
+    console.log('put/:id');
+
+    try {
+      const { name, ingredients, preparation } = req.body;
+
+      const recipeUpdated = await recipeModel.updateRecipe(
+        req.params.id,
+        name,
+        ingredients,
+        preparation,
+      );
+
+      console.log('put recipeUpdated', recipeUpdated);
+      // res.status(200).json(res.recipeUpdated);
+      res.status(200).json(recipeUpdated);
+    } catch (_e) {
+      res.status(501).json({
+        message: 'Erro ao atualizar essa receita',
+        _e,
+      });
+    }
+  },
+);
 
 module.exports = router;

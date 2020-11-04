@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 
 const secret = 'projectcookmasterv2';
 function createToken(payload) {
-  console.log('inside createJWT', payload);
+  // console.log('inside createJWT', payload);
   const headers = {
     expiresIn: '15m',
     algorithm: 'HS256',
@@ -10,7 +10,7 @@ function createToken(payload) {
 
   const token = jwt.sign(payload, secret, headers);
 
-  console.log(token);
+  // console.log(token);
 
   return token;
 }
