@@ -7,8 +7,6 @@ const RecipeModel = require('../models/recipeModel');
 const app = express();
 const router = express.Router();
 
-app.use(express.static(__dirname + '/uploads'));
-
 router.post('/', validateJwt, recipeErrorDealer, async (req, res) => {
   const { _id } = req.user;
   const { name, ingredients, preparation } = req.body;
@@ -55,12 +53,6 @@ router.put('/:id/image', validateJwt, imageDealer, async (req, res) => {
   } catch (err) {
     console.log(err);
   }
-});
-
-router.get('/:id', async (req, res) => {
-  const { id } = req.params;
-  const image = await RecipeModel.getImage(id);
-  res.status(200).json(image);
 });
 
 module.exports = router;
