@@ -1,5 +1,5 @@
 const { Joi } = require('frisby');
-
+// joi documentation https://joi.dev/api/?v=17.3.0
 const userSchema = Joi.object({
   name: Joi.string().required(),
   email: Joi.string().email().required(),

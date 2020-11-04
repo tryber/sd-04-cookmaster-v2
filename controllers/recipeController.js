@@ -1,9 +1,13 @@
 const express = require('express');
 const validateJwt = require('../middleware/validateJWT');
 const { recipeErrorDealer } = require('../middleware/validateInfo');
+const imageDealer = require('../middleware/imageDealer');
 const RecipeModel = require('../models/recipeModel');
 
+const app = express();
 const router = express.Router();
+
+app.use(express.static(__dirname + '/uploads'));
 
 router.post('/', validateJwt, recipeErrorDealer, async (req, res) => {
   const { _id } = req.user;
@@ -40,6 +44,23 @@ router.delete('/:id', validateJwt, async (req, res) => {
   const { id } = req.params;
   await RecipeModel.deleteRecipe(id);
   res.status(204).json();
+});
+
+router.put('/:id/image', validateJwt, imageDealer, async (req, res) => {
+  try {
+    const { id } = req.params;
+    await RecipeModel.updateRecipeWithImage(id, `localhost:3000/images/${id}.jpeg`);
+    const recipe = await RecipeModel.getRecipeById(id);
+    res.status(200).json(recipe);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+router.get('/:id', async (req, res) => {
+  const { id } = req.params;
+  const image = await RecipeModel.getImage(id);
+  res.status(200).json(image);
 });
 
 module.exports = router;
