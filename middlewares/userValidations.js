@@ -38,9 +38,36 @@ const validateUserExistsByEmail = async (req, res, next) => {
 };
 
 // Validações - Login
+const loginRequiredFields = (req, res, next) => {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    return res.status(401).json({ message: 'All fields must be filled' });
+  }
+
+  next();
+};
+
+const validateLogin = async (req, res, next) => {
+  const { email, password } = req.body;
+  const user = await userModel.findByEmail(email);
+
+  const regexEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+  if(!user || user.password !== password || !regexEmail.test(email)) {
+    return res.status(401).json({ message: 'Incorrect username or password'});
+  }
+
+  req.user = user;
+  next();
+};
+
+
 
 module.exports = {
   registerRequiredFields,
   isValidEmail,
   validateUserExistsByEmail,
+  loginRequiredFields,
+  validateLogin,
 };

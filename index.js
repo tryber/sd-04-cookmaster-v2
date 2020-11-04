@@ -25,4 +25,7 @@ app.get('/', (request, response) => {
 // Cadastrar usuário
 app.use('/users', router.usersRouter);
 
+// Login
+app.use('/login', router.loginRouter);
+
 app.listen(port, () => console.log(`Funfou!!! Listening on port: ${port}`));

@@ -1,4 +1,5 @@
 const userModel = require('../models/userModel');
+const { createToken } = require('../middlewares/createToken');
 
 const registerUser = async (req, res) => {
   try {
@@ -13,6 +14,19 @@ const registerUser = async (req, res) => {
   }
 };
 
+const loginUser = (req, res) => {
+  try {
+    const { password: _, ...userWithoutPassword } = req.user;
+
+    const token = createToken(userWithoutPassword);
+    res.status(200).json(token);
+  } catch (error) {
+    console.log(_error.message);
+    res.status(501).json({ message: 'Falha ao logar usuário' });
+  }
+};
+
 module.exports = {
   registerUser,
+  loginUser,
 };
