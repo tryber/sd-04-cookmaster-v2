@@ -20,7 +20,6 @@ const listRecipes = async (req, res, next) => {
   } catch (_e) {
     return res.status(404).json({ message: 'Invalid entries AA. Try again.' });
   }
-  next();
 };
 
 module.exports = { fieldExistsValidation, listRecipes };
