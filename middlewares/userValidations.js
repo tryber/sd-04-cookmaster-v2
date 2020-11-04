@@ -54,15 +54,13 @@ const validateLogin = async (req, res, next) => {
 
   const regexEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
-  if(!user || user.password !== password || !regexEmail.test(email)) {
-    return res.status(401).json({ message: 'Incorrect username or password'});
+  if (!user || user.password !== password || !regexEmail.test(email)) {
+    return res.status(401).json({ message: 'Incorrect username or password' });
   }
 
   req.user = user;
   next();
 };
-
-
 
 module.exports = {
   registerRequiredFields,

@@ -2,8 +2,8 @@ const jwt = require('jsonwebtoken');
 
 const headers = {
   expiresIn: '30m',
-  algorithm: 'HS256'
-}
+  algorithm: 'HS256',
+};
 
 const secret = 'cookmasterV2';
 

@@ -20,7 +20,7 @@ const loginUser = (req, res) => {
 
     const token = createToken(userWithoutPassword);
     res.status(200).json(token);
-  } catch (error) {
+  } catch (_error) {
     console.log(_error.message);
     res.status(501).json({ message: 'Falha ao logar usuário' });
   }

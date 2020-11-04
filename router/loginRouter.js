@@ -9,7 +9,7 @@ loginRouter.post(
   '/',
   userValidations.loginRequiredFields,
   userValidations.validateLogin,
-  controllers.userController.loginUser
+  controllers.userController.loginUser,
 );
 
 module.exports = loginRouter;

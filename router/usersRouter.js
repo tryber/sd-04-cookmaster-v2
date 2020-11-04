@@ -10,7 +10,7 @@ usersRouter.post(
   userValidations.registerRequiredFields,
   userValidations.isValidEmail,
   userValidations.validateUserExistsByEmail,
-  controllers.userController.registerUser
+  controllers.userController.registerUser,
 );
 
 module.exports = usersRouter;
