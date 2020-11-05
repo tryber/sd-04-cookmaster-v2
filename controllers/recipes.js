@@ -43,4 +43,9 @@ router.put('/:id', login.tokenValidation, validations.checkRecipeOwner, async (r
   }
 });
 
+router.delete('/:id', login.tokenValidation, validations.checkRecipeOwner, async (req, res) => {
+  const delRecipe = await model.del(req.params.id);
+  res.status(204).json(delRecipe);
+});
+
 module.exports = router;
