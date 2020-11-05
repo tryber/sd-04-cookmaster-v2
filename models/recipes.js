@@ -13,7 +13,7 @@ const add = async (name, ingredients, preparation, userId) => {
 };
 
 const update = async (id, name, ingredients, preparation) => {
-  connection().then((db) =>
+  await connection().then((db) =>
     db
       .collection('recipes')
       .updateOne({ _id: ObjectId(id) }, { $set: { name, ingredients, preparation } }));
