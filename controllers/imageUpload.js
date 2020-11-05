@@ -7,8 +7,6 @@ const upload = multer({ dest: 'uploads' });
 module.exports = [
   upload.single('image'),
   (req, res, next) => {
-    const file = req.file;
-
     next();
   },
 ];

@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const userControllers = require('./controllers/userControllers');
 const loginControllers = require('./controllers/loginControllers');
 const recipeControllers = require('./controllers/recipeControllers');
@@ -10,7 +11,7 @@ const port = 3000;
 // app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use(express.static(__dirname + '/uploads'));
+app.use('/image', express.static(path.join(__dirname, '/uploads')));
 
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (request, response) => {
