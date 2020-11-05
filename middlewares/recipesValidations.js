@@ -1,4 +1,4 @@
-const recipesModel = require("../models/recipesModel");
+const recipesModel = require('../models/recipesModel');
 
 // Validações - Cadastro
 const requiredFields = (req, res, next) => {
