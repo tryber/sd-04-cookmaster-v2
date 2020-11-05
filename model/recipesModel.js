@@ -17,12 +17,18 @@ const listOfRecipes = async () => {
 };
 
 const findRecipeById = async (id) => {
-  console.log('AQUI ID FIND', id);
   const uniqueRecipe = await connection().then((db) =>
     db.collection('recipes').findOne(ObjectId(id)),
   );
-  console.log('ERA PRA SER UNIQUE', uniqueRecipe);
   return uniqueRecipe;
 };
 
-module.exports = { addRecipe, listOfRecipes, findRecipeById };
+const editRecipe = async (id, name, ingredients, preparation) => {
+  await connection().then((db) =>
+    db
+      .collection('recipes')
+      .updateOne({ _id: ObjectId(id) }, { $set: { name, ingredients, preparation } }),
+  );
+};
+
+module.exports = { addRecipe, listOfRecipes, findRecipeById, editRecipe };
