@@ -27,6 +27,9 @@ const userAuthentication = async (req, res, next) => {
   // Construindo novo objeto user
   const user = { id: _id, email, role };
 
+  // Faz a linha 25 e 28
+  // const {password, ...user} = existEmail;
+
   // Passando o objeto para próximo midlleware
   req.user = user;
   next();

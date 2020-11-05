@@ -26,4 +26,13 @@ router.get('/', async (req, res) => {
   }
 });
 
+router.get('/:id', async (req, res) => {
+  try {
+    const recipe = await recipeModel.findRecipeId(req.params.id);
+    return res.status(200).json(recipe);
+  } catch (error) {
+    res.status(404).json({ message: 'recipe not found' });
+  }
+});
+
 module.exports = router;
