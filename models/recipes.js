@@ -12,8 +12,16 @@ const add = async (name, ingredients, preparation, userId) => {
   return result.ops[0];
 };
 
+const update = async (id, name, ingredients, preparation) => {
+  connection().then((db) =>
+    db
+      .collection('recipes')
+      .updateOne({ _id: ObjectId(id) }, { $set: { name, ingredients, preparation } }));
+};
+
 module.exports = {
   add,
   getAll,
   getById,
+  update,
 };

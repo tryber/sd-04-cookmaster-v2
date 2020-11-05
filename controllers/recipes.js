@@ -31,4 +31,16 @@ router.post('/', login.tokenValidation, validations.existingElements, async (req
   res.status(201).json({ recipe });
 });
 
+router.put('/:id', login.tokenValidation, validations.checkRecipeOwner, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { name, ingredients, preparation } = req.body;
+    await model.update(id, name, ingredients, preparation);
+    const result = await model.getById(id);
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(401).json({ message: 'missing auth token' });
+  }
+});
+
 module.exports = router;

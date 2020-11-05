@@ -4,7 +4,7 @@ const tokenValidation = async (req, res, next) => {
   try {
     const token = req.headers.authorization;
     if (!token) {
-      return res.status(404).json({ message: 'jwt malformed' });
+      return res.status(401).json({ message: 'missing auth token' });
     }
     verify.validateToken(token);
     const { _id } = verify.validateToken(token);
