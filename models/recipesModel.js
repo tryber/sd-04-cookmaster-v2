@@ -1,3 +1,4 @@
+const { ObjectId } = require('mongodb');
 const connection = require('./connection');
 
 // cadastra uma receita
@@ -12,7 +13,16 @@ const getAll = async () => {
   return result;
 };
 
+// lista uma receita específica
+const findById = async (id) => {
+  if (!ObjectId.isValid(id)) return null;
+
+  const result = await connection().then((db) => db.collection('recipes').findOne(ObjectId(id)));
+  return result;
+};
+
 module.exports = {
   add,
   getAll,
+  findById,
 };

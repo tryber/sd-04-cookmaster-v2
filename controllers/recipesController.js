@@ -25,7 +25,17 @@ const show = async (req, res) => {
   }
 };
 
+// lista uma receita por id
+const showRecipe = async (req, res) => {
+  try {
+    res.status(200).json(req.recipe);
+  } catch (_error) {
+    res.status(501).json({ message: 'Falha ao lista receita' });
+  }
+};
+
 module.exports = {
   add,
   show,
+  showRecipe,
 };

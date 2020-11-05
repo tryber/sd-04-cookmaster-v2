@@ -14,9 +14,17 @@ recipesRouter.post(
   controllers.recipesController.add,
 );
 
+// Lista todas as receitas
 recipesRouter.get(
   '/',
   controllers.recipesController.show,
+);
+
+// Lista uma receita específica
+recipesRouter.get(
+  '/:id',
+  recipesValidations.validateRecipeExistsById,
+  controllers.recipesController.showRecipe,
 );
 
 module.exports = recipesRouter;
