@@ -22,17 +22,12 @@ const userAuthentication = async (req, res, next) => {
   // Se o usuário está cadastrado
   // Cria novo objeto para montar a chave JWT
   // Obtên os campos _id, email e role do obejto existEmail
-  const { _id } = existEmail;
-  const { email, role } = existEmail;
+  const { _id, email, role } = existEmail;
 
   // Construindo novo objeto user
-  const user = {
-    id: _id,
-    email: email,
-    role: role,
-  };
+  const user = { id: _id, email: email, role: role };
 
-  // Passa o objeto para próximo midlleware
+  // Passando o objeto para próximo midlleware
   req.user = user;
   next();
 };

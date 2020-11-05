@@ -1,4 +1,3 @@
-const { DB, ObjectId } = require('mongodb');
 const connection = require('./connection');
 
 const add = async (name, ingredients, preparation, userId) => {
