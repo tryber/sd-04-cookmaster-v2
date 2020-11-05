@@ -15,6 +15,17 @@ const add = async (req, res) => {
   }
 };
 
+// lista todas as receitas
+const show = async (req, res) => {
+  try {
+    const recipes = await recipeModel.getAll();
+    res.status(200).json(recipes);
+  } catch (_error) {
+    res.status(501).json({ message: 'Falha ao listar receitas' });
+  }
+};
+
 module.exports = {
   add,
+  show,
 };

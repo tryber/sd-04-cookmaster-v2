@@ -6,6 +6,13 @@ const add = async (name, ingredients, preparation, userId) => {
   return result.ops[0];
 };
 
+// lista todas as receitas
+const getAll = async () => {
+  const result = await connection().then((db) => db.collection('recipes').find().toArray());
+  return result;
+};
+
 module.exports = {
   add,
+  getAll,
 };
