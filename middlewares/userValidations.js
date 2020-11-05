@@ -67,12 +67,11 @@ const validateLogin = async (req, res, next) => {
 const authenticateToken = (req, res, next) => {
   try {
     const token = req.headers.authorization;
-  
+
     const { user } = validateToken(token);
-  
+
     req.user = user;
     next();
-
   } catch (_error) {
     return res.status(401).json({ message: 'jwt malformed' });
   }
