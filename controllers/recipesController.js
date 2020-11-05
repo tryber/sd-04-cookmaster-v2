@@ -40,6 +40,15 @@ router.put('/:id', validateExistsToken, validateJWT, async (req, res) => {
   }
 });
 
+router.delete('/:id', validateExistsToken, validateJWT, async (req, res) => {
+  try {
+    await recipesModel.removeRecipe(req.params.id);
+    res.status(204).json({ message: 'recipe deleted' });
+  } catch (_e) {
+    res.status(401);
+  }
+});
+
 router.get('/', recipesValidations.listRecipes);
 // router.get('/', validateJWT, recipesValidations.listRecipes);
 
