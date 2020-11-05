@@ -1,4 +1,5 @@
 const userModel = require('../models/userModel');
+const validateToken = require('./validateToken');
 
 // Validações - Cadastro
 const registerRequiredFields = (req, res, next) => {
@@ -62,10 +63,26 @@ const validateLogin = async (req, res, next) => {
   next();
 };
 
+// autentificação do token
+const authenticateToken = (req, res, next) => {
+  try {
+    const token = req.headers.authorization;
+  
+    const { user } = validateToken(token);
+  
+    req.user = user;
+    next();
+
+  } catch (_error) {
+    return res.status(401).json({ message: 'jwt malformed' });
+  }
+};
+
 module.exports = {
   registerRequiredFields,
   isValidEmail,
   validateUserExistsByEmail,
   loginRequiredFields,
   validateLogin,
+  authenticateToken,
 };

@@ -28,4 +28,7 @@ app.use('/users', router.usersRouter);
 // Login
 app.use('/login', router.loginRouter);
 
+// Recipes
+app.use('/recipes', router.recipesRouter);
+
 app.listen(port, () => console.log(`Funfou!!! Listening on port: ${port}`));
