@@ -2,12 +2,15 @@ const express = require('express');
 const userControllers = require('./controllers/userControllers');
 const loginControllers = require('./controllers/loginControllers');
 const recipeControllers = require('./controllers/recipeControllers');
+
 const bodyParser = require('body-parser');
 
 const app = express();
 const port = 3000;
 // app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+app.use(express.static(__dirname + '/uploads'));
 
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (request, response) => {

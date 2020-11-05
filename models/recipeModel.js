@@ -12,9 +12,9 @@ const getAllRecipes = async () => {
   }
 };
 
-const registerRecipe = async (name, ingredients, preparation) => {
+const registerRecipe = async (name, ingredients, preparation, userId) => {
   const result = await connection().then((db) =>
-    db.collection('recipes').insertOne({ name, ingredients, preparation }),
+    db.collection('recipes').insertOne({ name, ingredients, preparation, userId }),
   );
   return result.ops[0];
 };
@@ -50,12 +50,25 @@ const updateRecipe = async (id, name, ingredients, preparation) => {
 
 const removeRecipe = async (id) => {
   try {
-    console.log('removeRecipe', id);
+    // console.log('removeRecipe', id);
     const db = await connection();
     await db.collection('recipes').deleteOne({ _id: ObjectId(id) });
     return true;
   } catch (e) {
     print(e);
+  }
+};
+
+const addImage = async (id) => {
+  try {
+    const db = await connection();
+    await db
+      .collection('recipes')
+      .updateOne({ _id: ObjectId(id) }, { $set: { image: `localhost:3000/images/${id}.jpeg` } });
+
+    return true;
+  } catch (err) {
+    console.log('Error', err);
   }
 };
 
@@ -65,4 +78,5 @@ module.exports = {
   findRecipeById,
   updateRecipe,
   removeRecipe,
+  addImage,
 };

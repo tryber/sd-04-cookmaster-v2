@@ -2,8 +2,37 @@ const express = require('express');
 const recipeModel = require('../models/recipeModel');
 const recipeValidation = require('../middlewares/recipeValidation');
 const validateJWT = require('../auth/validateJWT');
+const multer = require('multer');
+const storeImage = require('../controllers/imageUpload');
+const upload = multer({ dest: 'uploads' });
 
 const router = express.Router();
+
+// Post/ upload a picture
+
+router.put(
+  '/:id/image/',
+  recipeValidation.validateRecipeExistsById,
+  validateJWT.validateJWTToUpdate,
+  storeImage,
+  async (req, res) => {
+    try {
+      const file = req.file;
+      const recipe = await recipeModel.findRecipeById(req.params.id);
+      const updatedRecipe = await recipeModel.addImage(recipe._id);
+      const result = {
+        ...recipe,
+        image: `localhost:3000/images/${recipe._id}.jpeg`,
+      };
+      res.status(200).json(result);
+    } catch (_e) {
+      res.status(501).json({
+        message: 'Erro ao puxar todas receitas',
+        _e,
+      });
+    }
+  },
+);
 
 // Post/Create one recipe
 
@@ -12,9 +41,11 @@ router.post(
   validateJWT.validateJWTBasic,
   recipeValidation.validatePresenceOfNameIngredientsPreparation,
   async (req, res) => {
+    const { _id } = req.data;
     try {
       const { name, ingredients, preparation } = req.body;
-      const recipe = await recipeModel.registerRecipe(name, ingredients, preparation);
+      const recipe = await recipeModel.registerRecipe(name, ingredients, preparation, _id);
+      // console.log('post create recipe', recipe);
       res.status(201).json({ recipe });
     } catch (_e) {
       res.status(501).json({
