@@ -1,15 +1,13 @@
 const validateToken = require('../authorization/validateToken');
 
-const validationToken = (req, res, next) => {
+const validationToken = async (req, res, next) => {
   try {
     const token = req.headers.authorization;
-    console.log(token);
-    const user = validateToken(token);
-    console.log(user);
+    const user = await validateToken(token);
     req.user = user;
     next();
   } catch (error) {
-    res.status(500).json({ message: 'token inválido' });
+    res.status(401).json({ message: 'jwt malformed' });
   }
 };
 

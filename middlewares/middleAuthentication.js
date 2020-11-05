@@ -1,33 +1,39 @@
 const userModel = require('../models/usersModel');
+const validation = require('../middlewares/validations');
 
 const userAuthentication = async (req, res, next) => {
-  const { email, password } = req.body;
+  const userEmail = req.body.email;
+  const password = req.body.password;
 
-  // console.log('password' + password);
-  const existEmail = await userModel.findByEmail(email);
-
-  if (typeof password === 'undefined' || typeof email === 'undefined') {
-    return res.status(401).json({ message: 'All fields must be filled' });
+  // console.log(userEmail + '-' + password);
+  // Valida os campos email e password do recipes
+  const isError = await validation.fieldsLogin.validate({ userEmail, password });
+  if (isError.error) {
+    return res.status(401).json({ message: isError.error.message });
   }
 
+  // console.log('password' + password);
+  // Verifica se o usuário está cadastrodo no banco
+  const existEmail = await userModel.findByEmail(userEmail);
   if (!existEmail) {
     return res.status(401).json({ message: 'Incorrect username or password' });
   }
 
-  // console.log(existEmail.user.password);
-  if (existEmail.user.password !== password) {
-    return res.status(401).json({ message: 'Incorrect username or password' });
-  }
+  // Se o usuário está cadastrado
+  // Cria novo objeto para montar a chave JWT
+  // Obtên os campos _id, email e role do obejto existEmail
+  const { _id } = existEmail;
+  const { email, role } = existEmail;
 
-  // Construindo novo objeto
+  // Construindo novo objeto user
   const user = {
-    id: existEmail.id,
-    email: existEmail.user.email,
-    role: existEmail.user.role,
+    id: _id,
+    email: email,
+    role: role,
   };
 
+  // Passa o objeto para próximo midlleware
   req.user = user;
-
   next();
 };
 

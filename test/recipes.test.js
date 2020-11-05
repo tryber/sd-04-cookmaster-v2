@@ -1318,13 +1318,12 @@ describe('10 - Crie ume endpoint para visualizar a imagem de uma receita', () =>
       .put(`${url}/recipes/${resultRecipes.recipe._id}/image`, { body: formData })
       .expect('status', 200);
 
-
     await frisby
       .setup({
         request: {
           headers: {
             Authorization: result.token,
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
           },
         },
       })
@@ -1332,11 +1331,9 @@ describe('10 - Crie ume endpoint para visualizar a imagem de uma receita', () =>
       .expect('status', 200)
       .then((response) => {
         const { headers } = response;
-        const symbol = Object.getOwnPropertySymbols(headers)[0]
-        const contentType = headers[symbol]['content-type'][0]
-        expect(contentType).toBe('image/jpeg')
-
+        const symbol = Object.getOwnPropertySymbols(headers)[0];
+        const contentType = headers[symbol]['content-type'][0];
+        expect(contentType).toBe('image/jpeg');
       });
   });
-
 });
