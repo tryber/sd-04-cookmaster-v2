@@ -2,7 +2,6 @@ const express = require('express');
 const recipeModel = require('../models/recipeModel');
 const recipeValidation = require('../middlewares/recipeValidation');
 const validateJWT = require('../auth/validateJWT');
-const multer = require('multer');
 const storeImage = require('../controllers/imageUpload');
 
 const router = express.Router();
@@ -18,12 +17,11 @@ router.put(
     try {
       const recipe = await recipeModel.findRecipeById(req.params.id);
       const { _id } = recipe;
-      const updatedRecipe = await recipeModel.addImage(_id);
+      await recipeModel.addImage(_id);
       const result = {
         ...recipe,
         image: `localhost:3000/images/${_id}.jpeg`,
       };
-      console.log('test :', result);
       res.status(200).json(result);
     } catch (_e) {
       res.status(501).json({
