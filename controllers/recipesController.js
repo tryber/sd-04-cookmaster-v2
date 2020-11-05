@@ -13,7 +13,7 @@ router.post('/', validateToken.validationToken, validateRecipe.validateRecipe, a
     const recipe = await recipeModel.add(name, ingredients, preparation, id);
     return res.status(201).json({ recipe });
   } catch (error) {
-    res.status(501).json({ message: 'Falha ao criar receita' });
+    res.status(501).json({ message: 'Falha ao criar receita.' });
   }
 });
 
@@ -21,7 +21,9 @@ router.get('/', async (req, res) => {
   try {
     const recipes = await recipeModel.findAll();
     return res.status(200).json(recipes);
-  } catch (error) {}
+  } catch (error) {
+    res.status(501).json({ message: 'Falha ao exibir as receitas.' });
+  }
 });
 
 module.exports = router;
