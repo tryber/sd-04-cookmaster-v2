@@ -23,7 +23,7 @@ recipes.post('/', validateJWT, async (req, res) => {
   }
 });
 
-// rota pra listar todas as receitas sem validacao
+// rota pra listar todas as receitas sem validacaod
 recipes.get('/', async (_req, res) => {
   try {
     const allRecipes = await recipeModel.getAllRecipes();
