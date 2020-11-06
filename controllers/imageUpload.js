@@ -1,7 +1,6 @@
 // Inspired by Trybe lecture 28-2
 
 const multer = require('multer');
-const path = require('path');
 
 const storage = multer.diskStorage({
   destination: 'images',
