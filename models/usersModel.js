@@ -6,7 +6,13 @@ const getAllUsers = async () => {
   return users;
 };
 
-const addUser = async (email, password, name, role) => {
+const getUserByMail = async (email) => {
+  const db = await connection();
+  const user = await db.collection('users').findOne({ email });
+  return user;
+};
+
+const addUser = async (email, password, name, role = 'user') => {
   const db = await connection();
   const user = await db.collection('users').insertOne({ email, password, name, role });
   // o OPS retorna todos os objetos que foram inseridos na operação acima.
@@ -17,5 +23,6 @@ const addUser = async (email, password, name, role) => {
 
 module.exports = {
   getAllUsers,
+  getUserByMail,
   addUser,
 };

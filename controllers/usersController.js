@@ -1,30 +1,53 @@
 const express = require('express');
 const usersModel = require('../models/usersModel');
-const HTTPStatus = require('../services/httpStatus');
+const { HTTPStatus } = require('../services/httpStatus');
+const { signUpValidation, signInValidation } = require('../middlewares/validations');
+const { createToken } = require('../middlewares/auth');
 
 const router = express.Router();
 
-// Mostrar todos os usuários
+// Mostra todos os usuários no metodo GET endpoint: http://localhost:3000/users/
 router.get('/', async (_req, res) => {
   try {
     const allUser = await usersModel.getAllUsers();
     return res.status(HTTPStatus.OK).json(allUser);
-  } catch (_e) {
+  } catch (e) {
+    console.log(e);
     return res.status(HTTPStatus.INTERNAL_ERROR);
   }
 });
 
-// Cadastro de usuário
-router.post('/', async (req, res) => {
-  try {
-    const { email, password, name, role } = req.body;
+// Cadastra um usuário no metodo POST endpoint: http://localhost:3000/users/
+router.post('/',
+  signUpValidation,
+  async (req, res) => {
+    try {
+      const { email, password, name } = req.body;
 
-    const newUser = await usersModel.addUser(email, password, name, role);
+      // req.body.role injetado diretamente no addUser, com valor 'user'.
+      const user = await usersModel.addUser(email, password, name);
 
-    return res.status(HTTPStatus.CREATED).json(newUser);
-  } catch (_err) {
-    return res.status(HTTPStatus.BAD_REQUEST);
-  }
-});
+      return res.status(HTTPStatus.CREATED).json({ user });
+    } catch (_err) {
+      return res.status(HTTPStatus.BAD_REQUEST);
+    }
+  });
+
+router.post('/',
+  signInValidation,
+  async (req, res) => {
+    const { email, password } = req.body;
+
+    const user = await usersModel.getUserByMail(email);
+
+    if (email !== user.email || password !== user.password) {
+      return res.status(401)
+        .json({ message: 'Incorrect username or password' });
+    }
+
+    const token = createToken({ email });
+
+    return res.status(200).json({ token });
+  });
 
 module.exports = router;
