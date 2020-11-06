@@ -1,7 +1,7 @@
 const { Router } = require('express');
 // const { ObjectId } = require('mongodb');
 
-const validator = require('../service/validador');
+const { schemaRecipe } = require('../service/validador');
 const recipeModel = require('../models/recipeModel');
 const validateJWT = require('../service/validateJWT');
 
@@ -13,9 +13,9 @@ recipes.post('/', validateJWT, async (req, res) => {
   const { _id: userId } = req.user;
   try {
     const image = null;
-    const val = await validator.schemaRecipe.validate({ name, ingredients, preparation });
+
     // console.log('val')
-    if (val) {
+    if (await schemaRecipe.validate({ name, ingredients, preparation })) {
       const recipe = await recipeModel.addRecipe(name, ingredients, preparation, image, userId);
       return res.status(201).json({ recipe });
     }

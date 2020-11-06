@@ -1,5 +1,5 @@
 const userModel = require('../models/usersModel');
-const validador = require('../service/validador');
+const { schemaAdd } = require('../service/validador');
 
 // validar dados da req e adicionar usuario
 const addUserController = async (req, res) => {
@@ -7,8 +7,7 @@ const addUserController = async (req, res) => {
   if (!body.role) body.role = 'user';
   // const { name: nome, email, password } = body;
   try {
-    const valida = await validador.schemaAdd.validate(body);
-    if (valida) {
+    if (await schemaAdd.validate(body)) {
       const checkEmail = await userModel.getUserByEmail(body.email);
       if (!checkEmail) {
         const userAdd = await userModel.addUser(body);
