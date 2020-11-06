@@ -22,7 +22,7 @@ const addUserController = async (req, res) => {
   }
 };
 
-// rota de login
+// rota de logina
 
 module.exports = {
   addUserController,
