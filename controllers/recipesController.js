@@ -1,6 +1,7 @@
 const express = require('express');
 const validateToken = require('../middlewares/middleValidateToken');
 const validateRecipe = require('../middlewares/middleValidateRecipes');
+const userModel = require('../models/usersModel');
 const recipeModel = require('../models/recipesModel');
 
 const router = express.Router();
@@ -32,6 +33,16 @@ router.get('/:id', async (req, res) => {
     return res.status(200).json(recipe);
   } catch (error) {
     res.status(404).json({ message: 'recipe not found' });
+  }
+});
+
+router.put('/:id', validateToken.validationToken, async (req, res) => {
+  try {
+    const { name, ingredients, preparation } = req.body;    
+    const recipeUpdate = await recipeModel.update(req.params.id, name, ingredients, preparation);
+    return res.status(200).json(recipeUpdate.value);
+  } catch (error) {
+    res.status(501).json({ message: 'Falha ao atualizar receita.', error });
   }
 });
 

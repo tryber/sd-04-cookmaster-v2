@@ -40,7 +40,6 @@ const fieldsLogin = Joi.object().keys({
       'any.required': 'All fields must be filled',
     }),
   password: Joi.string()
-    .min(6)
     .required()
     .messages({
       'string.base': 'Invalid entries. Try again.',
