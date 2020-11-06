@@ -33,21 +33,4 @@ router.post('/',
     }
   });
 
-router.post('/',
-  signInValidation,
-  async (req, res) => {
-    const { email, password } = req.body;
-
-    const user = await usersModel.getUserByMail(email);
-
-    if (email !== user.email || password !== user.password) {
-      return res.status(401)
-        .json({ message: 'Incorrect username or password' });
-    }
-
-    const token = createToken({ email });
-
-    return res.status(200).json({ token });
-  });
-
 module.exports = router;
