@@ -6,7 +6,7 @@ const validationToken = async (req, res, next) => {
   try {
     const token = req.headers.authorization;
 
-    //Verifica se o token existe
+    // Verifica se o token existe
     if (!token) return res.status(401).json({ message: 'missing auth token' });
 
     if (!jwt.verify(token, secret)) {

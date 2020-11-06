@@ -9,7 +9,7 @@ const userAuthentication = async (req, res, next) => {
   // Valida os campos email e password do recipes
   const isError = await validation.fieldsLogin.validate({ userEmail, password });
 
-  if (isError.error) {   
+  if (isError.error) {
     return res.status(401).json({ message: isError.error.message });
   }
 
