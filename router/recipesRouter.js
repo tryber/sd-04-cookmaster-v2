@@ -34,4 +34,11 @@ recipesRouter.put(
   controllers.recipesController.update,
 );
 
+// Exckusão de uma receita
+recipesRouter.delete(
+  '/:id',
+  userValidations.authenticateToken,
+  controllers.recipesController.remove,
+);
+
 module.exports = recipesRouter;

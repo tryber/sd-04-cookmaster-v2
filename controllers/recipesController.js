@@ -47,9 +47,21 @@ const update = async (req, res) => {
   }
 };
 
+// Exclui uma receita
+const remove = async (req, res) => {
+  try {
+    const { id } = req.params;
+    await recipesModel.remove(id);
+    res.status(204).json();
+  } catch (_error) {
+    res.status(501).json({ message: 'Falha ao excluir receita' });
+  }
+};
+
 module.exports = {
   add,
   show,
   showRecipe,
   update,
+  remove,
 };
