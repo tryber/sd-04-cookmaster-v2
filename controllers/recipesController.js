@@ -13,8 +13,9 @@ recipes.post('/', validateJWT, async (req, res) => {
   const { _id: userId } = req.user;
   const image = null;
   try {
-    const valida = await validator.schemaRecipe.validate({ name, ingredients, preparation });
-    if (valida) {
+    const val = await validator.schemaRecipe.validate({ name, ingredients, preparation });
+    // console.log('val')
+    if (val) {
       const recipe = await recipeModel.addRecipe(name, ingredients, preparation, image, userId);
       return res.status(201).json({ recipe });
     }
