@@ -12,15 +12,16 @@ recipes.post('/', validateJWT, async (req, res) => {
   const { name, ingredients, preparation } = req.body;
   const { _id: userId } = req.user;
   const image = null;
-  try {
-    // console.log('val')
-    if (await schemaRecipe.validate({ name, ingredients, preparation })) {
-      const recipe = await recipeModel.addRecipe(name, ingredients, preparation, image, userId);
-      return res.status(201).json({ recipe });
-    }
-  } catch (erro) {
-    return res.status(400).json({ message: `${erro.errors[0]}` });
+  // try {
+  // console.log('val')
+  if (await schemaRecipe.validate({ name, ingredients, preparation })) {
+    const recipe = await recipeModel.addRecipe(name, ingredients, preparation, image, userId);
+    return res.status(201).json({ recipe });
   }
+  // } catch (erro) {
+  // return res.status(400).json({ message: `${erro.errors[0]}` });
+  return res.status(400).json({ message: 'nao deu' });
+  // }
 });
 
 // rota pra listar todas as receitas sem validacaod
