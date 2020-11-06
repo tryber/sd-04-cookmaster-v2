@@ -422,6 +422,12 @@ Crie um arquivo `seed.js` na raiz do projeto com uma query do Mongo DB capaz de 
 
 Obs.: Esse usuário tem o poder de criar, deletar, atualizar ou remover qualquer receita, independente de quem a cadastrou. Isso será solicitado ao longo dos próximos requisitos.
 
+### Além disso, as seguintes verificações serão feitas:    
+
+**[Será validado que o projeto tem um arquivo de seed, com um comando para inserir um usuário root e verifico que é possivel fazer login]**    
+
+Será validado no arquivo `seed.js` existe a query para criar um usuário root
+
 ### 7 - Crie um endpoint para a edição de uma receita
 
 - A rota deve ser (`/recipes/:id`).
