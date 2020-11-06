@@ -233,6 +233,7 @@ describe('4 - Crie um endpoint para a listagem de receitas', () => {
       .then((response) => {
         const { body } = response;
         const result = JSON.parse(body);
+        console.log('test result', result);
         expect(result[0].name).toBe('banana caramelizada');
         expect(result[0].ingredients).toBe('banana, açúcar');
         expect(result[0].preparation).toBe(
@@ -1107,6 +1108,7 @@ describe('9 - Crie um endpoint para a adição de uma imagem a uma receita', () 
       .then((response) => {
         const { body } = response;
         result = JSON.parse(body);
+        console.log('reponse 2', result);
         expect(result.image).toBe(`localhost:3000/images/${resultRecipes.recipe._id}.jpeg`);
       });
   });
