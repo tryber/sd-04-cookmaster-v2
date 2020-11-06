@@ -1,8 +1,7 @@
 const express = require('express');
 const usersModel = require('../models/usersModel');
 const { HTTPStatus } = require('../services/httpStatus');
-const { signUpValidation, signInValidation } = require('../middlewares/validations');
-const { createToken } = require('../middlewares/auth');
+const { signUpValidation } = require('../middlewares/validations');
 
 const router = express.Router();
 
