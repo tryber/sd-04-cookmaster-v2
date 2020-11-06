@@ -1,4 +1,4 @@
-const recipeModel = require('../models/recipesModel');
+const recipesModel = require('../models/recipesModel');
 
 // cadastra uma receita
 const add = async (req, res) => {
@@ -7,7 +7,7 @@ const add = async (req, res) => {
     const userId = req.user.id;
 
     // console.log('Req.user: ', req.user);
-    const recipe = await recipeModel.add(name, ingredients, preparation, userId);
+    const recipe = await recipesModel.add(name, ingredients, preparation, userId);
     res.status(201).json({ recipe });
   } catch (_error) {
     console.log(_error.message);
@@ -18,7 +18,7 @@ const add = async (req, res) => {
 // lista todas as receitas
 const show = async (req, res) => {
   try {
-    const recipes = await recipeModel.getAll();
+    const recipes = await recipesModel.getAll();
     res.status(200).json(recipes);
   } catch (_error) {
     res.status(501).json({ message: 'Falha ao listar receitas' });
@@ -34,8 +34,22 @@ const showRecipe = async (req, res) => {
   }
 };
 
+// editar uma receita
+const update = async (req, res) => {
+  try {
+    const { name, ingredients, preparation } = req.body;
+    const { id } = req.params;
+    await recipesModel.update(id, name, ingredients, preparation);
+    const recipe = await recipesModel.findById(id);
+    res.status(200).json(recipe);
+  } catch (_error) {
+    res.status(501).json({ message: 'Falha ao editar receita' });
+  }
+};
+
 module.exports = {
   add,
   show,
   showRecipe,
+  update,
 };

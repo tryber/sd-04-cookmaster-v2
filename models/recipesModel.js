@@ -21,8 +21,20 @@ const findById = async (id) => {
   return result;
 };
 
+// edita uma receita
+const update = async (id, name, ingredients, preparation) => {
+  await connection().then((db) => db.collection('recipes').updateOne({ _id: ObjectId(id) }, { $set: { name, ingredients, preparation } }));
+};
+
+// deleta uma receita
+const remove = async (id) => {
+  await connection().then((db) => db.collection('recipes').deleteOne({ _id: ObjectId(id) }));
+};
+
 module.exports = {
   add,
   getAll,
   findById,
+  update,
+  remove,
 };

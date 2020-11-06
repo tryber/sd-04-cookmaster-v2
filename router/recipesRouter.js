@@ -27,4 +27,11 @@ recipesRouter.get(
   controllers.recipesController.showRecipe,
 );
 
+// Edita uma receita
+recipesRouter.put(
+  '/:id',
+  userValidations.authenticateToken,
+  controllers.recipesController.update,
+);
+
 module.exports = recipesRouter;

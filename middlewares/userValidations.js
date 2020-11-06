@@ -68,6 +68,10 @@ const authenticateToken = (req, res, next) => {
   try {
     const token = req.headers.authorization;
 
+    if (!token) {
+      return res.status(401).json({ message: 'missing auth token' });
+    }
+
     const { user } = validateToken(token);
 
     req.user = user;
