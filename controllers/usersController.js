@@ -5,9 +5,9 @@ const validador = require('../service/validador');
 const addUserController = async (req, res) => {
   const { body } = req;
   if (!body.role) body.role = 'user';
-  const { name: nome, email, password } = body;
+  // const { name: nome, email, password } = body;
   try {
-    const valida = await validador.schemaAdd.validate({ name: nome, email, password });
+    const valida = await validador.schemaAdd.validate(body);
     if (valida) {
       const checkEmail = await userModel.getUserByEmail(body.email);
       if (!checkEmail) {
