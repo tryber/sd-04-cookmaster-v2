@@ -1,3 +1,5 @@
+const { findByEmail } = require("../models/userModel");
+
 const isValidUser = async (req, res, next) => {
   const { name, email, password } = req.body;
   const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;

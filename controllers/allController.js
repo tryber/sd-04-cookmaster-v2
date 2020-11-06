@@ -1,10 +1,10 @@
 const { getAll, getRecipeById, searchRecipeModel, newRecipeInsert, updateRecipeModel, getRecipeByUser, deleteModel } = require('../models/allModels');
 const { findById } = require('../models/userModel');
 
-const listRecipes = async (req, res) => {
+const listRecipes = async (_req, res) => {
   const recipes = await getAll();
 
-  return res.render('home', { recipes, user: req.user });
+  return res.status(200).json({ recipes });
 };
 
 const recipeDetails = async (req, res) => {
@@ -12,7 +12,22 @@ const recipeDetails = async (req, res) => {
 
   const recipe = await getRecipeById(id);
 
-  return res.render('recipeDetails', { recipe, user: req.user });
+  if(!recipe) {
+    res.status(404).jason({ message: 'recipe not found' });
+  }
+
+  return res.status(200).json({ recipe });
+};
+
+const NewRecipe = async (req, res) => {
+  const { name, ingredients, preparation } = req.body;
+  const { userId } = req.params;
+  
+  if(!name || !ingredients || !preparation) {
+    return res.status(400).json({ message: "Invalid entries. Try again." });
+  }
+   const recipe = await newRecipeInsert({ name, ingredients, preparation, userId});
+   return recipe;
 };
 
 const searchRecipe = async (req, res) => {
@@ -22,15 +37,6 @@ const searchRecipe = async (req, res) => {
 
   const recipes = await searchRecipeModel(q);
   return res.render('search', { recipes, user: req.user });
-};
-
-const NewRecipe = async (req, res) =>
-  res.render('newRecipe', { message: null, user: req.user });
-
-const newRecipeForm = async (req, res) => {
-  const formInfo = req.body;
-  await newRecipeInsert(req.user, formInfo);
-  res.redirect('/');
 };
 
 const editRecipe = async (req, res) => {
@@ -84,7 +90,6 @@ module.exports = {
   recipeDetails,
   searchRecipe,
   NewRecipe,
-  newRecipeForm,
   editRecipe,
   updateRecipe,
   myRecipes,

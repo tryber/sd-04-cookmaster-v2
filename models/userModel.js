@@ -1,14 +1,8 @@
 const connection = require('./connection');
 
-const findByEmail = async (emaildig) => {
+const findByEmail = async (email) => {
   const db = await connection();
-  const userTable = await db.getTable('users')
-    .select([])
-    .where('email = :email')
-    .bind('email', emaildig)
-    .execute();
-  const [id, email, password, name, lastName] = await userTable.fetchOne();
-  return { id, name, lastName, email, password };
+  return db.then((db) => db.collection('users').findOne({ email }));
 };
 
 const findById = async (Id) => {
@@ -18,12 +12,11 @@ const findById = async (Id) => {
 
 };
 
-const register = async (data) => {
-  let result = '';
+const register = async (name, email, password, role) => {
   const db = await connection();
-  result = await db.collection('users').insertOne(data);
-
-  return result.ops[0];
+  return db
+    .then((db) => db.collection('users').insertOne({ name, email, password, role }))
+    .then(({ insertedId }) => ({ user: { name, email, password, role, _id: insertedId } }));
 };
 
 const updateUser = async (Id, { name, lastName, password, email }) => {
@@ -37,7 +30,6 @@ const updateUser = async (Id, { name, lastName, password, email }) => {
 module.exports = {
   findByEmail,
   findById,
-  isValid,
   register,
   updateUser,
 };

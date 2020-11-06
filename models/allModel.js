@@ -11,16 +11,9 @@ const getRecipeById = async (Id) => {
   return db.then((db) => db.collection('recipes').findOne(ObjectId(id)));
 };
 
-const searchRecipeModel = async (q) => {
-
-};
-
 const newRecipeInsert = async (data) => {
-  let result = '';
   const db = await connection();
-  result = await db.collection('recipes').insertOne(data);
-
-  return result.ops[0];
+  return await db.collection('recipes').insertOne(data);
 };
 
 const updateRecipeModel = async (Id, nameRec, ingredients, instructions) => {
@@ -31,10 +24,6 @@ const updateRecipeModel = async (Id, nameRec, ingredients, instructions) => {
   await connection().then((db) => db.collection('recipes').updateOne({ _id: ObjectId(id) }, { $set: { nameRec, ingredients, instructions } }));
   const newProduct = await getRecipeById(Id);
   return newProduct;
-};
-
-const getRecipeByUser = async (userId) => {
-
 };
 
 const deleteModel = async (recipeId) => {
@@ -49,9 +38,7 @@ const deleteModel = async (recipeId) => {
 module.exports = {
   getAll,
   getRecipeById,
-  searchRecipeModel,
   newRecipeInsert,
   updateRecipeModel,
-  getRecipeByUser,
   deleteModel,
 };
