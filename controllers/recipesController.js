@@ -11,8 +11,8 @@ const recipes = Router();
 recipes.post('/', validateJWT, async (req, res) => {
   const { name, ingredients, preparation } = req.body;
   const { _id: userId } = req.user;
-  const image = null;
   try {
+    const image = null;
     const val = await validator.schemaRecipe.validate({ name, ingredients, preparation });
     // console.log('val')
     if (val) {
