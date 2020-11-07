@@ -6,7 +6,7 @@ const headers = {
 };
 
 // secret deve ser colocado no .env, mas para o avaliador rodar colocado aqui.
-const secret = 'meusegredosecreto';
+const secret = require('./secret');
 
 const createToken = (payload) => {
   const token = jwt.sign(payload, secret, headers);

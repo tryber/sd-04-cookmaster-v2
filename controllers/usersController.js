@@ -1,7 +1,7 @@
 const express = require('express');
 const usersModel = require('../models/usersModel');
 const { HTTPStatus } = require('../services/httpStatus');
-const { signUpValidation } = require('../middlewares/validations');
+const { signUpValidation } = require('../middlewares/loginValidations');
 
 const router = express.Router();
 
