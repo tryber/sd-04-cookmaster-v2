@@ -5,11 +5,9 @@ const register = async (req, res) => {
   const role = 'user';
 
   const user = userModel.register(name, email, password, role);
-  res.statu(201).json({ user });
+  res.status(201).json({ user });
 };
 
 module.exports = {
   register,
-  updateUserPage,
-  updateUser,
 };

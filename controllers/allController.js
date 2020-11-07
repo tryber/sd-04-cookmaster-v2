@@ -32,11 +32,5 @@ const NewRecipe = async (req, res) => {
 module.exports = {
   listRecipes,
   recipeDetails,
-  searchRecipe,
   NewRecipe,
-  editRecipe,
-  updateRecipe,
-  myRecipes,
-  deleteRecipePage,
-  deleteRecipe,
 };
