@@ -29,29 +29,6 @@ const NewRecipe = async (req, res) => {
   return res.status(201).json({ recipe });
 };
 
-/*
-const searchRecipe = async (req, res) => {
-
-};
-
-const editRecipe = async (req, res) => {
-};
-
-const updateRecipe = async (req, res) => {
-
-};
-
-const myRecipes = async (req, res) => {
-};
-
-const deleteRecipePage = async (req, res) => {
-
-};
-
-const deleteRecipe = async (req, res) => {
-
-}; */
-
 module.exports = {
   listRecipes,
   recipeDetails,
