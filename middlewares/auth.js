@@ -1,17 +1,18 @@
-const { findByEmail } = require('../models/userModel');
+const userModel = require('../models/userModel');
 const jwt = require('jsonwebtoken');
 
 const JWT_SECRET = 'opaopaopa!';
 
 const isValidUser = async (req, res, next) => {
   const { name, email, password } = req.body;
-  const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-  const exist = await findByEmail(email);
+  const emailRegex = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
 
-  if (!name || !email || !password || emailRegex.test(email)) {
+  if (!name || !email || !password || !emailRegex.test(email)) {
     return res.status(400).json({ message: 'Invalid entries. Try again.' });
   }
-  if (exist.length > 0) return res.status(409).json({ message: 'Email already registered' });
+  const exist = await userModel.findByEmail(email);
+
+  if (exist) return res.status(409).json({ message: 'Email already registered' });
 
   next();
 };
