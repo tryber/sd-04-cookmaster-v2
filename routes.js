@@ -18,4 +18,6 @@ routes.delete('/recipes/:id', validateJWT, recipeController.deleteRecipe);
 
 routes.put('/recipes/:id/image', validateJWT, upload.single('image'), recipeController.uploadImage);
 
+routes.post('/recipes/admin', validateJWT, userController.registerAdmin);
+
 module.exports = routes;
