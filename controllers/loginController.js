@@ -7,7 +7,7 @@ module.exports = async (req, res) => {
   const email = req.body;
   const password = req.body;
 
-  if(!email || !password) return res.send(401);
+  if (!email || !password) return res.send(401);
 
   const user = await User.findByEmail(email);
   if (!user || user.password !== password) {

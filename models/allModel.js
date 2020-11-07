@@ -1,18 +1,17 @@
 const connection = require('./connection');
 const { ObjectId } = require('mongodb');
 
-const getAll = async () => {
-  return connection().then((db) => db.collection('recipes').find().toArray());
-};
+const getAll = async () =>
+  connection().then((db) => db.collection('recipes').find().toArray());
+
 
 const getRecipeById = async (Id) => {
   if (!ObjectId.isValid(Id)) return null;
-  return connection().then((db) => db.collection('recipes').findOne(ObjectId(id)));
+  return connection().then((db) => db.collection('recipes').findOne(ObjectId(Id)));
 };
 
-const newRecipeInsert = async (data) => {
-  return connection().collection('recipes').insertOne(data);
-};
+const newRecipeInsert = async (data) =>
+  connection().collection('recipes').insertOne(data);
 
 const updateRecipeModel = async (Id, nameRec, ingredients, instructions) => {
   const product = await getRecipeById(Id);
