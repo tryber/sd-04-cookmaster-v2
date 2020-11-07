@@ -1,7 +1,7 @@
 const connection = require('./connection');
 const { ObjectId } = require('mongodb');
 
-const findByEmail = async (email) =
+const findByEmail = async (email) =>
   connection().then((db) => db.collection('users').findOne({ email }));
 
 const findById = async (Id) => {
