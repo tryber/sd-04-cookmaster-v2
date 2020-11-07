@@ -10,7 +10,7 @@ module.exports = async (req, res) => {
 
   if (!email || !password) return res.status(401).json({ message: 'All fields must be filled' });
 
-  if (emailRegex.test(email)) return res.status(401).json({ message: 'Incorrect username or password' });
+  if (!emailRegex.test(email)) return res.status(401).json({ message: 'Incorrect username or password' });
 
   const user = await User.findByEmail(email);
   if (!user || user.password !== password) {

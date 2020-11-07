@@ -26,7 +26,7 @@ const NewRecipe = async (req, res) => {
     return res.status(400).json({ message: 'Invalid entries. Try again.' });
   }
   const recipe = await newRecipeInsert({ name, ingredients, preparation, userId });
-  return res.status(201).json({ recipe });
+  return res.status(201).json(recipe);
 };
 
 module.exports = {

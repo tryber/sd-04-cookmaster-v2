@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const { userController, allController, userLogin } = require('./controllers');
-const { isValidUser } = require('./middlewares/auth');
+const { isValidUser, authentication } = require('./middlewares/auth');
 
 const app = express();
 app.use(bodyParser.json());
@@ -16,7 +16,7 @@ app.post('/users', isValidUser, userController.register);
 
 app.post('/login', userLogin);
 
-app.post('/recipes', allController.NewRecipe);// logados
+app.post('/recipes', authentication, allController.NewRecipe);// logados
 
 app.get('/recipes/:id', allController.recipeDetails);// logados ou nao
 

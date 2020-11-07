@@ -25,7 +25,7 @@ const authentication = async (req, res, next) => {
   try {
     const payload = jwt.verify(token, JWT_SECRET);
 
-    const user = userModel.findByEmail(payload.useremail);
+    const user = await userModel.findByEmail(payload.useremail);
 
     if (!user) return res.status(401).json({ message: 'user not found' });
 
@@ -33,7 +33,7 @@ const authentication = async (req, res, next) => {
 
     next();
   } catch (_err) {
-    return res.status(401).json({ message: 'seu toke é inválido' });
+    return res.status(401).json({ message: 'seu token é inválido' });
   }
 };
 
