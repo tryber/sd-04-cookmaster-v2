@@ -1,8 +1,8 @@
 const userModel = require('../models/userModel');
 
-const register = async (_req, res) => {
+const register = async (req, res) => {
   const { name, email, password } = req.body;
-  const role = 'user'
+  const role = 'user';
 
   const user = userModel.register(name, email, password, role);
   res.statu(201).json({ user });
@@ -17,15 +17,10 @@ const updateUser = async (req, res) => {
 
   userModel.updateUser(req.user.id, data);
   return res.redirect('/');
-
 };
 
 module.exports = {
-  login,
-  loginForm,
-  logout,
   register,
-  registerForm,
   updateUserPage,
   updateUser,
 };

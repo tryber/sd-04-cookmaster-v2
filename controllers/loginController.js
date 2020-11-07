@@ -10,17 +10,17 @@ module.exports = async (req, res) => {
   if(!email || !password) return res.send(401);
 
   const user = await User.findByEmail(email);
-  if(!user || user.password !== password) {
-    res.statur(401).json({ message: ''});
+  if (!user || user.password !== password) {
+    res.statur(401).json({ message: '' });
   }
 
   const signOptions = {
     algorithm: 'HS256',
-    expiresIn: '15m'
+    expiresIn: '15m',
   };
 
   const { password: _, ...userWithoutPassword } = user;
   const token = jwt.sign(userWithoutPassword, JWT_SECRET, signOptions);
-  
+
   res.status(200).json({ token });
-}
+};

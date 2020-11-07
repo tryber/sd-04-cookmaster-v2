@@ -1,19 +1,17 @@
 const connection = require('./connection');
+const { ObjectId } = require('mongodb');
 
 const getAll = async () => {
-  const db = await connection();
-  return db.then((db) => db.collection('recipes').find().toArray());
+  return connection().then((db) => db.collection('recipes').find().toArray());
 };
 
 const getRecipeById = async (Id) => {
   if (!ObjectId.isValid(Id)) return null;
-  const db = await connection();
-  return db.then((db) => db.collection('recipes').findOne(ObjectId(id)));
+  return connection().then((db) => db.collection('recipes').findOne(ObjectId(id)));
 };
 
 const newRecipeInsert = async (data) => {
-  const db = await connection();
-  return await db.collection('recipes').insertOne(data);
+  return connection().collection('recipes').insertOne(data);
 };
 
 const updateRecipeModel = async (Id, nameRec, ingredients, instructions) => {
@@ -21,7 +19,7 @@ const updateRecipeModel = async (Id, nameRec, ingredients, instructions) => {
 
   if (!product) return null;
 
-  await connection().then((db) => db.collection('recipes').updateOne({ _id: ObjectId(id) }, { $set: { nameRec, ingredients, instructions } }));
+  await connection().then((db) => db.collection('recipes').updateOne({ _id: ObjectId(Id) }, { $set: { nameRec, ingredients, instructions } }));
   const newProduct = await getRecipeById(Id);
   return newProduct;
 };
@@ -29,7 +27,7 @@ const updateRecipeModel = async (Id, nameRec, ingredients, instructions) => {
 const deleteModel = async (recipeId) => {
   let result = {};
   result = await getRecipeById(recipeId);
-    connection().then((db) => db.collection('recipes').deleteOne({ _id: ObjectId(id) }));
+  connection().then((db) => db.collection('recipes').deleteOne({ _id: ObjectId(recipeId) }));
 
   if (!result) return null;
   return result;

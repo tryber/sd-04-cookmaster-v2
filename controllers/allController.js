@@ -12,7 +12,7 @@ const recipeDetails = async (req, res) => {
 
   const recipe = await getRecipeById(id);
 
-  if(!recipe) {
+  if (!recipe) {
     res.status(404).jason({ message: 'recipe not found' });
   }
 
@@ -22,12 +22,12 @@ const recipeDetails = async (req, res) => {
 const NewRecipe = async (req, res) => {
   const { name, ingredients, preparation } = req.body;
   const { userId } = req.params;
-  
-  if(!name || !ingredients || !preparation) {
-    return res.status(400).json({ message: "Invalid entries. Try again." });
+
+  if (!name || !ingredients || !preparation) {
+    return res.status(400).json({ message: 'Invalid entries. Try again.' });
   }
-   const recipe = await newRecipeInsert({ name, ingredients, preparation, userId});
-   return res.status(201).json({ recipe });
+  const recipe = await newRecipeInsert({ name, ingredients, preparation, userId });
+  return res.status(201).json({ recipe });
 };
 
 const searchRecipe = async (req, res) => {
