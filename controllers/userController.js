@@ -1,5 +1,4 @@
 const rescue = require('express-rescue');
-const { restart } = require('nodemon');
 const userService = require('../services/userService');
 
 const registerUser = rescue(async (req, res) => {

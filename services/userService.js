@@ -8,7 +8,7 @@ const validateFields = (name, email, password) => {
     return { code: 'invalid_data', message: 'Invalid entries. Try again.' };
   }
   return true;
-}
+};
 
 const registerUser = async (name, email, password) => {
   const validate = validateFields(name, email, password);
@@ -40,10 +40,10 @@ const registerAdmin = async (name, email, password, user) => {
 
   const loggedUser = await userModel.findUserByEmail(user.email);
   if (loggedUser.role !== 'admin') return { message: 'Only admins can register new admins' };
-  const user = await userModel.registerUser(name, email, password, 'admin');
+  const registeredUser = await userModel.registerUser(name, email, password, 'admin');
 
-  return user;
-}
+  return registeredUser;
+};
 
 module.exports = {
   registerUser,
