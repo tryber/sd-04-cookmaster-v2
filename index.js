@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const { userLogin, userController, allController } = require('./controllers');
-const { isValidUser } = require('./service/auth');
+const { isValidUser, authentication } = require('./middlewares/auth');
 
 const app = express();
 app.use(bodyParser.json());
