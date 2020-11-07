@@ -6,11 +6,11 @@ const JWT_SECRET = 'opaopaopa!';
 module.exports = async (req, res) => {
   const { email, password } = req.body;
 
-  //const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+  const emailRegex = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
 
   if (!email || !password) return res.status(401).json({ message: 'All fields must be filled' });
 
-  //if (emailRegex.test(email)) return res.status(401).json({ message: 'Incorrect username or password' });
+  if (emailRegex.test(email)) return res.status(401).json({ message: 'Incorrect username or password' });
 
   const user = await User.findByEmail(email);
   if (!user || user.password !== password) {

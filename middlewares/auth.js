@@ -25,7 +25,7 @@ const authentication = async (req, res, next) => {
   try {
     const payload = jwt.verify(token, JWT_SECRET);
 
-    const user = findByEmail(payload.useremail);
+    const user = userModel.findByEmail(payload.useremail);
 
     if (!user) return res.status(401).json({ message: 'user not found' });
 
