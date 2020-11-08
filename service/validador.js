@@ -8,16 +8,16 @@ const schemaAdd = yup.object().shape({
   email: yup.string().email('Invalid entries. Try again.').required('Invalid entries. Try again.'),
   password: yup
     .string()
-    .typeError('Invalid entries. Try again.')
-    .required('Invalid entries. Try again.'),
+    .required('Invalid entries. Try again.')
+    .typeError('Invalid entries. Try again.'),
 });
 
 const schemaLogin = yup.object().shape({
   email: yup.string().email('Incorrect username or password').required('All fields must be filled'),
   password: yup
     .string()
-    .typeError('Incorrect username or password')
-    .required('All fields must be filled'),
+    .required('All fields must be filled')
+    .typeError('Incorrect username or password'),
 });
 
 const schemaRecipe = yup.object().shape({

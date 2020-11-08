@@ -78,17 +78,17 @@ recipes.delete('/:id', validateJWT, async (req, res) => {
   const { id } = req.params;
   const { _id: tokenId, role } = req.user;
   // console.log('///////', req.user);
-  console.log('userid', tokenId, role);
+  // console.log('userid', tokenId, role);
 
   const recepeId = await recipeModel.recipeById(id);
-  console.log('??????????', recepeId);
+  // console.log('??????????', recepeId);
   if (tokenId === recepeId.userId || role === 'admin') {
-    console.log('testeeeeeeee');
-    // await recipeModel.deleteRecipe(id);
-    const dele = await recipeModel.deleteRecipe(id);
-    console.log(dele);
-    const testeAchar = await recipeModel.recipeById(id);
-    console.log('teste achar', testeAchar);
+    // console.log('testeeeeeeee');
+    await recipeModel.deleteRecipe(id);
+    // const dele = await recipeModel.deleteRecipe(id);
+    // console.log(dele);
+    // const testeAchar = await recipeModel.recipeById(id);
+    // console.log('teste achar', testeAchar);
     return res.status(204);
   }
   return res.status(500).json({ message: 'intern error' });
