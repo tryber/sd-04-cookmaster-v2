@@ -1,3 +1,5 @@
+const recipesModel = require('../models/recipesModel');
+const httpStatus = require('../services/httpStatus');
 const { HTTPStatus } = require('../services/httpStatus');
 
 const addRecipeValidation = (req, res, next) => {
@@ -10,6 +12,18 @@ const addRecipeValidation = (req, res, next) => {
   return next();
 };
 
+const recipeExistsValidation = async (req, res, next) => {
+  const { id } = req.params;
+
+  const recipe = await recipesModel.getRecipeById(id);
+  if (!recipe) {
+    return res.status(HTTPStatus.NOT_FOUND).json({ message: 'recipe not found' });
+  }
+
+  next();
+};
+
 module.exports = {
   addRecipeValidation,
+  recipeExistsValidation
 };

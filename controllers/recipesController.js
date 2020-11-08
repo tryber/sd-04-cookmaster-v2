@@ -1,7 +1,9 @@
 const express = require('express');
 const authValidation = require('../middlewares/authValidation');
-const { addRecipeValidation } = require('../middlewares/recipesValidations');
+const { addRecipeValidation, recipeExistsValidation } = require('../middlewares/recipesValidations');
+const { addRecipe } = require('../models/recipesModel');
 const recipesModel = require('../models/recipesModel');
+const httpStatus = require('../services/httpStatus');
 const { HTTPStatus } = require('../services/httpStatus');
 
 const router = express.Router();
@@ -50,4 +52,36 @@ router.post('/',
     }
   });
 
+// Atualiza receitas (usuário dono da receita ou admin)
+router.put('/:id',
+  addRecipeValidation,
+  authValidation,
+  async (req, res) => {
+    const data = req.body;
+    const { id } = req.params;
+    try {
+      await recipesModel.update(data, id);
+      const updatedRecipe = await recipesModel.getRecipeById(id);
+
+      return res.status(HTTPStatus.OK).json(updatedRecipe);
+    } catch (_error) {
+      return res.status(HTTPStatus.UNPROCESSABLE_ENTITY);
+    }
+  });
+
+// Deleta receitas
+router.delete('/:id',
+  authValidation,
+  recipeExistsValidation,
+  async (req, res) => {
+    try {
+      const { id } = req.params;
+
+      await recipesModel.deleteRecipe(id);
+
+      return res.status(HTTPStatus.NO_CONTENT);
+    } catch (_e) {
+      return res.status(HTTPStatus.UNPROCESSABLE_ENTITY);
+    }
+  });
 module.exports = router;

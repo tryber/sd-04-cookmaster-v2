@@ -5,7 +5,7 @@ const validateToken = require('./auth/validateToken');
 const authValidation = (req, res, next) => {
   const token = req.headers.authorization;
   if (!token) {
-    return res.status(HTTPStatus.UNAUTHORIZE).json({ message: 'missing auth token' });
+    return res.status(HTTPStatus.UNAUTHORIZED).json({ message: 'missing auth token' });
   }
   try {
     // verifico junto ao jwt se o token do meu usuario é valdo.
