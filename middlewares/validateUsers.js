@@ -11,7 +11,8 @@ const verifyEntries = (req, res, next) => {
 };
 
 const verifyIfUserExistsByEmail = async (req, res, next) => {
-  const user = await crudModel.findByEmail('users', req.body.email);
+  const { email } = req.body;
+  const user = await crudModel.findOne('users', { email });
   if (user) {
     return res.status(409).json(createMessages('Email already registered'));
   }
@@ -29,8 +30,33 @@ const validateEmail = (req, res, next) => {
   return next();
 };
 
+const validateLoginFields = (req, res, next) => {
+  const { email, password } = req.body;
+
+  if (email && password) return next();
+
+  return res.status(401).json(createMessages('All fields must be filled'));
+};
+
+const validateLogin = async (req, res, next) => {
+  const { email, password } = req.body;
+
+  const user = await crudModel.findOne('users', { email });
+
+  if (!user || password !== user.password) {
+    return res.status(401).json(createMessages('Incorrect username or password'));
+  }
+
+  const { password: _, name: _name, ...userWhitoutPassword } = user;
+  req.user = userWhitoutPassword;
+
+  return next();
+};
+
 module.exports = {
   verifyEntries,
   verifyIfUserExistsByEmail,
   validateEmail,
+  validateLoginFields,
+  validateLogin,
 };

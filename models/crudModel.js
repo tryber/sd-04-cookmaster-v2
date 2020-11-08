@@ -14,15 +14,9 @@ const findAll = async (collection) => {
   return results;
 };
 
-const findByName = async (collection, name) => {
+const findOne = async (collection, query) => {
   const db = await connection();
-  const result = await db.collection(collection).findOne({ name });
-  return result;
-};
-
-const findByEmail = async (collection, email) => {
-  const db = await connection();
-  const result = await db.collection(collection).findOne({ email });
+  const result = await db.collection(collection).findOne(query);
   return result;
 };
 
@@ -44,8 +38,7 @@ const remove = async (collection, id) => {
 
 module.exports = {
   findAll,
-  findByName,
-  findByEmail,
+  findOne,
   createOne,
   findById,
   update,
