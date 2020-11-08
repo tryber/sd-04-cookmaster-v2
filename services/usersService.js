@@ -1,12 +1,9 @@
 const usersModel = require('../models/usersModel');
 
 const add = async (name, email, password) => {
-  if (name && email && password) {
-    const role = 'user';
-    const newUser = await usersModel.add(name, email, password, role);
-    return newUser;
-  }
-  return null;
+  const role = 'user';
+  const newUser = await usersModel.add(name, email, password, role);
+  return newUser;
 };
 
 const getAll = async () => {

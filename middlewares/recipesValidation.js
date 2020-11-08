@@ -1,8 +1,8 @@
 module.exports = (req, res, next) => {
   const {
-    name, email, password,
+    name, ingredients, preparation,
   } = req.body;
-  if (!name || !email || !password) {
+  if (!name || !ingredients || !preparation) {
     return res.status(400).json({ message: 'Invalid entries. Try again.' });
   }
 

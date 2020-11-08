@@ -1,7 +1,10 @@
 const express = require('express');
 const path = require('path');
 const usersController = require('./controllers/usersController');
-const login = require('./controllers/login');
+const userValidator = require('./middlewares/userValidation');
+const userAuth = require('./middlewares/userAuth');
+const recipesController = require('./controllers/recipesController');
+const recipesValidator = require('./middlewares/recipesValidation');
 
 const imgDirectory = express.static(path.join(__dirname, '/images'));
 
@@ -14,8 +17,14 @@ app.get('/', (request, response) => {
   response.send('ok');
 });
 
-app.post('/login', login);
+app.route('/users')
+  .get(usersController.getAll)
+  .post(userValidator, usersController.add);
 
-app.use('/users', usersController);
+app.route('/recipes')
+  .get(recipesController.getAll)
+  .post(userAuth, recipesValidator, recipesController.add);
+
+app.post('/login', usersController.login);
 
 app.listen(3000);
