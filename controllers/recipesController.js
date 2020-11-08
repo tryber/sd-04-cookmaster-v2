@@ -1,6 +1,7 @@
 const express = require('express');
 const authValidation = require('../middlewares/authValidation');
-const { addRecipeValidation, recipeExistsValidation } = require('../middlewares/recipesValidations');
+const permissionValidation = require('../middlewares/permissionValidation');
+const { recipeFieldsValidation, recipeExistsValidation } = require('../middlewares/recipesValidations');
 const recipesModel = require('../models/recipesModel');
 const { HTTPStatus } = require('../services/httpStatus');
 
@@ -35,14 +36,15 @@ router.get('/:id',
 
 // Registra novas receitas
 router.post('/',
-  addRecipeValidation,
+  recipeFieldsValidation,
   authValidation,
   async (req, res) => {
     try {
+      const { _id } = req.user;
       const { name, ingredients, preparation } = req.body;
 
       // req.body.role injetado diretamente no addUser, com valor 'user'.
-      const recipe = await recipesModel.addRecipe(name, ingredients, preparation);
+      const recipe = await recipesModel.addRecipe(name, ingredients, preparation, _id);
 
       return res.status(HTTPStatus.CREATED).json({ recipe });
     } catch (_err) {
@@ -52,13 +54,14 @@ router.post('/',
 
 // Atualiza receitas (usuário dono da receita ou admin)
 router.put('/:id',
-  addRecipeValidation,
+  recipeFieldsValidation,
   authValidation,
+  permissionValidation,
   async (req, res) => {
     const data = req.body;
     const { id } = req.params;
     try {
-      await recipesModel.update(data, id);
+      await recipesModel.updateRecipe(data, id);
       const updatedRecipe = await recipesModel.getRecipeById(id);
 
       return res.status(HTTPStatus.OK).json(updatedRecipe);
@@ -69,8 +72,9 @@ router.put('/:id',
 
 // Deleta receitas
 router.delete('/:id',
-  authValidation,
   recipeExistsValidation,
+  authValidation,
+  permissionValidation,
   async (req, res) => {
     try {
       const { id } = req.params;

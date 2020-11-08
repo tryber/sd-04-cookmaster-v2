@@ -25,7 +25,6 @@ router.post('/',
 
       // req.body.role injetado diretamente no addUser, com valor 'user'.
       const user = await usersModel.addUser(email, password, name);
-
       return res.status(HTTPStatus.CREATED).json({ user });
     } catch (_err) {
       return res.status(HTTPStatus.BAD_REQUEST);

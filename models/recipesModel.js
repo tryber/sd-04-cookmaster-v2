@@ -14,9 +14,10 @@ const getRecipeById = async (id) => {
   return recipe;
 };
 
-const addRecipe = async (name, ingredients, preparation) => {
+const addRecipe = async (name, ingredients, preparation, userId) => {
   const db = await connection();
-  const recipe = await db.collection('recipes').insertOne({ name, ingredients, preparation });
+  const recipe = await db.collection('recipes')
+    .insertOne({ name, ingredients, preparation, userId });
   // o OPS retorna todos os objetos que foram inseridos na operação acima.
   // Como só tem 1, pegaremos o de indice 0.
   // so funciona com insertOne. Nao funciona para UpdateOne nem DeleteOne

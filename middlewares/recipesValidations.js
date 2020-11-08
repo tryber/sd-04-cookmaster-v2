@@ -1,7 +1,7 @@
 const recipesModel = require('../models/recipesModel');
 const { HTTPStatus } = require('../services/httpStatus');
 
-const addRecipeValidation = (req, res, next) => {
+const recipeFieldsValidation = (req, res, next) => {
   const { name, ingredients, preparation } = req.body;
 
   if (!name || !ingredients || !preparation) {
@@ -23,6 +23,6 @@ const recipeExistsValidation = async (req, res, next) => {
 };
 
 module.exports = {
-  addRecipeValidation,
+  recipeFieldsValidation,
   recipeExistsValidation,
 };

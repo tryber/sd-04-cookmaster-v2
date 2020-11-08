@@ -10,9 +10,7 @@ router.post('/',
   async (req, res) => {
     try {
       const { email, password } = req.body;
-      console.log(email);
       const user = await usersModel.getUserByMail(email);
-      console.log(user.email);
 
       if (email !== user.email || password !== user.password) {
         return res.status(401)
