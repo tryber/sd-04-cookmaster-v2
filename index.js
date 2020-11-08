@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const usersController = require('./controllers/usersController');
+const recipesController = require('./controllers/recipesController');
 const login = require('./middlewares/login');
 // const recipesController = require('./controllers/recipesController');
 
@@ -21,6 +22,7 @@ app.get('/', (request, response) => {
 
 app.use('/users', usersController);
 app.use('/login', login);
+app.use('/recipes', recipesController)
 // app.use('/recipes', recipesController);
 
 app.listen(port, () => console.log('Example app listening on port port!`'));
