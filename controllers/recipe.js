@@ -36,14 +36,11 @@ const updateRecipe = (req, res) => {
 
     return res
       .status(200)
-      .json(
-        res.json({
-          _id: ObjectID(recipeId),
-          name: recipeData.name,
-          ingredients: recipeData.ingredients,
-          preparation: recipeData.preparation,
-        }),
-      );
+      .send({
+        name: recipeData.name,
+        ingredients: recipeData.ingredients,
+        preparation: recipeData.preparation,
+      });
   });
 };
 
