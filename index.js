@@ -22,7 +22,6 @@ app.get('/', (request, response) => {
 
 app.use('/users', usersController);
 app.use('/login', login);
-app.use('/recipes', recipesController)
-// app.use('/recipes', recipesController);
+app.use('/recipes', recipesController);
 
 app.listen(port, () => console.log('Example app listening on port port!`'));

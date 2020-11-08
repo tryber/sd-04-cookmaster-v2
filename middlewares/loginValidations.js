@@ -1,6 +1,4 @@
 const usersModel = require('../models/usersModel');
-const { HTTPStatus } = require('../services/httpStatus');
-const validateToken = require('./auth/validateToken');
 
 const signUpValidation = async (req, res, next) => {
   const {
@@ -34,22 +32,7 @@ const signInValidation = (req, res, next) => {
   return next();
 };
 
-const authValidation = (req, res, next) => {
-  try {
-    const token = req.headers.authorization;
-
-    const { username } = validateToken(token);
-
-    req.username = username;
-    console.log(username);
-    next();
-  } catch (_e) {
-    return res.status(HTTPStatus.UNAUTHORIZE).json({ message: 'missing auth token' });
-  }
-};
-
 module.exports = {
   signUpValidation,
   signInValidation,
-  authValidation,
 };
