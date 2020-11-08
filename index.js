@@ -5,6 +5,7 @@ const path = require('path');
 const userController = require('./controllers/usersController');
 const loginController = require('./controllers/loginController');
 const recipesController = require('./controllers/recipesController');
+const validateJWT = require('./service/validateJWT');
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -17,6 +18,7 @@ app.get('/', (request, response) => {
 
 // rota para adicionar usuario
 app.post('/users', userController.addUserController);
+app.post('/users/admin', validateJWT, userController.addUserAdmin);
 
 // rota pra fazer login
 app.post('/login', loginController.loginUser);

@@ -20,8 +20,19 @@ const addUserController = async (req, res) => {
   }
 };
 
-// rota de logina
+const addUserAdmin = async (req, res) => {
+  const { body } = req;
+  if (!body.role) body.role = 'admin';
+  const { role } = req.user;
+  if (role === 'admin') {
+    const userAdd = await userModel.addUser(body);
+    const { password: _, ...userS } = userAdd;
+    return res.status(201).json({ user: userS });
+  }
+  return res.status(403).json({ message: 'Only admins can register new admins' });
+};
 
 module.exports = {
   addUserController,
+  addUserAdmin,
 };
