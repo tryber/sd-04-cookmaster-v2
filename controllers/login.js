@@ -13,7 +13,7 @@ module.exports = async (req, res) => {
     return res.status(401).json({ message: 'Incorrect username or password' });
   }
   console.log(user);
-  const { password: userPassword, ...userData } = user;
+  const { password: _, ...userData } = user;
 
   const token = createJWT(userData);
 

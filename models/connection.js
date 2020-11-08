@@ -1,8 +1,7 @@
 const mongoClient = require('mongodb').MongoClient;
-require('dotenv');
 
 let schema = null;
-const URL = 'mongodb://localhost:27017/Cookmaster' || process.env.MONGO_DB_URL;
+const URL = 'mongodb://mongodb:27017/Cookmaster';
 async function connection() {
   if (schema) return Promise.resolve(schema);
   return mongoClient
@@ -10,7 +9,7 @@ async function connection() {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     })
-    .then((conn) => conn.db(process.env.DB_NAME))
+    .then((conn) => conn.db('Cookmaster'))
     .then((dbSchema) => {
       schema = dbSchema;
       return schema;
