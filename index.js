@@ -17,6 +17,7 @@ app.get('/', (request, response) => {
 
 /** Routes */
 app.use('/', routes.userRoutes);
+app.use('/', routes.recipeRoutes);
 
 /** Express Rescue */
 // app.use(({ message, code }, _req, res, _next) => res.status(code).json({ message }));
