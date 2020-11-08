@@ -1,5 +1,4 @@
 const express = require('express');
-const { error } = require('shelljs');
 const authValidation = require('../middlewares/authValidation');
 const { addRecipeValidation } = require('../middlewares/recipesValidations');
 const recipesModel = require('../models/recipesModel');
