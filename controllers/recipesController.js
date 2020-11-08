@@ -3,8 +3,6 @@ const recipesService = require('../services/recipesService');
 const add = ('/', async (req, res) => {
   const { name, ingredients, preparation } = req.body;
   const { userId } = req.user;
-  console.log(userId);
-
   try {
     const recipe = await recipesService.add(name, ingredients, preparation, userId);
     if (!recipe) {
