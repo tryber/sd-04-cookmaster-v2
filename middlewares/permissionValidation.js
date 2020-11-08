@@ -5,7 +5,6 @@ const permissionValidation = async (req, res, next) => {
   const { user } = req;
   const { _id } = user;
   const recipeId = req.params.id;
-  console.dir(user);
   try {
     if (user.role === 'admin') {
       return next();

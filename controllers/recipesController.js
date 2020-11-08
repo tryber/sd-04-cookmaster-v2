@@ -4,6 +4,7 @@ const permissionValidation = require('../middlewares/permissionValidation');
 const { recipeFieldsValidation, recipeExistsValidation } = require('../middlewares/recipesValidations');
 const recipesModel = require('../models/recipesModel');
 const { HTTPStatus } = require('../services/httpStatus');
+const uploadImage = require('../services/uploadImage');
 
 const router = express.Router();
 
@@ -81,9 +82,38 @@ router.delete('/:id',
 
       await recipesModel.deleteRecipe(id);
 
-      return res.status(HTTPStatus.NO_CONTENT);
+      return res.status(HTTPStatus.NO_CONTENT).json({ message: 'successuful deleted' });
     } catch (_e) {
       return res.status(HTTPStatus.UNPROCESSABLE_ENTITY);
     }
   });
+
+// atualiza receita com imagem uploaded
+router.put('/:id/images',
+  authValidation,
+  permissionValidation,
+  uploadImage,
+  async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { filename } = req.file;
+      console.log('filename: ' + filename);
+      const imagePath = `localhost:3000/images/${filename}`;
+
+      const recipe = await recipesModel.getRecipeById(id);
+
+      if (!recipe) {
+        return res.status(HTTPStatus.NOT_FOUND).json({ message: 'Recipe not found' });
+      }
+
+      await recipesModel.updateWithImage(id, imagePath);
+
+      const recipeWithImg = await recipesModel.getRecipeById(id);
+
+      return res.status(HTTPStatus.OK).json(recipeWithImg);
+    } catch (_err) {
+      return res.status(HTTPStatus.UNPROCESSABLE_ENTITY);
+    }
+  });
+
 module.exports = router;
