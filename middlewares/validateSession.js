@@ -3,7 +3,7 @@ const jwtToken = require('../services/jwtToken');
 const token = (req, res, next) => {
   const { authorization } = req.headers;
 
-  if (!authorization) return res.status(401).send({ message: 'Need to be logged' });
+  if (!authorization) return res.status(401).send({ message: 'missing auth token' });
 
   const tokenValidation = jwtToken.verify(authorization);
 

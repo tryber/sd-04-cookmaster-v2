@@ -13,7 +13,13 @@ router.post(
   middlewares.validateRecipe.data,
   controllers.recipeController.newRecipe,
 );
-
 router.get('/recipes', controllers.recipeController.getAll);
+router.get('/recipes/:id', controllers.recipeController.getById);
+router.put(
+  '/recipes/:id',
+  middlewares.validateSessions.token,
+  middlewares.validateRecipe.data,
+  controllers.recipeController.updateRecipe,
+);
 
 module.exports = router;
