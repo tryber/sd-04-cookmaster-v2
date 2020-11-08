@@ -4,7 +4,7 @@ const jwtToken = require('../services/jwtToken');
 const newUser = async (req, res) => {
   const userData = req.body;
   const isAdminType = req.originalUrl.includes('admin');
-  const { user } = req;
+  const { user = { role: 'user' } } = req;
 
   if (user.role !== 'admin' && isAdminType) {
     return res.status(403).send({ message: 'Only admins can register new admins' });
