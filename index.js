@@ -18,4 +18,7 @@ app.get('/', (request, response) => {
 /** Routes */
 app.use('/', routes.userRoutes);
 
+/** Express Rescue */
+// app.use(({ message, code }, _req, res, _next) => res.status(code).json({ message }));
+
 app.listen(3000, () => console.log('listening on port port!'));
