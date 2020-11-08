@@ -2,29 +2,28 @@ const usersModel = require('../models/usersModel');
 const resp = require('../errorMsgs');
 
 const fieldNameIsValid = ({ name }) =>
-  (name ? true : false);
+  name || false;
 
-const fieldEmailIsValid = async ({ email }) => {
+const fieldEmailIsValid = async (res, { email }) => {
   const re = /^[\w+.]+@\w+\.\w{2,}(?:\.\w{2})?$/i;
 
   if (!re.test(email)) return false;
 
   const user = await usersModel.readByEmail(email);
 
-  if (user) return false;
+  if (user) return resp(res, 409, 2);
 
   return true;
 };
 
 const fieldPasswordIsValid = ({ password }) =>
-  (password ? true : false);
+  password || false;
 
 const createUserVal = async (req, res, next) => {
   const user = req.body;
 
-  if (!(fieldNameIsValid(user) && await fieldEmailIsValid(user) && fieldPasswordIsValid(user))) {
-    return resp(res, 400, 1);
-  }
+  if (!(fieldNameIsValid(user) && fieldPasswordIsValid(user))) return resp(res, 400, 1);
+  if (!(await fieldEmailIsValid(res, user))) return resp(res, 400, 1);
 
   next();
 };

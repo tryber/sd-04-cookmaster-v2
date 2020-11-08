@@ -13,17 +13,33 @@ let conn;
 
 module.exports = async () => {
   try {
-    return (
-      schema
-        ? Promise.resolve(schema)
-        : (
-            conn = await mongoClient.connect(
-              MONGO_DB_URL, { useNewUrlParser: true, useUnifiedTopology: true, }
-            ),
-            schema = conn.db(DB_NAME)
-          )
+    if (schema) return Promise.resolve(schema);
+
+    conn = await mongoClient.connect(
+      MONGO_DB_URL, { useNewUrlParser: true, useUnifiedTopology: true }
     );
+    schema = conn.db(DB_NAME);
+
+    return schema;
   } catch (_e) {
     process.exit(1);
   }
 };
+
+// CC :(
+// module.exports = async () => {
+//   try {
+//     return (
+//       schema
+//         ? Promise.resolve(schema)
+//         : (
+//             conn = await mongoClient.connect(
+//               MONGO_DB_URL, { useNewUrlParser: true, useUnifiedTopology: true }
+//             ),
+//             schema = conn.db(DB_NAME)
+//           )
+//     );
+//   } catch (_e) {
+//     process.exit(1);
+//   }
+// };

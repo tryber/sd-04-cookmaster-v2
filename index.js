@@ -19,4 +19,4 @@ app.use('/users', usersController);
 app.use('*', errors.notFound);
 app.use(errors.internal);
 
-app.listen(port, () => console.log(`Running...`));
+app.listen(port, () => console.log('Running...'));
