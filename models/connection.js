@@ -16,7 +16,7 @@ module.exports = async () => {
     if (schema) return Promise.resolve(schema);
 
     conn = await mongoClient.connect(
-      MONGO_DB_URL, { useNewUrlParser: true, useUnifiedTopology: true, }
+      MONGO_DB_URL, { useNewUrlParser: true, useUnifiedTopology: true },
     );
     schema = conn.db(DB_NAME);
 
