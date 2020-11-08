@@ -8,6 +8,12 @@ const middlewares = require('../middlewares');
 const controllers = require('../controllers');
 
 router.post('/users', middlewares.validateUser.data, controllers.userController.newUser);
+router.post(
+  '/users/admin',
+  middlewares.validateSessions.token,
+  middlewares.validateUser.data,
+  controllers.userController.newUser,
+);
 router.post('/login', middlewares.validateUser.login, controllers.userController.login);
 
 module.exports = router;

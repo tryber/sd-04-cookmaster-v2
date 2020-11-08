@@ -9,7 +9,7 @@ const token = (req, res, next) => {
 
   if (!tokenValidation) return res.status(401).send({ message: 'jwt malformed' });
 
-  req.user = tokenValidation.data.user;
+  req.user = tokenValidation.data;
   next();
 };
 
