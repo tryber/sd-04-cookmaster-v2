@@ -20,7 +20,7 @@ const loginUser = async (req, res) => {
       return res.status(401).json({ message: 'Incorrect username or password' });
     }
   } catch (erro) {
-    console.log('errorrrrrrrrrrr', erro);
+    // console.log('errorrrrrrrrrrr', erro);
     return res.status(401).json({ message: `${erro.errors[0]}` });
   }
 };
