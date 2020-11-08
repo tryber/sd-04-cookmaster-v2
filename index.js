@@ -1,25 +1,25 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-
-require('dotenv').config();
-
-const routes = require('./routes');
+const path = require('path');
+const controllers = require('./controllers');
 
 const app = express();
 
-app.use(bodyParser.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
+app.use('/images', express.static(path.join(__dirname, 'uploads')));
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (request, response) => {
   response.send();
 });
 
-/** Routes */
-app.use('/', routes.userRoutes);
-app.use('/', routes.recipeRoutes);
+app.post('/users', controllers.users.postNew);
 
-/** Express Rescue */
-// app.use(({ message, code }, _req, res, _next) => res.status(code).json({ message }));
+app.post('/users/admin', controllers.users.postNewAdmin);
 
-app.listen(3000, () => console.log('listening on port port!'));
+app.post('/login', controllers.users.login);
+
+app.use('/recipes', controllers.recipes);
+
+app.use(({ message, code = 500 }, _req, res, _next) => res.status(code).json({ message }));
+
+app.listen(3000, () => console.log('Xablau'));

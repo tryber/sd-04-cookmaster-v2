@@ -1,7 +1,7 @@
 const frisby = require('frisby');
 const { MongoClient } = require('mongodb');
 
-const mongoDbUrl = process.env.MONGO_DB_URL || 'mongodb://localhost:27017/Cookmaster';
+const mongoDbUrl = 'mongodb://localhost:27017/Cookmaster';
 const url = 'http://localhost:3000';
 
 describe('1 - Crie um endpoint para o cadastro de usuários', () => {
@@ -20,11 +20,7 @@ describe('1 - Crie um endpoint para o cadastro de usuários', () => {
     await db.collection('users').deleteMany({});
     await db.collection('recipes').deleteMany({});
     const users = {
-      name: 'admin',
-      email: 'root@email.com',
-      password: 'admin',
-      role: 'admin',
-    };
+      name: 'admin', email: 'root@email.com', password: 'admin', role: 'admin' };
     await db.collection('users').insertOne(users);
   });
 
@@ -34,10 +30,11 @@ describe('1 - Crie um endpoint para o cadastro de usuários', () => {
 
   it('Será validado que o campo "name" é obrigatório', async () => {
     await frisby
-      .post(`${url}/users/`, {
-        email: 'erickjaquin@gmail.com',
-        password: '12345678',
-      })
+      .post(`${url}/users/`,
+        {
+          email: 'erickjaquin@gmail.com',
+          password: '12345678',
+        })
       .expect('status', 400)
       .then((response) => {
         const { body } = response;
@@ -48,10 +45,11 @@ describe('1 - Crie um endpoint para o cadastro de usuários', () => {
 
   it('Será validado que o campo "email" é obrigatório', async () => {
     await frisby
-      .post(`${url}/users/`, {
-        name: 'Erick Jacquin',
-        password: '12345678',
-      })
+      .post(`${url}/users/`,
+        {
+          name: 'Erick Jacquin',
+          password: '12345678',
+        })
       .expect('status', 400)
       .then((response) => {
         const { body } = response;
@@ -62,11 +60,12 @@ describe('1 - Crie um endpoint para o cadastro de usuários', () => {
 
   it('Será validado que não é possível cadastrar usuário com o campo email inválido', async () => {
     await frisby
-      .post(`${url}/users/`, {
-        name: 'Erick Jacquin',
-        email: 'erickjaquin',
-        password: '12345678',
-      })
+      .post(`${url}/users/`,
+        {
+          name: 'Erick Jacquin',
+          email: 'erickjaquin',
+          password: '12345678',
+        })
       .expect('status', 400)
       .then((response) => {
         const { body } = response;
@@ -77,10 +76,11 @@ describe('1 - Crie um endpoint para o cadastro de usuários', () => {
 
   it('Será validado que o campo "senha" é obrigatório', async () => {
     await frisby
-      .post(`${url}/users/`, {
-        name: 'Erick Jacquin',
-        email: 'erickjaquin',
-      })
+      .post(`${url}/users/`,
+        {
+          name: 'Erick Jacquin',
+          email: 'erickjaquin',
+        })
       .expect('status', 400)
       .then((response) => {
         const { body } = response;
@@ -91,19 +91,21 @@ describe('1 - Crie um endpoint para o cadastro de usuários', () => {
 
   it('Será validado que o campo "email" é único', async () => {
     await frisby
-      .post(`${url}/users/`, {
-        name: 'Erick Jacquin',
-        email: 'erickjaquin@gmail.com',
-        password: '12345678',
-      })
+      .post(`${url}/users/`,
+        {
+          name: 'Erick Jacquin',
+          email: 'erickjaquin@gmail.com',
+          password: '12345678',
+        })
       .expect('status', 201);
 
     await frisby
-      .post(`${url}/users/`, {
-        name: 'Erick Jacquin',
-        email: 'erickjaquin@gmail.com',
-        password: '12345678',
-      })
+      .post(`${url}/users/`,
+        {
+          name: 'Erick Jacquin',
+          email: 'erickjaquin@gmail.com',
+          password: '12345678',
+        })
       .expect('status', 409)
       .then((response) => {
         const { body } = response;
@@ -114,16 +116,16 @@ describe('1 - Crie um endpoint para o cadastro de usuários', () => {
 
   it('Será validado que é possível cadastrar usuário com sucesso', async () => {
     await frisby
-      .post(`${url}/users/`, {
-        name: 'Erick Jacquin',
-        email: 'erickjaquin@gmail.com',
-        password: '12345678',
-      })
+      .post(`${url}/users/`,
+        {
+          name: 'Erick Jacquin',
+          email: 'erickjaquin@gmail.com',
+          password: '12345678',
+        })
       .expect('status', 201)
       .then((response) => {
         const { body } = response;
         const result = JSON.parse(body);
-
         expect(result.user.name).toBe('Erick Jacquin');
         expect(result.user.email).toBe('erickjaquin@gmail.com');
       });
@@ -131,11 +133,12 @@ describe('1 - Crie um endpoint para o cadastro de usuários', () => {
 
   it('Será validado que é possível ao cadastrar usuário, o valor do campo "role" tenha o valor "user"', async () => {
     await frisby
-      .post(`${url}/users/`, {
-        name: 'Erick Jacquin',
-        email: 'erickjaquin@gmail.com',
-        password: '12345678',
-      })
+      .post(`${url}/users/`,
+        {
+          name: 'Erick Jacquin',
+          email: 'erickjaquin@gmail.com',
+          password: '12345678',
+        })
       .expect('status', 201)
       .then((response) => {
         const { body } = response;
