@@ -11,9 +11,14 @@ const getById = async (id) => {
   return db.collection('users').findOne(ObjectId(id));
 };
 
-const add = async (name, email, password) => {
+const getByEmail = async (userEmail) => {
+  const db = await connection();
+  return db.collection('users').findOne({ email: userEmail });
+};
+
+const add = async (name, email, password, role) => {
   const result = await connection().then((db) =>
-    db.collection('users').insertOne({ name, email, password }));
+    db.collection('users').insertOne({ name, email, password, role }));
   const user = Object.fromEntries(
     Object.entries(result.ops[0]).sort(),
   );
@@ -24,4 +29,5 @@ module.exports = {
   add,
   getAll,
   getById,
+  getByEmail,
 };
