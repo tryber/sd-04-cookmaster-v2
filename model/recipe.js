@@ -27,6 +27,8 @@ const updateRecipe = (productId, productUpdate) => {
       ));
 };
 
+const updateImage = (recipeId, image)
+
 const deleteRecipe = (recipeId) => connection()
   .then((schema) => schema.collection('recipes').deleteOne({ _id: recipeId }))
   .then((result) => result);

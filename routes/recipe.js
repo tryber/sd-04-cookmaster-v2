@@ -6,6 +6,7 @@ const router = express.Router();
 
 const middlewares = require('../middlewares');
 const controllers = require('../controllers');
+const multeruploader = require('../middlewares/multeruploader');
 
 router.post(
   '/recipes',
@@ -25,6 +26,12 @@ router.delete(
   '/recipes/:id',
   middlewares.validateSessions.token,
   controllers.recipeController.deleteRecipe,
+);
+router.put(
+  '/:id/image',
+  middlewares.validateSessions.token,
+  multeruploader,
+  controllers.recipeController.updateImage,
 );
 
 module.exports = router;

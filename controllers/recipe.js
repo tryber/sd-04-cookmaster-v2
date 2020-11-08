@@ -42,6 +42,15 @@ const updateRecipe = (req, res) => {
   });
 };
 
+const updateImage = async (req, res) => {
+  const {
+    image,
+    params: { id },
+  } = req;
+  const result = await update('recipes', id, { image });
+  res.json(result.value);
+};
+
 const deleteRecipe = (req, res) => {
   const recipeId = req.params.id;
 
@@ -54,4 +63,4 @@ const deleteRecipe = (req, res) => {
   });
 };
 
-module.exports = { newRecipe, getAll, getById, updateRecipe, deleteRecipe };
+module.exports = { newRecipe, getAll, getById, updateRecipe, deleteRecipe, updateImage };
