@@ -1,5 +1,10 @@
 const connection = require('./connection');
 
+const getAllRecipes = async () => {
+  const db = await connection();
+  const users = await db.collection('recipes').find().toArray();
+  return users;
+};
 const addRecipe = async (name, ingredients, preparation) => {
   const db = await connection();
   const recipe = await db.collection('recipes').insertOne({ name, ingredients, preparation });
@@ -9,12 +14,7 @@ const addRecipe = async (name, ingredients, preparation) => {
   return recipe.ops[0];
 };
 
-const getAllRecipes = async () => {
-  const db = await connection();
-  const users = await db.collection('recipes').find().toArray();
-  return users;
-};
-
 module.exports = {
+  getAllRecipes,
   addRecipe,
 };
