@@ -27,4 +27,8 @@ const updateRecipe = (productId, productUpdate) => {
       ));
 };
 
-module.exports = { create, recipe, recipes, updateRecipe };
+const deleteRecipe = (recipeId) => connection()
+  .then((schema) => schema.collection('recipes').deleteOne({ _id: recipeId }))
+  .then((result) => result);
+
+module.exports = { create, recipe, recipes, updateRecipe, deleteRecipe };

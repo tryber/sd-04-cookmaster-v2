@@ -21,5 +21,10 @@ router.put(
   middlewares.validateRecipe.data,
   controllers.recipeController.updateRecipe,
 );
+router.delete(
+  '/recipes/:id',
+  middlewares.validateSessions.token,
+  controllers.recipeController.deleteRecipe,
+);
 
 module.exports = router;
