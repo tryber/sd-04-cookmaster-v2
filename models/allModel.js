@@ -13,9 +13,9 @@ const getRecipeById = async (Id) => {
 const newRecipeInsert = async ({ name, ingredients, preparation, userId }) =>
   connection()
     .then((db) => db.collection('recipes').insertOne({ name, ingredients, preparation, userId }))
-    .then(({ insertedId }) => {
-      ({ recipe: { name, ingredients, preparation, userId, _id: insertedId } })
-    });
+    .then(({ insertedId }) => (
+      { recipe: { name, ingredients, preparation, userId, _id: insertedId } }
+      ));
 
 const updateRecipeModel = async (Id, nameRec, ingredients, instructions) => {
   const product = await getRecipeById(Id);
