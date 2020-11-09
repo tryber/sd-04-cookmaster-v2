@@ -23,8 +23,8 @@
 const mongoClient = require('mongodb').MongoClient;
 
 let schema = null;
-// const MONGO_DB_URL = 'mongodb://mongodb:27017/StoreManager';
-const MONGO_DB_URL = 'mongodb://127.0.0.1:27017';
+const MONGO_DB_URL = 'mongodb://mongodb:27017/StoreManager';
+// const MONGO_DB_URL = 'mongodb://127.0.0.1:27017';
 const DB_NAME = 'Cookmaster';
 async function connection() {
   if (schema) return Promise.resolve(schema);
