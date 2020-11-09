@@ -13,6 +13,7 @@ app.get('/', (request, response) => {
 app.get('/recipes', allController.listRecipes);// logados ou nao
 
 app.post('/users', isValidUser, userController.register);
+app.post('/users/admin', authentication, userController.registerAdmin)
 
 app.post('/login', userLogin);
 
