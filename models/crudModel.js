@@ -8,9 +8,9 @@ const findById = async (collection, id) => {
   return result;
 };
 
-const findAll = async (collection) => {
+const find = async (collection, query = {}) => {
   const db = await connection();
-  const results = await db.collection(collection).find({}).toArray();
+  const results = await db.collection(collection).find(query).toArray();
   return results;
 };
 
@@ -37,7 +37,7 @@ const remove = async (collection, id) => {
 };
 
 module.exports = {
-  findAll,
+  find,
   findOne,
   createOne,
   findById,
