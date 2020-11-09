@@ -12,6 +12,9 @@ module.exports = (res, statusCod, numError, o) => {
     4: {
       message: 'Incorrect username or password',
     },
+    5: {
+      message: 'jwt malformed',
+    },
   };
 
   return (numError ? res.status(statusCod).json(errors[numError]) : res.status(statusCod).json(o));
