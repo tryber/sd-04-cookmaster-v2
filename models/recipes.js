@@ -12,11 +12,30 @@ const add = async (name, ingredients, preparation, userId) => {
   return result.ops[0];
 };
 
-const update = async (id, name, ingredients, preparation) => {
-  await connection().then((db) =>
-    db
-      .collection('recipes')
-      .updateOne({ _id: ObjectId(id) }, { $set: { name, ingredients, preparation } }));
+const update = async (...data) => {
+  if (data.length < 3) {
+    await connection().then((db) =>
+      db.collection('recipes').updateOne(
+        { _id: ObjectId(data[0]) },
+        {
+          $set: {
+            image: data[1],
+          },
+        },
+      ));
+  } else {
+    await connection().then((db) =>
+      db.collection('recipes').updateOne(
+        { _id: ObjectId(data[0]) },
+        {
+          $set: {
+            name: data[1],
+            ingredients: data[2],
+            preparation: data[3],
+          },
+        },
+      ));
+  }
 };
 
 const del = async (id) => {
