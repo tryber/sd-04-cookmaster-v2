@@ -1,4 +1,4 @@
-module.exports = (res, statusCod, numError) => {
+module.exports = (res, statusCod, numError, o) => {
   const errors = {
     1: {
       message: 'Invalid entries. Try again.',
@@ -6,7 +6,13 @@ module.exports = (res, statusCod, numError) => {
     2: {
       message: 'Email already registered',
     },
+    3: {
+      message: 'All fields must be filled',
+    },
+    4: {
+      message: 'Incorrect username or password',
+    },
   };
 
-  res.status(statusCod).json(errors[numError]);
+  (numError ? res.status(statusCod).json(errors[numError]) : res.status(statusCod).json(o));
 };

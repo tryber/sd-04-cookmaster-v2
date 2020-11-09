@@ -1,35 +1,35 @@
 const usersModel = require('../models/usersModel');
 const resp = require('../errorMsgs');
 
-const fieldNameIsValid = ({ name }) =>
+const fieldNameIsValid = (name) =>
   name || false;
 
-const fieldEmailIsValid = async (res, { email }) => {
+const fieldEmailIsValid = (email) => {
   const re = /^[\w+.]+@\w+\.\w{2,}(?:\.\w{2})?$/i;
 
-  if (!re.test(email)) return false;
+  if (re.test(email)) return true;
 
-  const user = await usersModel.readByEmail(email);
-
-  if (user) return resp(res, 409, 2);
-
-  return true;
+  return false;
 };
 
-const fieldPasswordIsValid = ({ password }) =>
-  password || false;
+const fieldPwdIsValid = (pwd) =>
+  pwd || false;
 
-const createUserVal = async (req, res, next) => {
-  const user = req.body;
+const userExist = async (email) => {
+  const user = await usersModel.readByEmailPwd(email);
 
-  if (!(fieldNameIsValid(user) && fieldPasswordIsValid(user))) return resp(res, 400, 1);
-  if (!(await fieldEmailIsValid(res, user))) return resp(res, 400, 1);
+  if (user) return true;
+
+  return false;
+};
+
+module.exports = async (req, res, next) => {
+  const { name, email, password: pwd } = req.body;
+
+  if (!(fieldNameIsValid(name) && fieldEmailIsValid(email) && fieldPwdIsValid(pwd))) {
+    return resp(res, 400, 1);
+  }
+  if (await userExist(email)) return resp(res, 409, 2);
 
   next();
-};
-
-// (async () => console.log(await fieldEmailIsValid('erickjacqui@gmail.com')))()
-
-module.exports = {
-  createUserVal,
 };

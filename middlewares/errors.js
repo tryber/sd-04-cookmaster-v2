@@ -1,20 +1,25 @@
-const notFound = (req, res) =>
-  res.status(404).json({
-    err: {
-      code: 'not_found',
-      message: `${req.baseUrl} not found`,
-    },
-  });
+const resp = require('../errorMsgs');
 
-const internal = (err, _, res, _next) =>
-  res.status(500).json({
-    err: {
-      code: 'internal_error',
-      message: err.message,
-    },
-  });
+const internal = (err, _, res, _next) => {
+  const o = {
+    code: 'internal_error',
+    message: err.message,
+    err: err,
+  };
+
+  resp(res, 500, null, o);
+}
+
+const notFound = (req, res) => {
+  const o = {
+    code: 'not_found',
+    message: `${req.baseUrl} not found`,
+  };
+
+  resp(res, 404, null, o);
+};
 
 module.exports = {
-  notFound,
   internal,
+  notFound,
 };
