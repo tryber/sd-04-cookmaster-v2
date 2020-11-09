@@ -33,7 +33,7 @@ const authentication = async (req, res, next) => {
 
     next();
   } catch (_err) {
-    return res.status(401).json({ message: 'seu token é inválido' });
+    return res.status(401).json({ message: 'jwt malformed' });
   }
 };
 
