@@ -42,6 +42,12 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
+// funcao para atualizar receita
+const atualiza = async (id, name, ingredients, preparation, tokenId, image, res) => {
+  const update = await recipeModel.updateRecipe(id, name, ingredients, preparation, tokenId, image);
+  return res.status(200).json(update);
+};
+
 // rota para add imagem
 recipes.put('/:id/image', validateJWT, upload.single('image'), async (req, res) => {
   const { id } = req.params;
@@ -49,15 +55,7 @@ recipes.put('/:id/image', validateJWT, upload.single('image'), async (req, res) 
   const image = `localhost:3000/${req.file.path}`;
   const { name, ingredients, preparation, userId } = await recipeModel.recipeById(id);
   if (tokenId === userId || role === 'admin') {
-    const update = await recipeModel.updateRecipe(
-      id,
-      name,
-      ingredients,
-      preparation,
-      tokenId,
-      image,
-    );
-    return res.status(200).json(update);
+    await atualiza(id, name, ingredients, preparation, tokenId, image, res);
   }
 
   return res.status(500).json({ message: 'Something bad happened' });
@@ -82,15 +80,7 @@ recipes.put('/:id', validateJWT, async (req, res) => {
   try {
     const receitaId = await recipeModel.recipeById(id);
     if (tokenId === receitaId.userId || role === 'admin') {
-      const update = await recipeModel.updateRecipe(
-        id,
-        name,
-        ingredients,
-        preparation,
-        tokenId,
-        image,
-      );
-      return res.status(200).json(update);
+      await atualiza(id, name, ingredients, preparation, tokenId, image, res);
     }
   } catch (error) {
     return res.status(500).json({ message: 'Something bad happened' });
