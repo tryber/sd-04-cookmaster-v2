@@ -20,13 +20,14 @@ const isValidUser = async (req, res, next) => {
 const authentication = async (req, res, next) => {
   const token = req.headers.authorization;
 
-  if (!token) return res.status(401).json({ message: 'no toke informed' });
+  if (!token) return res.status(401).json({ message: 'no token informed' });
 
   try {
     const payload = jwt.verify(token, JWT_SECRET);
 
-    const user = await userModel.findByEmail(payload.useremail);
-
+    const user = await userModel.findByEmail(payload.email);
+    console.log('payload:', payload)
+    console.log('user:', user)
     if (!user) return res.status(401).json({ message: 'user not found' });
 
     req.user = user;
