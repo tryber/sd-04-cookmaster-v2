@@ -47,4 +47,16 @@ router.put('/:id',
     return res.status(401).json({ message: 'you cant update this recipe' });
   });
 
+router.delete('/:id',
+  validateJWT(),
+  async (req, res) => {
+    const { id } = req.params;
+    const { role, _id } = req.user;
+    const recipe = await crudModel.findById('recipes', id);
+    if (role === 'admin' || _id === recipe.userId) {
+      await crudModel.remove('recipes', id);
+      return res.status(204).json();
+    }
+    return res.status(401).json({ message: 'you cant delete this recipe' });
+  });
 module.exports = router;
