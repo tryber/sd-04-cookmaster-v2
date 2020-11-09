@@ -16,15 +16,20 @@ router.post('/',
 router.get('/',
   validateJWT(false),
   async (_req, res) => {
-    // const { user } = req;
-    // if (user) {
-    //   const { _id } = user;
-    //   const userReceipes = await crudModel.find('recipes', { userId: _id });
-    //   return res.status(200).json(userReceipes);
-    // }
-
     const Allrecipes = await crudModel.find('recipes');
     return res.status(200).json(Allrecipes);
+  });
+
+router.get('/:id',
+  validateJWT(false),
+  async (req, res) => {
+    const { id } = req.params;
+    const recipe = await crudModel.findById('recipes', id);
+    if (!recipe) {
+      return res.status(404).json({ message: 'recipe not found' });
+    }
+
+    return res.status(200).json(recipe);
   });
 
 module.exports = router;
