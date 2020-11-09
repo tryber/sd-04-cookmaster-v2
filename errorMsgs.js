@@ -14,5 +14,5 @@ module.exports = (res, statusCod, numError, o) => {
     },
   };
 
-  (numError ? res.status(statusCod).json(errors[numError]) : res.status(statusCod).json(o));
+  numError ? res.status(statusCod).json(errors[numError]) : res.status(statusCod).json(o);
 };

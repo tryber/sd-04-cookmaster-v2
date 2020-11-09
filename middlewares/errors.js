@@ -4,11 +4,11 @@ const internal = (err, _, res, _next) => {
   const o = {
     code: 'internal_error',
     message: err.message,
-    err: err,
+    error: err,
   };
 
   resp(res, 500, null, o);
-}
+};
 
 const notFound = (req, res) => {
   const o = {
