@@ -2,7 +2,6 @@ const { getAll, getRecipeById, newRecipeInsert } = require('../models/allModel')
 
 const listRecipes = async (_req, res) => {
   const recipes = await getAll();
-  console.log(recipes)
   return res.status(200).json(recipes);
 };
 
