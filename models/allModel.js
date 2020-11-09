@@ -23,15 +23,15 @@ const updateRecipeModel = async (Id, name, ingredients, preparation) => {
   if (!product) return null;
 
   await connection().then((db) => db.collection('recipes').updateOne({ _id: ObjectId(Id) }, { $set: { name, ingredients, preparation } }));
-  return await getRecipeById(Id);
+  return getRecipeById(Id);
 };
 
 const deleteModel = async (recipeId) => {
   let result = {};
   result = await getRecipeById(recipeId);
   if (!result) return null;
-  
-  return await connection()
+
+  return connection()
     .then((db) => db.collection('recipes').deleteOne({ _id: ObjectId(recipeId) }));
 };
 

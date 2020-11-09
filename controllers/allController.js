@@ -9,7 +9,7 @@ const recipeDetails = async (req, res) => {
   const { id } = req.params;
 
   const recipe = await getRecipeById(id);
-  console.log(recipe)
+
   if (!recipe) {
     res.status(404).json({ message: 'recipe not found' });
   }
@@ -36,7 +36,7 @@ const editRecipe = async (req, res) => {
   return res.status(200).json(recipe);
 };
 
-const deleteRecipe = async(req, res) => {
+const deleteRecipe = async (req, res) => {
   const { id } = req.params;
   await deleteModel(id);
   return res.status(204).json();
