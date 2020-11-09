@@ -6,6 +6,7 @@ const app = express();
 app.use(express.json());
 app.use('/users', controllers.users);
 app.use('/login', controllers.login);
+app.use('/recipes', controllers.recipes);
 
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (request, response) => {
