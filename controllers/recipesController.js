@@ -13,7 +13,6 @@ recipes.post('/', validateJWT, async (req, res) => {
   const { _id: userId } = req.user;
   const image = null;
   try {
-    // console.log('val')
     if (await schemaRecipe.validate({ name, ingredients, preparation })) {
       const recipe = await recipeModel.addRecipe(name, ingredients, preparation, userId, image);
       return res.status(201).json({ recipe });
@@ -49,10 +48,7 @@ recipes.put('/:id/image', validateJWT, upload.single('image'), async (req, res) 
   const { _id: tokenId, role } = req.user;
   const image = `localhost:3000/${req.file.path}`;
   const { name, ingredients, preparation, userId } = await recipeModel.recipeById(id);
-  // const { name, ingredients, preparation, userId } = recipe;
-  console.log('userid 9', userId, tokenId);
   if (tokenId === userId || role === 'admin') {
-    console.log('testee');
     const update = await recipeModel.updateRecipe(
       id,
       name,
@@ -61,7 +57,6 @@ recipes.put('/:id/image', validateJWT, upload.single('image'), async (req, res) 
       tokenId,
       image,
     );
-    console.log('update', update);
     return res.status(200).json(update);
   }
 
@@ -71,18 +66,11 @@ recipes.put('/:id/image', validateJWT, upload.single('image'), async (req, res) 
 // rota pra listar receita por id sem validacao
 recipes.get('/:id', async (req, res) => {
   const { id } = req.params;
-  // console.log('iddd', id);
-  // if (ObjectId.isValid(id)) {
-  // try {
   const recipeId = await recipeModel.recipeById(id);
-  // console.log('recipe by id', recipeId);
+  console.log('teste null', recipeId);
   if (!recipeId) return res.status(404).json({ message: 'recipe not found' });
 
   return res.status(200).json(recipeId);
-  // } catch (error) {
-  // }
-  // return res.status(400).json({ message: 'recipe not found' });
-  // }
 });
 
 // rota pra atualizar receita
@@ -102,7 +90,6 @@ recipes.put('/:id', validateJWT, async (req, res) => {
         tokenId,
         image,
       );
-      // console.log('update', update);
       return res.status(200).json(update);
     }
   } catch (error) {
@@ -114,10 +101,12 @@ recipes.put('/:id', validateJWT, async (req, res) => {
 recipes.delete('/:id', validateJWT, async (req, res) => {
   const { id } = req.params;
   const { _id: tokenId, role } = req.user;
-  const recepeId = await recipeModel.recipeById(id);
-  if (tokenId === recepeId.userId || role === 'admin') {
-    await recipeModel.deleteRecipe(id);
-    return res.status(204);
+  const { userId } = await recipeModel.recipeById(id);
+  if (tokenId === userId || role === 'admin') {
+    const del = await recipeModel.deleteRecipe(id);
+    if (del) {
+      return res.status(204).json({ message: 'deu certo' });
+    }
   }
   return res.status(500).json({ message: 'intern error' });
 });
