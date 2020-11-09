@@ -19,5 +19,7 @@ app.post('/login', userLogin);
 app.post('/recipes', authentication, allController.NewRecipe);// logados
 
 app.get('/recipes/:id', allController.recipeDetails);// logados ou nao
+app.put('/recipes/:id', authentication, allController.editRecipe);
+app.delete('/recipes/:id', authentication, allController.deleteRecipe);
 
 app.listen(3000, () => console.log('Te escuto na 3000!'));
