@@ -32,4 +32,19 @@ router.get('/:id',
     return res.status(200).json(recipe);
   });
 
+router.put('/:id',
+  validateJWT(),
+  async (req, res) => {
+    const { id } = req.params;
+    const { role, _id } = req.user;
+    const { name, ingredients, preparation } = req.body;
+    const recipe = await crudModel.findById('recipes', id);
+    if (role === 'admin' || _id === recipe.userId) {
+      await crudModel.updateOne('recipes', id, { name, ingredients, preparation });
+      const updateRecipe = await crudModel.findById('recipes', id);
+      return res.status(200).json(updateRecipe);
+    }
+    return res.status(401).json({ message: 'you cant update this recipe' });
+  });
+
 module.exports = router;

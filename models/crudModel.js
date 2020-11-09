@@ -26,9 +26,9 @@ const createOne = async (collection, query) => {
   return result.ops[0];
 };
 
-const update = async (collection, id, query) => {
+const updateOne = async (collection, id, document) => {
   const db = await connection();
-  await db.collection(collection).updateOne({ _id: ObjectId(id) }, { $set: query });
+  await db.collection(collection).updateOne({ _id: ObjectId(id) }, { $set: document });
 };
 
 const remove = async (collection, id) => {
@@ -41,6 +41,6 @@ module.exports = {
   findOne,
   createOne,
   findById,
-  update,
+  updateOne,
   remove,
 };
