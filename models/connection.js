@@ -18,7 +18,7 @@ module.exports = async () => {
       MONGO_DB_URL, { useNewUrlParser: true, useUnifiedTopology: true },
     );
 
-    return schema = conn.db(DB_NAME);
+    return (schema = conn.db(DB_NAME));
   } catch (_) {
     process.exit(1);
   }
