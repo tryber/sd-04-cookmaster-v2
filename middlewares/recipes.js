@@ -8,7 +8,7 @@ const createRecipe = async (req, res) => {
   resp(res, 201, null, { recipe });
 };
 
-const readRecipe = async (req, res) => {
+const readRecipe = (req, res) => {
   const recipe = req.recipe;
 
   resp(res, 200, null, recipe);
