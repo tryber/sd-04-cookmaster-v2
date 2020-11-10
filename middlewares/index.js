@@ -2,8 +2,8 @@ const loginVal = require('./loginValidate');
 const login = require('./login');
 const createUserVal = require('./usersValidate');
 const { createUser } = require('./users');
-const createRecipeVal = require('./recipesValidate');
-const { createRecipe, readRecipes } = require('./recipes');
+const { createRecipeVal, readRecipeVal } = require('./recipesValidate');
+const { createRecipe, readRecipe, readRecipes } = require('./recipes');
 
 module.exports = {
   loginVal,
@@ -12,5 +12,7 @@ module.exports = {
   createUser,
   createRecipeVal,
   createRecipe,
+  readRecipeVal,
+  readRecipe,
   readRecipes,
 };

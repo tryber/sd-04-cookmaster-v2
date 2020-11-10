@@ -15,6 +15,9 @@ module.exports = (res, statusCod, numError, o) => {
     5: {
       message: 'jwt malformed',
     },
+    6: {
+      message: 'recipe not found',
+    },
   };
 
   return (numError ? res.status(statusCod).json(errors[numError]) : res.status(statusCod).json(o));

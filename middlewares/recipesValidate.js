@@ -1,3 +1,4 @@
+const recipesModel = require('../models/recipesModel');
 const resp = require('../errorMsgs');
 
 const fieldNameIsValid = (name) =>
@@ -9,7 +10,7 @@ const fieldIngredientsIsValid = (ing) =>
 const fieldPreparationIsValid = (prep) =>
   prep || false;
 
-module.exports = (req, res, next) => {
+const createRecipeVal = (req, res, next) => {
   const { name, ingredients: ing, preparation: prep } = req.body;
 
   if (!(fieldNameIsValid(name) && fieldIngredientsIsValid(ing) && fieldPreparationIsValid(prep))) {
@@ -17,4 +18,20 @@ module.exports = (req, res, next) => {
   }
 
   next();
+};
+
+const readRecipeVal = async (req, res, next) => {
+  const id = req.params.id;
+  const recipe = await recipesModel.readById(id);
+
+  if (!recipe) return resp(res, 404, 6);
+
+  req.recipe = recipe;
+
+  next();
+};
+
+module.exports = {
+  createRecipeVal,
+  readRecipeVal,
 };
