@@ -1,7 +1,6 @@
 const express = require('express');
 const rescue = require('express-rescue');
-const jwt = require('./helpers/jwt');
-const { loginVal, login, createRecipeVal } = require('./middlewares');
+const { loginVal, login } = require('./middlewares');
 const usersController = require('./controllers/usersController');
 const recipesController = require('./controllers/recipesController');
 const error = require('./middlewares/errors');
@@ -19,7 +18,7 @@ app.get('/', (request, response) => {
 app.post('/login', rescue(loginVal), login);
 
 app.use('/users', usersController);
-app.use('/recipes', jwt.validate, createRecipeVal, recipesController);
+app.use('/recipes', recipesController);
 
 app.use('*', error.notFound);
 app.use(error.internal);

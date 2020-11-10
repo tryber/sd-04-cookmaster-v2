@@ -1,9 +1,11 @@
 const express = require('express');
 const rescue = require('express-rescue');
-const { createRecipeVal, createRecipe } = require('../middlewares');
+const jwt = require('../helpers/jwt');
+const { createRecipeVal, createRecipe, readRecipes } = require('../middlewares');
 
 const router = express.Router();
 
-router.post('/', rescue(createRecipeVal), rescue(createRecipe));
+router.get('/', rescue(readRecipes));
+router.post('/', jwt.validate, rescue(createRecipeVal), rescue(createRecipe));
 
 module.exports = router;

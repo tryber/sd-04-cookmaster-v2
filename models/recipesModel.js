@@ -7,6 +7,13 @@ const create = async ({ name, ingredients, preparation }, userId) => {
   return result.ops[0];
 };
 
+const read = async () => {
+  const db = await conn();
+
+  return db.collection('recipes').find().toArray();
+}
+
 module.exports = {
   create,
+  read,
 };
