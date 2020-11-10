@@ -10,12 +10,13 @@ const port = 3000;
 
 app.use(express.json());
 
-// Não remova esse endpoint, é para o avaliador funcionar
+// não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (request, response) => {
   response.send();
 });
 
 app.post('/login', rescue(loginVal), login);
+app.post('/login', loginVal, login);
 
 app.use('/users', usersController);
 app.use('/recipes', recipesController);

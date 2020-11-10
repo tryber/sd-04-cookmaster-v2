@@ -1,3 +1,4 @@
+const { ObjectId } = require('mongodb');
 const recipesModel = require('../models/recipesModel');
 const resp = require('../errorMsgs');
 
@@ -22,6 +23,9 @@ const createRecipeVal = (req, res, next) => {
 
 const readRecipeVal = async (req, res, next) => {
   const id = req.params.id;
+
+  if (!ObjectId.isValid(id)) return resp(res, 404, 6);
+
   const recipe = await recipesModel.readById(id);
 
   if (!recipe) return resp(res, 404, 6);
