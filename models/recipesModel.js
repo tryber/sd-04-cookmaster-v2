@@ -11,7 +11,7 @@ const read = async () => {
   const db = await conn();
 
   return db.collection('recipes').find().toArray();
-}
+};
 
 module.exports = {
   create,
