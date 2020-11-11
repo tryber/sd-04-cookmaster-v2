@@ -1,9 +1,9 @@
 const express = require('express');
 const rescue = require('express-rescue');
 const { jwtVal } = require('../helpers/jwt');
+const multer = require('multer');
 const { createRecipeVal, createRecipe, readRecipeVal, readRecipe, readRecipes,
   updateOrDeleteRecipeVal, updateRecipe, updateImgRecipe, deleteRecipe } = require('../middlewares');
-const multer = require('multer');
 
 const router = express.Router();
 const storage = multer.diskStorage({

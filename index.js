@@ -18,6 +18,7 @@ app.get('/', (request, response) => {
 app.post('/login', rescue(loginVal), login);
 app.use('/users', usersController);
 app.use('/recipes', recipesController);
+app.use('/images', express.static('uploads'))
 
 app.use('*', error.notFound);
 app.use(error.internal);
