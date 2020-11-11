@@ -20,11 +20,16 @@ const readById = async (id) => {
   return db.collection('recipes').findOne(ObjectId(id));
 };
 
-const update = async ({ name, ingredients, preparation }, id) => {
+const update = async ({ name, ingredients, preparation }, id, url) => {
   const db = await conn();
 
-  await db.collection('recipes')
-    .updateOne({ _id: ObjectId(id) }, { $set: { name, ingredients, preparation } });
+  (
+    url
+      ? await db.collection('recipes')
+        .updateOne({ _id: ObjectId(id) }, { $set: { image: url } })
+      : await db.collection('recipes')
+        .updateOne({ _id: ObjectId(id) }, { $set: { name, ingredients, preparation } })
+  );
 
   return readById(id);
 };

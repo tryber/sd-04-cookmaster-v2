@@ -16,8 +16,6 @@ app.get('/', (request, response) => {
 });
 
 app.post('/login', rescue(loginVal), login);
-app.post('/login', loginVal, login);
-
 app.use('/users', usersController);
 app.use('/recipes', recipesController);
 

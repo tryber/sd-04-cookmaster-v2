@@ -27,6 +27,15 @@ const updateRecipe = async (req, res) => {
   resp(res, 200, null, recipe);
 };
 
+const updateImgRecipe = async (req, res) => {
+  const id = req.params.id;
+  const filename = req.file.filename;
+  const url = `localhost:3000/images/${filename}`;
+  const recipe = await recipesModel.update({}, id, url);
+
+  resp(res, 200, null, recipe);
+};
+
 const deleteRecipe = async (req, res) => {
   const id = req.params.id;
 
@@ -40,5 +49,6 @@ module.exports = {
   readRecipe,
   readRecipes,
   updateRecipe,
+  updateImgRecipe,
   deleteRecipe,
 };
