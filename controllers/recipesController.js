@@ -1,10 +1,11 @@
 const router = require('express').Router();
 const crudModel = require('../models/crudModel');
-const validateJWT = require('../auth/validateJWT');
+const logindValidations = require('../auth/validateJWT');
 const validateRecipes = require('../middlewares/validateRecipes');
 
 router.post('/',
-  validateJWT(),
+  logindValidations.validateJWT(),
+  logindValidations.validateLogin,
   validateRecipes.validateFields,
   async (req, res) => {
     const { name, ingredients, preparation } = req.body;
@@ -14,14 +15,16 @@ router.post('/',
   });
 
 router.get('/',
-  validateJWT(false),
+  logindValidations.validateJWT(false),
+  logindValidations.validateLogin,
   async (_req, res) => {
     const Allrecipes = await crudModel.find('recipes');
     return res.status(200).json(Allrecipes);
   });
 
 router.get('/:id',
-  validateJWT(false),
+  logindValidations.validateJWT(false),
+  logindValidations.validateLogin,
   async (req, res) => {
     const { id } = req.params;
     const recipe = await crudModel.findById('recipes', id);
@@ -33,7 +36,8 @@ router.get('/:id',
   });
 
 router.put('/:id',
-  validateJWT(),
+  logindValidations.validateJWT(),
+  logindValidations.validateLogin,
   async (req, res) => {
     const { id } = req.params;
     const { role, _id } = req.user;
@@ -48,7 +52,8 @@ router.put('/:id',
   });
 
 router.delete('/:id',
-  validateJWT(),
+  logindValidations.validateJWT(),
+  logindValidations.validateLogin,
   async (req, res) => {
     const { id } = req.params;
     const { role, _id } = req.user;
@@ -59,4 +64,5 @@ router.delete('/:id',
     }
     return res.status(401).json({ message: 'you cant delete this recipe' });
   });
+
 module.exports = router;
