@@ -36,17 +36,21 @@ const readRecipeVal = async (req, res, next) => {
   next();
 };
 
-const updateRecipeVal = async (req, _, next) => {
+const authUser = async (req) => {
   const id = req.params.id;
   const userIdToken = req.id;
   const { userId } = await recipesModel.readById(id);
   const { role } = await usersModel.readById(userIdToken);
 
-  if (userIdToken === userId || role === 'admin') next();
+  if (userIdToken === userId || role === 'admin') return true;
+};
+
+const updateOrDeleteRecipeVal = async (req, _, next) => {
+  if (authUser(req)) next();
 };
 
 module.exports = {
   createRecipeVal,
   readRecipeVal,
-  updateRecipeVal,
+  updateOrDeleteRecipeVal,
 };

@@ -1,15 +1,16 @@
 const express = require('express');
 const rescue = require('express-rescue');
-const jwt = require('../helpers/jwt');
+const { jwtVal } = require('../helpers/jwt');
 const { createRecipeVal, createRecipe, readRecipeVal, readRecipe, readRecipes,
-  updateRecipeVal, updateRecipe } = require('../middlewares');
+  updateOrDeleteRecipeVal, updateRecipe, deleteRecipe } = require('../middlewares');
 
 const router = express.Router();
 
 router.get('/', rescue(readRecipes));
-router.post('/', jwt.val, createRecipeVal, rescue(createRecipe));
+router.post('/', jwtVal, createRecipeVal, rescue(createRecipe));
 
 router.get('/:id', rescue(readRecipeVal), readRecipe);
-router.put('/:id', jwt.val, rescue(updateRecipeVal), rescue(updateRecipe));
+router.put('/:id', jwtVal, rescue(updateOrDeleteRecipeVal), rescue(updateRecipe));
+router.delete('/:id', jwtVal, rescue(updateOrDeleteRecipeVal), rescue(deleteRecipe));
 
 module.exports = router;

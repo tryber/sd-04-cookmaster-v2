@@ -3,14 +3,14 @@ const resp = require('../errorMsgs');
 
 const secret = 'trybe_project';
 
-const create = ({ _id: id, email, role }) => {
+const createJwt = ({ _id: id, email, role }) => {
   const payload = { id, email, role };
   const headers = { algorithm: 'HS256', expiresIn: '30m' };
 
   return jwt.sign(payload, secret, headers);
 };
 
-const val = (req, res, next) => {
+const jwtVal = (req, res, next) => {
   try {
     const token = req.headers.authorization;
 
@@ -27,6 +27,6 @@ const val = (req, res, next) => {
 };
 
 module.exports = {
-  create,
-  val,
+  createJwt,
+  jwtVal,
 };
