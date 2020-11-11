@@ -23,13 +23,13 @@ const readById = async (id) => {
 const update = async ({ name, ingredients, preparation }, id, url) => {
   const db = await conn();
 
-  (
-    url
-      ? await db.collection('recipes')
-        .updateOne({ _id: ObjectId(id) }, { $set: { image: url } })
-      : await db.collection('recipes')
-        .updateOne({ _id: ObjectId(id) }, { $set: { name, ingredients, preparation } })
-  );
+  if (url) {
+    await db.collection('recipes')
+      .updateOne({ _id: ObjectId(id) }, { $set: { image: url } });
+  } else {
+    await db.collection('recipes')
+      .updateOne({ _id: ObjectId(id) }, { $set: { name, ingredients, preparation } });
+  }
 
   return readById(id);
 };

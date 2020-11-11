@@ -12,7 +12,7 @@ const storage = multer.diskStorage({
     const id = req.params.id;
     const ext = file.mimetype.split('/')[1];
     cb(null, `${id}.${ext}`);
-  }
+  },
 });
 const upload = multer({ storage });
 
@@ -28,7 +28,7 @@ router.put(
   jwtVal,
   upload.single('image'),
   rescue(updateOrDeleteRecipeVal),
-  rescue(updateImgRecipe)
+  rescue(updateImgRecipe),
 );
 
 module.exports = router;

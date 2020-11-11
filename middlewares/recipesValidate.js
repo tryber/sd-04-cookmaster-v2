@@ -46,7 +46,7 @@ const authUser = async (req) => {
 };
 
 const updateOrDeleteRecipeVal = async (req, _, next) => {
-  if (authUser(req)) next();
+  if (await authUser(req)) next();
 };
 
 module.exports = {
