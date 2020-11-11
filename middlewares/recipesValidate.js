@@ -1,4 +1,5 @@
 const { ObjectId } = require('mongodb');
+const usersModel = require('../models/usersModel');
 const recipesModel = require('../models/recipesModel');
 const resp = require('../errorMsgs');
 
@@ -35,7 +36,17 @@ const readRecipeVal = async (req, res, next) => {
   next();
 };
 
+const updateRecipeVal = async (req, _, next) => {
+  const id = req.params.id;
+  const userIdToken = req.id;
+  const { userId } = await recipesModel.readById(id);
+  const { role } = await usersModel.readById(userIdToken);
+
+  if (userIdToken === userId || role === 'admin') next();
+};
+
 module.exports = {
   createRecipeVal,
   readRecipeVal,
+  updateRecipeVal,
 };

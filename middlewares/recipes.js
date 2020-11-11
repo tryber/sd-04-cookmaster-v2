@@ -20,8 +20,16 @@ const readRecipes = async (_, res) => {
   resp(res, 200, null, recipes);
 };
 
+const updateRecipe = async (req, res) => {
+  const id = req.params.id;
+  const recipe = await recipesModel.update(req.body, id);
+
+  resp(res, 200, null, recipe);
+};
+
 module.exports = {
   createRecipe,
   readRecipe,
   readRecipes,
+  updateRecipe,
 };

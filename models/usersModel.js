@@ -1,10 +1,17 @@
 const conn = require('./connection');
+const { ObjectId } = require('mongodb');
 
 const create = async ({ name, email, password }, role) => {
   const db = await conn();
   const result = await db.collection('users').insertOne({ name, email, password, role });
 
   return result.ops[0];
+};
+
+const readById = async (id) => {
+  const db = await conn();
+  
+  return db.collection('users').findOne(ObjectId(id));
 };
 
 const readByEmailPwd = async (email, password) => {
@@ -23,5 +30,6 @@ const readByEmailPwd = async (email, password) => {
 
 module.exports = {
   create,
+  readById,
   readByEmailPwd,
 };

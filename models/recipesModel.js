@@ -1,5 +1,5 @@
-const { ObjectId } = require('mongodb');
 const conn = require('./connection');
+const { ObjectId } = require('mongodb');
 
 const create = async ({ name, ingredients, preparation }, userId) => {
   const db = await conn();
@@ -20,8 +20,18 @@ const readById = async (id) => {
   return db.collection('recipes').findOne(ObjectId(id));
 };
 
+const update = async ({ name, ingredients, preparation }, id) => {
+  const db = await conn();
+
+  await db.collection('recipes')
+    .updateOne({ _id: ObjectId(id) }, { $set: { name, ingredients, preparation } });
+
+  return readById(id);
+};
+
 module.exports = {
   create,
   read,
   readById,
+  update,
 };

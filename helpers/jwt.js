@@ -5,14 +5,17 @@ const secret = 'trybe_project';
 
 const create = ({ _id: id, email, role }) => {
   const payload = { id, email, role };
-  const headers = { algorithm: 'HS256', expiresIn: '5m' };
+  const headers = { algorithm: 'HS256', expiresIn: '30m' };
 
   return jwt.sign(payload, secret, headers);
 };
 
-const validate = (req, res, next) => {
+const val = (req, res, next) => {
   try {
     const token = req.headers.authorization;
+
+    if (!token) return resp(res, 401, 7);
+
     const payload = jwt.verify(token, secret);
 
     req.id = payload.id;
@@ -25,5 +28,5 @@ const validate = (req, res, next) => {
 
 module.exports = {
   create,
-  validate,
+  val,
 };

@@ -18,6 +18,9 @@ module.exports = (res, statusCod, numError, o) => {
     6: {
       message: 'recipe not found',
     },
+    7: {
+      message: 'missing auth token',
+    },
   };
 
   return (numError ? res.status(statusCod).json(errors[numError]) : res.status(statusCod).json(o));
