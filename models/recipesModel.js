@@ -33,7 +33,7 @@ const del = async (id) => {
   const db = await conn();
 
   await db.collection('recipes').deleteOne({ _id: ObjectId(id) });
-}
+};
 
 module.exports = {
   create,
