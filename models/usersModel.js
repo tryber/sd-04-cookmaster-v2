@@ -10,7 +10,7 @@ const create = async ({ name, email, password }, role) => {
 
 const readById = async (id) => {
   const db = await conn();
-  
+
   return db.collection('users').findOne(ObjectId(id));
 };
 
