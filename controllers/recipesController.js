@@ -68,4 +68,23 @@ router.put(
   },
 );
 
+// delete product
+router.delete(
+  '/:id',
+  tokenValidations.validateAuthenticity(),
+  tokenValidations.validateToken,
+  async (req, res) => {
+    const { id } = req.params;
+    const { role, _id } = req.user;
+
+    const recipe = await model.findById('recipes', id);
+
+    if (role === 'admin' || _id === recipe.userId) {
+      await model.deleteItem('recipes', id);
+      return res.status(204).json();
+    }
+    return res.status(401).json({ message: 'you cant delete this recipe' });
+  },
+);
+
 module.exports = router;
