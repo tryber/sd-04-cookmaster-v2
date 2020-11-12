@@ -46,5 +46,26 @@ router.get(
 );
 
 // update recipe
+router.put(
+  '/:id',
+  tokenValidations.validateAuthenticity(),
+  tokenValidations.validateToken,
+  async (req, res) => {
+    const { id } = req.params;
+    const { role, _id } = req.user;
+    const { name, ingredients, preparation } = req.body;
+
+    const recipe = await model.findById('recipes', id);
+    if (role === 'admin' || _id === recipe.userId) {
+      await model.update('recipes', id, { name, ingredients, preparation });
+
+      const updatedRecipe = await model.findById('recipes', id);
+
+      return res.status(200).json(updatedRecipe);
+    }
+
+    return res.status(401).json({ message: 'you cant update this recipe' });
+  },
+);
 
 module.exports = router;
