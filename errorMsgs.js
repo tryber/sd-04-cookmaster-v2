@@ -21,6 +21,9 @@ module.exports = (res, statusCod, numError, o) => {
     7: {
       message: 'missing auth token',
     },
+    8: {
+      message: 'Only admins can register new admins',
+    },
   };
 
   return (numError ? res.status(statusCod).json(errors[numError]) : res.status(statusCod).json(o));

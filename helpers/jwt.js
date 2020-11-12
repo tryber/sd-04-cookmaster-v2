@@ -10,15 +10,36 @@ const createJwt = ({ _id: id, email, role }) => {
   return jwt.sign(payload, secret, headers);
 };
 
+const verifications = (req, res) => {
+  const token = req.headers.authorization;
+
+  if (!token) return resp(res, 401, 7);
+
+  const payload = jwt.verify(token, secret);
+
+  return payload;
+};
+
 const jwtVal = (req, res, next) => {
   try {
-    const token = req.headers.authorization;
+    const { id } = verifications(req, res);
 
-    if (!token) return resp(res, 401, 7);
+    req.id = id;
 
-    const payload = jwt.verify(token, secret);
+    next();
+  } catch (_) {
+    resp(res, 401, 5);
+  }
+};
 
-    req.id = payload.id;
+const jwtAdmVal = (req, res, next) => {
+  try {
+    const { id, role } = verifications(req, res);
+
+    if (role !== 'admin') resp(res, 403, 8);
+
+    req.id = id;
+    req.role = 'admin';
 
     next();
   } catch (_) {
@@ -29,4 +50,5 @@ const jwtVal = (req, res, next) => {
 module.exports = {
   createJwt,
   jwtVal,
+  jwtAdmVal,
 };
