@@ -18,8 +18,8 @@ const findByEmail = async (collection, email) => {
 
 const findById = async (collection, id) => {
   if (!ObjectId.isValid(id)) return null;
-
   const result = await connection().then((db) => db.collection(collection).findOne(ObjectId(id)));
+  console.log(result)
   return result;
 };
 
