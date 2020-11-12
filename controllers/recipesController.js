@@ -1,6 +1,5 @@
 const express = require('express');
 const recipesValidations = require('../middlewares/recipesValidation');
-const validateToken = require('../auth/validateToken');
 const model = require('../models/model');
 
 const router = express.Router();
@@ -15,7 +14,7 @@ router.post(
       const { name, ingredients, preparation } = req.body;
       const { _id } = req.user;
 
-      const recipe = await model.add('recipes', { name, ingredients, preparation, _id })
+      const recipe = await model.add('recipes', { name, ingredients, preparation, _id });
       return res.status(201).json({ recipe });
     } catch (_e) {
       res.status(501).json({ message: 'Failed to register new recipe!' });
