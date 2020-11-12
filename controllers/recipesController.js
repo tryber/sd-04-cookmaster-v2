@@ -42,9 +42,7 @@ router.get(
   tokenValidations.validateAuthenticity(false),
   tokenValidations.validateToken,
   recipesValidations.validateRecipeExistence,
-  async (req, res) => {
-    return res.status(200).json(req.recipe);
-  },
+  async (req, res) => res.status(200).json(req.recipe),
 );
 
 module.exports = router;

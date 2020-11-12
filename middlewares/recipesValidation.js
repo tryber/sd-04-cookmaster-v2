@@ -1,4 +1,3 @@
-const validateToken = require('../auth/validateToken');
 const model = require('../models/model');
 
 const buildResponse = (message) => {
