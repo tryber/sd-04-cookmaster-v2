@@ -35,7 +35,7 @@ const update = async (collection, id, query) => {
   return result;
 };
 
-const delete = async (collection, id) => {
+const remove = async (collection, id) => {
   const result = await connection().then((db) =>
     db.collection(collection).deleteOne({ _id: ObjectId(id) }),
   );
@@ -49,5 +49,5 @@ module.exports = {
   findById,
   findAll,
   update,
-  delete,
+  remove,
 };
