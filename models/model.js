@@ -42,8 +42,6 @@ const deleteItem = async (collection, id) => {
   return result;
 };
 
-
-
 const addImage = async (collection, id, imagePath) =>
   connection().then((db) =>
     db.collection(collection).updateOne({ _id: ObjectId(id) }, { $set: { image: imagePath } }),
