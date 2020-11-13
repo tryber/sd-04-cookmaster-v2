@@ -25,9 +25,9 @@ const emailUnique = async (req, res, next) => {
 };
 
 const email = async (req, res, next) => {
-  const { email } = req.body;
+  const { email: emailBody } = req.body;
   const regex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
-  if (!regex.test(email)) {
+  if (!regex.test(emailBody)) {
     return res.status(400).json(createMessage('Invalid entries. Try again.'));
   }
 
