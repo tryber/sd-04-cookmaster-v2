@@ -42,6 +42,13 @@ const deleteItem = async (collection, id) => {
   return result;
 };
 
+
+
+const addImage = async (collection, id, imagePath) =>
+  connection().then((db) =>
+    db.collection(collection).updateOne({ _id: ObjectId(id) }, { $set: { image: imagePath } }),
+  );
+
 module.exports = {
   add,
   findByName,
@@ -50,4 +57,5 @@ module.exports = {
   findAll,
   update,
   deleteItem,
+  addImage,
 };

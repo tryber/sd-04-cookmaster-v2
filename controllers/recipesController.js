@@ -2,6 +2,7 @@ const express = require('express');
 const recipesValidations = require('../middlewares/recipesValidation');
 const tokenValidations = require('../auth/validateToken');
 const model = require('../models/model');
+const uploadImage = require('../services/uploadImage');
 
 const router = express.Router();
 
@@ -84,6 +85,35 @@ router.delete(
       return res.status(204).json();
     }
     return res.status(401).json({ message: 'you cant delete this recipe' });
+  },
+);
+
+// add image
+router.put(
+  '/:id/image/',
+  recipesValidations.validateRecipeExistence,
+  tokenValidations.validateAuthenticity(),
+  tokenValidations.validateToken,
+  uploadImage,
+  async (req, res) => {
+    try {
+      const { id } = req.params;
+      const recipe = await model.findById('recipes', id);
+
+      const imagePath = `localhost:3000/images/${id}.jpeg`;
+
+      await model.addImage('recipes', id, imagePath);
+
+      const updatedRecipe = {
+        ...recipe,
+        image: imagePath,
+      };
+      res.status(200).json(updatedRecipe);
+    } catch (_err) {
+      res.status(501).json({
+        message: 'Failed to upload image',
+      });
+    }
   },
 );
 
