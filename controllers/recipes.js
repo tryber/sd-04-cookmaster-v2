@@ -5,10 +5,9 @@ const model = require('../models/user');
 
 const router = express.Router();
 
-// Register new recipe
 router.post(
   '/',
-  tokenValidation.validateToken(),
+  tokenValidation.validateToken,
   tokenValidation.verifyToken,
   validation.recipeFields,
   async (req, res) => {
@@ -23,32 +22,26 @@ router.post(
   },
 );
 
-router.get('/', async (_req, res) => {
-  try {
-    const recipes = await model.findAll('recipes');
-    res.status(200).json(recipes);
-  } catch (_e) {
-    res.status(501).json({ message: 'Ops, something went worng!' });
-  }
-});
-
-router.get(
-  '/:id',
-  tokenValidation.validateToken(false),
-  tokenValidation.verifyToken,
-  validation.recipeFields,
-  async (req, res) => res.status(200).json(req.recipe),
-);
-
 router.get(
   '/',
   tokenValidation.validateToken(false),
   tokenValidation.verifyToken,
   async (_req, res) => {
-    const recipes = await model.findAll('recipes');
-
-    res.status(200).json(recipes);
+    try {
+      const recipes = await model.findAll('recipes');
+      res.status(200).json(recipes);
+    } catch (_e) {
+      res.status(501).json({ message: 'Ops, something went worng!' });
+    }
   },
+);
+
+router.get(
+  '/:id',
+  tokenValidation.validateToken(false),
+  tokenValidation.verifyToken,
+  validation.recipeExists,
+  async (req, res) => res.status(200).json(req.recipe),
 );
 
 module.exports = router;
