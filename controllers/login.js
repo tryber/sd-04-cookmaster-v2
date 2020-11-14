@@ -13,7 +13,7 @@ router.post(
       const user = req.user;
       const tokenSign = token.signToken(user);
 
-      return res.status(200).json({ token });
+      return res.status(200).json({ token: tokenSign });
     } catch (_e) {
       res.status(501).json({ message: 'Ops, something went worng!' });
     }
