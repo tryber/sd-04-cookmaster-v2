@@ -34,8 +34,35 @@ const email = async (req, res, next) => {
   next();
 };
 
+const loginFields = async (req, res, next) => {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    return res.status(401).json(createMessage('All fields must be filled'));
+  }
+
+  next();
+};
+
+const login = async (req, res, next) => {
+  const { email, password } = req.body;
+
+  const user = await modelUser.findByEmail('users', email);
+
+  if (!user || password !== user.password) {
+    return res.status(401).json(createMessage('Incorrect username or password'));
+  }
+
+  const { password: _, name: _name, ...userWithNoPassword } = user;
+  req.user = userWithNoPassword;
+
+  next();
+};
+
 module.exports = {
   fields,
   email,
   emailUnique,
+  loginFields,
+  login,
 };
