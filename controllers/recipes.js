@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.post(
   '/',
-  tokenValidation.validateToken,
+  tokenValidation.validateToken(),
   tokenValidation.verifyToken,
   validation.recipeFields,
   async (req, res) => {
