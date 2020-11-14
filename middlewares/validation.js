@@ -64,7 +64,7 @@ const recipeExists = async (req, res, next) => {
   const { id } = req.params;
   const recipe = await model.findById('recipes', id);
 
-  if (!recipe) return res.status(404).json(buildResponse('recipe not found'));
+  if (!recipe) return res.status(404).json(createMessage('recipe not found'));
 
   req.recipe = recipe;
 
