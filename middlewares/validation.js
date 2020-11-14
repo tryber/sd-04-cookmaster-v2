@@ -1,4 +1,5 @@
 const modelUser = require('../models/user');
+const token = require('../auth/token');
 
 const createMessage = (message) => ({ message });
 
@@ -59,10 +60,35 @@ const login = async (req, res, next) => {
   next();
 };
 
+const auth = (req, res, next) => {
+  try {
+    const tokenHeader = req.headers.authorization;
+
+    const user = token.verifyToken(tokenHeader);
+    req.user = user;
+
+    next();
+  } catch (_err) {
+    res.status(401).json(createMessage('jwt malformed'));
+  }
+};
+
+const recipeFields = async (req, res, next) => {
+  const { name, ingredients, preparation } = req.body;
+
+  if (!name || !ingredients || !preparation) {
+    return res.status(400).json(createMessage('Invalid entries. Try again.'));
+  }
+
+  next();
+};
+
 module.exports = {
   fields,
   email,
   emailUnique,
   loginFields,
   login,
+  auth,
+  recipeFields,
 };
