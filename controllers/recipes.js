@@ -2,6 +2,7 @@ const express = require('express');
 const validation = require('../middlewares/validation');
 const tokenValidation = require('../auth/token');
 const model = require('../models/user');
+const upload = require('../services/upload');
 
 const router = express.Router();
 
@@ -89,7 +90,7 @@ router.put(
   validation.recipeExists,
   tokenValidation.validateToken(),
   tokenValidation.verifyToken,
-  uploadImage,
+  upload,
   async (req, res) => {
     try {
       const { id } = req.params;
@@ -101,7 +102,7 @@ router.put(
 
       const updatedRecipe = {
         ...recipe,
-        image: imagePath,
+        image,
       };
       res.status(200).json(updatedRecipe);
     } catch (_err) {
