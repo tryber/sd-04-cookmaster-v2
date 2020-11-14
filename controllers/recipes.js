@@ -84,4 +84,32 @@ router.delete(
   },
 );
 
+router.put(
+  '/:id/image/',
+  validation.recipeExists,
+  tokenValidation.validateToken(),
+  tokenValidation.verifyToken,
+  uploadImage,
+  async (req, res) => {
+    try {
+      const { id } = req.params;
+      const recipe = await model.findById('recipes', id);
+
+      const image = `localhost:3000/images/${id}.jpeg`;
+
+      await model.uploadImage('recipes', id, image);
+
+      const updatedRecipe = {
+        ...recipe,
+        image: imagePath,
+      };
+      res.status(200).json(updatedRecipe);
+    } catch (_err) {
+      res.status(501).json({
+        message: 'Failed to upload image',
+      });
+    }
+  },
+);
+
 module.exports = router;
