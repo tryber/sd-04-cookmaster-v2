@@ -17,4 +17,13 @@ router.post('/', validation.auth, validation.recipeFields, async (req, res) => {
   }
 });
 
+router.get('/', async (_req, res) => {
+  try {
+    const recipes = await model.findAll('recipes');
+    res.status(200).json(recipes);
+  } catch (_e) {
+    res.status(501).json({ message: 'Ops, something went worng!' });
+  }
+});
+
 module.exports = router;
