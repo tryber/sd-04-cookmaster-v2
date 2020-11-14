@@ -44,4 +44,26 @@ router.get(
   async (req, res) => res.status(200).json(req.recipe),
 );
 
+router.put(
+  '/:id',
+  tokenValidation.validateToken(),
+  tokenValidation.verifyToken,
+  async (req, res) => {
+    const { id } = req.params;
+    const { role, _id } = req.user;
+    const { name, ingredients, preparation } = req.body;
+
+    const recipe = await model.findById('recipes', id);
+    if (role === 'admin' || _id === recipe.userId) {
+      await model.update('recipes', id, { name, ingredients, preparation });
+
+      const updatedRecipe = await model.findById('recipes', id);
+
+      return res.status(200).json(updatedRecipe);
+    }
+
+    return res.status(401).json({ message: 'Something went wworn.' });
+  },
+);
+
 module.exports = router;
