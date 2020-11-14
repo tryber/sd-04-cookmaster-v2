@@ -1,5 +1,5 @@
 const modelUser = require('../models/user');
-const token = require('../auth/token');
+const model = require('../models/user');
 
 const createMessage = (message) => ({ message });
 
@@ -60,17 +60,15 @@ const login = async (req, res, next) => {
   next();
 };
 
-const auth = (req, res, next) => {
-  try {
-    const tokenHeader = req.headers.authorization;
+const recipeExists = async (req, res, next) => {
+  const { id } = req.params;
+  const recipe = await model.findById('recipes', id);
 
-    const user = token.verifyToken(tokenHeader);
-    req.user = user;
+  if (!recipe) return res.status(404).json(buildResponse('recipe not found'));
 
-    next();
-  } catch (_err) {
-    res.status(401).json(createMessage('jwt malformed'));
-  }
+  req.recipe = recipe;
+
+  next();
 };
 
 const recipeFields = async (req, res, next) => {
@@ -89,6 +87,6 @@ module.exports = {
   emailUnique,
   loginFields,
   login,
-  auth,
+  recipeExists,
   recipeFields,
 };
