@@ -37,7 +37,7 @@ router.get(
   tokenValidation.validateToken(false),
   tokenValidation.verifyToken,
   validation.recipeFields,
-  async (req, res) => res.status(200).json(req.recipe);
+  async (req, res) => res.status(200).json(req.recipe),
 );
 
 router.get(
