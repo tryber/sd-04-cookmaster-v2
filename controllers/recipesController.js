@@ -1,7 +1,17 @@
 const router = require('express').Router();
+const multer = require('multer');
 const crudModel = require('../models/crudModel');
 const logindValidations = require('../auth/validateJWT');
 const validateRecipes = require('../middlewares/validateRecipes');
+
+const storage = multer.diskStorage({
+  destination: 'images',
+  filename: (req, file, callback) => {
+    callback(null, `${req.params.id}.jpeg`);
+  },
+});
+
+const upload = multer({ storage });
 
 router.post('/',
   logindValidations.validateJWT(),
@@ -63,6 +73,17 @@ router.delete('/:id',
       return res.status(204).json();
     }
     return res.status(401).json({ message: 'you cant delete this recipe' });
+  });
+
+router.put('/:id/image',
+  logindValidations.validateJWT(),
+  logindValidations.validateLogin,
+  upload.single('image'),
+  async (req, res) => {
+    const { id } = req.params;
+    await crudModel.updateOne('recipes', id, { image: `localhost:3000/${req.file.path}` });
+    const result = await crudModel.findById('recipes', id);
+    res.status(200).json(result);
   });
 
 module.exports = router;

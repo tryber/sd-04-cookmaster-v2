@@ -3,6 +3,8 @@ const controllers = require('./controllers');
 
 const app = express();
 
+app.use(express.static(__dirname + '/uploads'));
+
 app.use(express.json());
 app.use('/users', controllers.users);
 app.use('/login', controllers.login);
