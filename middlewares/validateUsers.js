@@ -53,10 +53,21 @@ const validateLogin = async (req, res, next) => {
   return next();
 };
 
+const validateAdmin = async (req, res, next) => {
+  const { user } = req;
+
+  if (user.role !== 'admin') {
+    return res.status(403).json(createMessages('Only admins can register new admins'));
+  }
+
+  return next();
+};
+
 module.exports = {
   verifyEntries,
   verifyIfUserExistsByEmail,
   validateEmail,
   validateLoginFields,
   validateLogin,
+  validateAdmin,
 };
