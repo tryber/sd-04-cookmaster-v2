@@ -21,8 +21,15 @@ const addUser = async (email, password, name, role = 'user') => {
   return user.ops[0];
 };
 
+const addAdmin = async (name, email, password) => {
+  const db = await connection();
+  const admin = await db.collection('users').insertOne({ name, email, password, role: 'admin' });
+  return admin.ops[0];
+};
+
 module.exports = {
   getAllUsers,
   getUserByMail,
   addUser,
+  addAdmin,
 };
