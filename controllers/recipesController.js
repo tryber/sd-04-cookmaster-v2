@@ -16,7 +16,7 @@ const add = ('/', async (req, res) => {
 
 const getAll = ('/', async (req, res) => {
   const recipes = await recipesService.getAll();
-  res.status(200).json({ recipes });
+  res.status(200).json(recipes);
 });
 
 module.exports = {

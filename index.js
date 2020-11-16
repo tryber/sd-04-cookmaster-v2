@@ -22,8 +22,8 @@ app.route('/users')
   .post(userValidator, usersController.add);
 // Recipes
 app.route('/recipes')
-  .get(recipesController.getAll)
-  .post(userAuth, recipesValidator, recipesController.add);
+  .get(userAuth(false), recipesController.getAll)
+  .post(userAuth(), recipesValidator, recipesController.add);
 
 app.post('/login', usersController.login);
 
