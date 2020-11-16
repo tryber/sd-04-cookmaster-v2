@@ -1,5 +1,5 @@
 const express = require('express');
-const authValidation = require('../middlewares/authValidation');
+const validateToken = require('../middlewares/auth/validateToken');
 const permissionValidation = require('../middlewares/permissionValidation');
 const { recipeFieldsValidation, recipeExistsValidation } = require('../middlewares/recipesValidations');
 const recipesModel = require('../models/recipesModel');
@@ -38,7 +38,7 @@ router.get('/:id',
 // Registra novas receitas
 router.post('/',
   recipeFieldsValidation,
-  authValidation,
+  validateToken,
   async (req, res) => {
     try {
       const { _id } = req.user;
@@ -53,10 +53,40 @@ router.post('/',
     }
   });
 
+// atualiza receita com imagem uploaded
+router.put(
+  '/:id/image',
+  validateToken,
+  permissionValidation,
+  uploadImage,
+  async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { filename } = req.file;
+      const imagePath = `localhost:3000/images/${filename}`;
+
+      console.log(`req.params.id: ${id}, req.file.filename: ${filename}, imagePAth: ${imagePath}`);
+      const recipe = await recipesModel.getRecipeById(id);
+
+      if (!recipe) {
+        return res.status(HTTPStatus.NOT_FOUND).json({ message: 'Recipe not found' });
+      }
+
+      await recipesModel.updateWithImage(id, imagePath);
+
+      const recipeWithImg = await recipesModel.getRecipeById(id);
+
+      return res.status(HTTPStatus.OK).json(recipeWithImg);
+    } catch (_err) {
+      return res.status(HTTPStatus.UNPROCESSABLE_ENTITY);
+    }
+  },
+);
+
 // Atualiza receitas (usuário dono da receita ou admin)
 router.put('/:id',
   recipeFieldsValidation,
-  authValidation,
+  validateToken,
   permissionValidation,
   async (req, res) => {
     const data = req.body;
@@ -74,7 +104,7 @@ router.put('/:id',
 // Deleta receitas
 router.delete('/:id',
   recipeExistsValidation,
-  authValidation,
+  validateToken,
   permissionValidation,
   async (req, res) => {
     try {
@@ -84,34 +114,6 @@ router.delete('/:id',
 
       return res.status(HTTPStatus.NO_CONTENT).json({ message: 'successuful deleted' });
     } catch (_e) {
-      return res.status(HTTPStatus.UNPROCESSABLE_ENTITY);
-    }
-  });
-
-// atualiza receita com imagem uploaded
-router.put('/:id/images',
-  authValidation,
-  permissionValidation,
-  uploadImage,
-  async (req, res) => {
-    try {
-      const { id } = req.params;
-      const { filename } = req.file;
-      console.log('filename: ' + filename);
-      const imagePath = `localhost:3000/images/${filename}`;
-
-      const recipe = await recipesModel.getRecipeById(id);
-
-      if (!recipe) {
-        return res.status(HTTPStatus.NOT_FOUND).json({ message: 'Recipe not found' });
-      }
-
-      await recipesModel.updateWithImage(id, imagePath);
-
-      const recipeWithImg = await recipesModel.getRecipeById(id);
-
-      return res.status(HTTPStatus.OK).json(recipeWithImg);
-    } catch (_err) {
       return res.status(HTTPStatus.UNPROCESSABLE_ENTITY);
     }
   });

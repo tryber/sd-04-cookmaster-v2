@@ -10,7 +10,7 @@ const permissionValidation = async (req, res, next) => {
       return next();
     }
     const recipeCreator = await recipesModel.getRecipeById(recipeId);
-    if (!_id.equals(recipeCreator.userId)) {
+    if (!(_id.equals(recipeCreator.userId))) {
       return res.status(HTTPStatus.UNAUTHORIZED).json({ message: 'Permissão negada' });
     }
     return next();
