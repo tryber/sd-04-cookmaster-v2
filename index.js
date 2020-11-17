@@ -11,7 +11,7 @@ app.get('/', (request, response) => {
   response.send();
 });
 
-app.post('/users', middlewares.validations.validarCadastro, controller.cadastro);
+app.post('/users', middlewares.validations.validarCadastro, middlewares.validations.existEmail, controller.cadastro);
 
 app.use((err, _req, res, _next) => {
   res.status(405).json(err.message);

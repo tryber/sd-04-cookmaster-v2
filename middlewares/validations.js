@@ -10,10 +10,19 @@ const cadastroSchema = joi.object({
 const validarCadastro = async (req, res, next) => {
   const { name, email, password } = req.body;
   const validation = cadastroSchema.validate({ name, email, password });
-  if (validation.error) res.status(400).json({ message: 'Invalid entries. Try again.' });
-  const user = await userModel.findByEmail('users', email);
-  if (user) res.status(409).json({ message: 'Email already registered' });
+  if (validation.error) {
+    return res.status(400).json({ message: 'Invalid entries. Try again.' });
+  }
   next();
 };
 
-module.exports = { validarCadastro };
+const existEmail = async (req, res, next) => {
+  const { email } = req.body;
+  const user = await userModel.findByEmail('users', email);
+  if (user) {
+    return res.status(409).json({ message: 'Email already registered' });
+  }
+  next();
+};
+
+module.exports = { validarCadastro, existEmail };

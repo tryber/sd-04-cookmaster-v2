@@ -11,9 +11,13 @@ const createOne = async (collection, query) => {
 };
 
 const findByEmail = async (collection, email) => {
-  const db = await connection();
-  const results = await db.collection(collection).findOne({ email });
-  return results;
+  try {
+    const db = await connection();
+    const results = await db.collection(collection).findOne({ email });
+    return results;
+  } catch (err) {
+    throw err;
+  }
 };
 
 module.exports = { createOne, findByEmail };
