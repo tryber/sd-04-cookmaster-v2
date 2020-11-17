@@ -1,4 +1,4 @@
-const router = require('express').Router();
+const recepisRouter = require('express').Router();
 const multer = require('multer');
 const crudModel = require('../models/crudModel');
 const logindValidations = require('../middlewares/JWT');
@@ -13,7 +13,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-router.post(
+recepisRouter.post(
   '/',
   logindValidations.validateJWT(),
   logindValidations.validateLogin,
@@ -31,7 +31,7 @@ router.post(
   },
 );
 
-router.get(
+recepisRouter.get(
   '/',
   logindValidations.validateJWT(false),
   logindValidations.validateLogin,
@@ -41,7 +41,7 @@ router.get(
   },
 );
 
-router.get(
+recepisRouter.get(
   '/:id',
   logindValidations.validateJWT(false),
   logindValidations.validateLogin,
@@ -56,7 +56,7 @@ router.get(
   },
 );
 
-router.put(
+recepisRouter.put(
   '/:id',
   logindValidations.validateJWT(),
   logindValidations.validateLogin,
@@ -74,7 +74,7 @@ router.put(
   },
 );
 
-router.delete(
+recepisRouter.delete(
   '/:id',
   logindValidations.validateJWT(),
   logindValidations.validateLogin,
@@ -90,7 +90,7 @@ router.delete(
   },
 );
 
-router.put(
+recepisRouter.put(
   '/:id/image',
   logindValidations.validateJWT(),
   logindValidations.validateLogin,
@@ -103,4 +103,4 @@ router.put(
   },
 );
 
-module.exports = router;
+module.exports = recepisRouter;
