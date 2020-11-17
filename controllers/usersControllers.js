@@ -1,18 +1,21 @@
-const { Router } = require('express');
+const express = require('express');
 const crudModel = require('../models/crudModel');
 const validations = require('../middlewares/validateUsers');
 const auth = require('../middlewares/JWT');
 
-const userRouter = Router();
+const userRouter = express.Router();
 
-userRouter.post('/', validations.validCreateUser, validations.emailValidator, async (req, res) => {
-  const data = req.body;
-  data.role = 'user';
-
-  const userCreate = await crudModel.createUserModel('user', data);
-
-  return res.status(201).json(userCreate);
-});
+userRouter.post(
+  '/',
+  validations.verifyEntries,
+  validations.validateEmail,
+  validations.verifyIfUserExistsByEmail,
+  async (req, res) => {
+    const { name, email, password, role = 'user' } = req.body;
+    const user = await crudModel.createOne('users', { name, email, password, role });
+    res.status(201).json({ user });
+  },
+);
 
 userRouter.post(
   '/admin',

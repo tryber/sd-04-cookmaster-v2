@@ -6,7 +6,7 @@ const createOne = async (collection, query) => {
     const db = await connection();
     const result = await db.collection(collection).insertOne(query);
 
-    return { user: result.ops[0] };
+    return result.ops[0];
   } catch (err) {
     console.error('createOne', err.message);
   }

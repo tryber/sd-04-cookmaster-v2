@@ -17,7 +17,7 @@ const verifyIfUserExistsByEmail = async (req, res, next) => {
     return res.status(409).json(createMessages('Email already registered'));
   }
 
-  return next();
+  next();
 };
 
 const validateEmail = (req, res, next) => {
@@ -27,7 +27,7 @@ const validateEmail = (req, res, next) => {
     return res.status(400).json(createMessages('Invalid entries. Try again.'));
   }
 
-  return next();
+  next();
 };
 
 const validateLoginFields = (req, res, next) => {
@@ -50,7 +50,7 @@ const validateLogin = async (req, res, next) => {
   const { password: _, name: _name, ...userWhitoutPassword } = user;
   req.user = userWhitoutPassword;
 
-  return next();
+  next();
 };
 
 const validateAdmin = async (req, res, next) => {
@@ -60,7 +60,7 @@ const validateAdmin = async (req, res, next) => {
     return res.status(403).json(createMessages('Only admins can register new admins'));
   }
 
-  return next();
+  next();
 };
 
 module.exports = {
