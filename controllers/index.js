@@ -1,3 +1,3 @@
-const {cadastro} = require('./userController');
+const { cadastro } = require('./userController');
 
 module.exports = { cadastro };

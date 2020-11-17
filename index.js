@@ -1,7 +1,6 @@
 const express = require('express');
 const middlewares = require('./middlewares');
 const controller = require('./controllers');
-const { expression } = require('joi');
 
 const app = express();
 
@@ -18,4 +17,4 @@ app.use((err, _req, res, _next) => {
   res.status(405).json(err.message);
 });
 
-app.listen(3000,console.log('rodando'));
+app.listen(3000, console.log('rodando'));
