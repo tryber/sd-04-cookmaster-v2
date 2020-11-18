@@ -1,10 +1,16 @@
 const express = require('express');
+const userRouter = require('./routes/userRouter');
 
 const app = express();
 
-// não remova esse endpoint, e para o avaliador funcionar
+const PORT = 3000;
+
+app.use(express.json());
+
 app.get('/', (request, response) => {
   response.send();
 });
 
-// For Commit
+app.use('/users', userRouter);
+
+app.listen(PORT, () => console.log(`Escutando na porta ${PORT}`));
