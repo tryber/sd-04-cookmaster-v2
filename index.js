@@ -30,8 +30,8 @@ app.use('/users', controllers.userController);
 // app.get('/recipes/:id/edit', middlewares.auth(), controllers.recipesController.editRecipePage);
 // app.post('/recipes/:id', middlewares.auth(), controllers.recipesController.editRecipe);
 
-// app.get('/admin', middlewares.auth(), (req, res) => 
-//res.render('admin/home', { user: req.user }));
+// app.get('/admin', middlewares.auth(), (req, res) =>
+// res.render('admin/home', { user: req.user }));
 
 // app.post('/cadastro', controllers.userController.signup);
 // app.get('/cadastro', controllers.userController.signupForm);
