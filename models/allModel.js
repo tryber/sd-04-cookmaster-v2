@@ -39,7 +39,7 @@ const updateImageModel = async (id, image, recipe) => {
   await connection().then((db) => db.collection('recipes').updateOne({ _id: ObjectId(id) }, { $set: { image } }));
 
   return { ...recipe, image };
-}
+};
 
 module.exports = {
   getAll,

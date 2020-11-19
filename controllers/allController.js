@@ -1,5 +1,4 @@
 const { getAll, getRecipeById, newRecipeInsert, updateRecipeModel, deleteModel, updateImageModel } = require('../models/allModel');
-const multer = require('multer');
 
 const listRecipes = async (_req, res) => {
   const recipes = await getAll();
