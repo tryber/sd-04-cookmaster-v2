@@ -52,7 +52,9 @@ router.delete('/:id', validateToken.validationToken, async (req, res) => {
   try {
     await recipeModel.remove(req.params.id);
     res.status(204).json('No body returned of response');
-  } catch (error) {}
+  } catch (error) {
+    res.status(500).json({ message: 'error' });
+  }
 });
 
 // POST /recipes/:id/image/
