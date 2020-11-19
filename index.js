@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const { userController, allController, userLogin } = require('./controllers');
 const { isValidUser, authentication } = require('./middlewares/auth');
-const path = require('path');
+const upload = require('./services/upload');
 
 const app = express();
 app.use(bodyParser.json());
@@ -24,6 +24,6 @@ app.get('/recipes/:id', allController.recipeDetails);// logados ou nao
 app.put('/recipes/:id', authentication, allController.editRecipe);
 app.delete('/recipes/:id', authentication, allController.deleteRecipe);
 
-app.post('/recipes/:id/image/', authentication, allController.updateImage);
+app.put('/recipes/:id/image/', authentication, upload, allController.updateImage);
 
 app.listen(3000, () => console.log('Te escuto na 3000!'));

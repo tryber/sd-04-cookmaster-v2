@@ -36,7 +36,7 @@ const deleteModel = async (recipeId) => {
 };
 
 const updateImageModel = async (id, image, recipe) => {
-  await connection().collection('recipes').updateOne({ _id: ObjectId(id) }, { $set: { image } });
+  await connection().then((db) => db.collection('recipes').updateOne({ _id: ObjectId(id) }, { $set: { image } }));
 
   return { ...recipe, image };
 }
