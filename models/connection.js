@@ -1,19 +1,16 @@
-const MongoClient = require('mongodb').MongoClient;
+const mongoClient = require('mongodb').MongoClient;
 
-require('dotenv').config();
+const MONGO_DB_URL = 'mongodb://mongodb:27017/Cookmaster';
+// const MONGO_DB_URL = 'mongodb://localhost:27017/Cookmaster';
 
-let url = 'mongodb://mongodb:27017/Cookmaster';
-
-if (process.env.LOCAL_MONGO_DB_URL) {
-  url = process.env.LOCAL_MONGO_DB_URL;
-}
 const DB_NAME = 'Cookmaster';
 
 const connection = () =>
-  MongoClient.connect(url, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  mongoClient
+    .connect(MONGO_DB_URL, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    })
     .then((conn) => conn.db(DB_NAME))
     .catch((err) => {
       console.error(err);
