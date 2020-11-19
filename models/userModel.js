@@ -30,7 +30,8 @@ const findByEmail = async (email) =>
 // const findById = async (idParam) => {
 //   const db = await connection();
 //   const table = await db.getTable('users');
-//   const result = await table.select([]).where('id = :param_id').bind('param_id', idParam).execute();
+//   const result = await table.select([])
+//.where('id = :param_id').bind('param_id', idParam).execute();
 //   const user = result.fetchOne();
 //   const [id, email, password, firstName, lastName] = user;
 //   return { id, email, password, firstName, lastName };
@@ -50,7 +51,8 @@ const findByEmail = async (email) =>
 // const deleteUser = async (idParam) => {
 //   const db = await connection();
 //   const table = await db.getTable('users');
-//   const result = await table.delete().where('id = :param_id').bind('param_id', idParam).execute();
+//   const result = await table.delete()
+//.where('id = :param_id').bind('param_id', idParam).execute();
 //   return result.getWarningsCount();
 // };
 
