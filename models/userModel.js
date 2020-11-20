@@ -2,7 +2,7 @@ const connection = require('./connection');
 
 // const { ObjectId } = require('mongodb');
 
-const addUser = async (name, email, password, role) =>
+const createUser = async (name, email, password, role) =>
   connection()
     .then((db) => db.collection('users').insertOne({ name, email, password, role }))
     .then((result) => ({ name, email, role, _id: result.insertedId }))
@@ -72,7 +72,7 @@ const findByEmail = async (email) =>
 // };
 
 module.exports = {
-  addUser,
+  createUser,
   findByEmail,
   // findById,
   // deleteUser,
