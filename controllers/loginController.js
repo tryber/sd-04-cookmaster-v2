@@ -7,7 +7,7 @@ const { findByEmail } = require('../models/userModel');
 const { loginValidationMiddleware } = require('../services/loginServices');
 
 const jwtConfig = {
-  expiresIn: '7d',
+  expiresIn: '1h',
   algorithm: 'HS256',
 };
 const secret = 'NinguemNuncaVaiDescobrirEsteTokenSecreto';
