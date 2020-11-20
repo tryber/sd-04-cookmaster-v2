@@ -28,7 +28,7 @@ const deleteRecipe = async (id) => {
     return null;
   }
   return connection()
-    .then((db) => db.collection('recipes').deleteOne({_id : ObjectID(id)}))
+    .then((db) => db.collection('recipes').deleteOne({ _id: ObjectID(id) }))
     .catch((err) => {
       console.error(err);
       return process.exit(1);
