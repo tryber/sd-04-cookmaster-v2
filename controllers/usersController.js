@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 const { createUser } = require('../models/userModel');
-const { userDataValidationMiddleware } = require('../services/userServices');
+const { userDataValidationMiddleware } = require('../services/usersServices');
 
 router.post('/', userDataValidationMiddleware, async (req, res) => {
   const { name, email, password } = req.body;
