@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --runInBand",
-    "start": "node index.js",
-    "start:watch": "nodemon index.js"
+    "start": "nodemon index.js"
   },
   "repository": {
     "type": "git",
