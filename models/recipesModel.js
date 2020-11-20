@@ -10,6 +10,31 @@ const createRecipe = async (name, ingredients, preparation, userId) =>
       process.exit(1);
     });
 
+const updateRecipe = async (id, name, ingredients, preparation) =>
+  connection()
+    .then((db) =>
+      db
+        .collection('recipes')
+        .updateOne({ _id: ObjectID(id) }, { $set: { name, ingredients, preparation } }),
+    )
+    .then(() => ({ _id: id, name, ingredients, preparation }))
+    .catch((err) => {
+      console.error(err);
+      return process.exit(1);
+    });
+
+const deleteRecipe = async (id) => {
+  if (!ObjectID.isValid(id)) {
+    return null;
+  }
+  return connection()
+    .then((db) => db.collection('recipes').deleteOne({_id : ObjectID(id)}))
+    .catch((err) => {
+      console.error(err);
+      return process.exit(1);
+    });
+};
+
 const getAllRecipes = async () =>
   connection()
     .then((db) => db.collection('recipes').find().toArray())
@@ -31,8 +56,11 @@ const getRecipeById = async (id) => {
     return process.exit(1);
   }
 };
+
 module.exports = {
   createRecipe,
+  updateRecipe,
+  deleteRecipe,
   getAllRecipes,
   getRecipeById,
 };
