@@ -5,7 +5,7 @@ const { findByEmail } = require('../models/userModel');
 const secret = 'NinguemNuncaVaiDescobrirEsteTokenSecreto';
 
 module.exports = async (req, res, next) => {
-  const token = req.headers["authorization"];
+  const token = req.headers.authorization;
 
   if (!token) {
     return res.status(400).json({ error: 'Token não encontrado ou informado' });

@@ -12,7 +12,7 @@ router.post('/', auth, recipeDataValidationMiddleware, async (req, res) => {
   const { name, ingredients, preparation } = req.body;
   const user = req.user;
   console.log(user);
-  const recipe = await createRecipe(name, ingredients, preparation, user._id);
+  const recipe = await createRecipe(name, ingredients, preparation, user.id);
 
   res.status(201).json({ recipe });
 });
