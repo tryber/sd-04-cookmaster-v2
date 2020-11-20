@@ -9,7 +9,6 @@ const userDataValidationMiddleware = async (req, res, next) => {
     return res.status(400).json({ message: 'Invalid entries. Try again.' });
   }
   if (user) {
-    console.log('Email already registered');
     return res.status(409).json({ message: 'Email already registered' });
   }
 
