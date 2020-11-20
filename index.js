@@ -9,10 +9,9 @@ const controllers = require('./controllers');
 
 app.use(bodyParser.json());
 app.use(express.static('public'));
-app.set('view engine', 'ejs');
-app.set('views', './views');
 
 app.use('/users', controllers.userController);
+app.use('/login', controllers.loginController);
 
 // app.get('/', middlewares.auth(false), controllers.recipesController.allRecipes);
 // não remova esse endpoint, e para o avaliador funcionar
