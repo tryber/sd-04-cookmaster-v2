@@ -6,7 +6,7 @@ const upload = require('../services/upload');
 
 const router = express.Router();
 
-router.post('/', validateToken(), recipeFields, async (req, res) => {
+router.post('/', validateToken(), verifyToken, recipeFields, async (req, res) => {
   try {
     const { name, ingredients, preparation } = req.body;
     const { _id: userId } = req.user;
