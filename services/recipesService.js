@@ -12,11 +12,9 @@ const model = async (idR, body) => {
 const updateAdm = async (idR, user, body) => {
   const { role, _id } = user;
   if (role === 'admin') return model(idR, body);
-  else {
-    const { userId } = await recipeModel.findById('recipes', idR);
-    if (String(userId) === String(_id)) return model(idR, body);
-    return null;
-  }
+  const { userId } = await recipeModel.findById('recipes', idR);
+  if (String(userId) === String(_id)) return model(idR, body);
+  return null;
 };
 
 module.exports = { updateAdm };
