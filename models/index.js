@@ -1,3 +1,3 @@
-const userModel = require('./crud');
+const crud = require('./crud');
 
-module.exports = { userModel };
+module.exports = crud;

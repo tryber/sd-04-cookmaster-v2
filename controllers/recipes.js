@@ -1,7 +1,7 @@
 const express = require('express');
 const { recipeExists, recipeFields } = require('../middlewares/validations');
 const { validateToken, verifyToken } = require('../authentication');
-const model = require('../models/crud');
+const crud = require('../models');
 const upload = require('../services/upload');
 
 const router = express.Router();
@@ -10,7 +10,7 @@ router.post('/', validateToken(), verifyToken, recipeFields, async (req, res) =>
   try {
     const { name, ingredients, preparation } = req.body;
     const { _id: userId } = req.user;
-    const recipe = await model.add('recipes', { name, ingredients, preparation, userId });
+    const recipe = await crud.create('recipes', { name, ingredients, preparation, userId });
     return res.status(201).json({ recipe });
   } catch (_e) {
     res.status(501).json({ message: 'Failed to register new recipe!' });
@@ -19,7 +19,7 @@ router.post('/', validateToken(), verifyToken, recipeFields, async (req, res) =>
 
 router.get('/', validateToken(false), verifyToken, async (_req, res) => {
   try {
-    const recipes = await model.findAll('recipes');
+    const recipes = await crud.findAll('recipes');
     res.status(200).json(recipes);
   } catch (_e) {
     res.status(501).json({ message: 'Ops, something went worng!' });
@@ -35,11 +35,11 @@ router.put('/:id', validateToken(), verifyToken, async (req, res) => {
   const { role, _id } = req.user;
   const { name, ingredients, preparation } = req.body;
 
-  const recipe = await model.findById('recipes', id);
+  const recipe = await crud.findById('recipes', id);
   if (role === 'admin' || _id === recipe.userId) {
-    await model.update('recipes', id, { name, ingredients, preparation });
+    await crud.update('recipes', id, { name, ingredients, preparation });
 
-    const updatedRecipe = await model.findById('recipes', id);
+    const updatedRecipe = await crud.findById('recipes', id);
 
     return res.status(200).json(updatedRecipe);
   }
@@ -51,10 +51,10 @@ router.delete('/:id', validateToken(), verifyToken, async (req, res) => {
   const { id } = req.params;
   const { role, _id } = req.user;
 
-  const recipe = await model.findById('recipes', id);
+  const recipe = await crud.findById('recipes', id);
 
   if (role === 'admin' || _id === recipe.userId) {
-    await model.remove('recipes', id);
+    await crud.remove('recipes', id);
     return res.status(204).json();
   }
   return res.status(401).json({ message: 'you cant delete this recipe' });
@@ -63,11 +63,11 @@ router.delete('/:id', validateToken(), verifyToken, async (req, res) => {
 router.put('/:id/image/', recipeExists, validateToken(), verifyToken, upload, async (req, res) => {
   try {
     const { id } = req.params;
-    const recipe = await model.findById('recipes', id);
+    const recipe = await crud.findById('recipes', id);
 
     const image = `localhost:3000/images/${id}.jpeg`;
 
-    await model.uploadImage('recipes', id, image);
+    await crud.uploadImage('recipes', id, image);
 
     const updatedRecipe = {
       ...recipe,
