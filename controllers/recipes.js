@@ -13,7 +13,7 @@ router.post('/', validateToken(), verifyToken, recipeFields, async (req, res) =>
     const recipe = await crud.create('recipes', { name, ingredients, preparation, userId });
     return res.status(201).json({ recipe });
   } catch (_e) {
-    res.status(401).json({ message: 'Failed to register new recipe!' });
+    res.status(501).json({ message: 'Failed to register new recipe!' });
   }
 });
 
