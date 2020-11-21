@@ -31,7 +31,7 @@ const validateToken = (required = true) => (req, _res, next) => {
     req.user = user;
     return next();
   } catch (_err) {
-    return _res.status(401).json({ message: 'missing auth token' });
+    return next();
   }
 };
 
