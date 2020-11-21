@@ -54,8 +54,8 @@ router.delete('/:id', validateToken(), verifyToken, async (req, res) => {
   const recipe = await crud.findById('recipes', id);
 
   if (role === 'admin' || _id === recipe.userId) {
-    await crud.remove('recipes', id);
-    return res.status(204).json();
+    await crud.deleteOne('recipes', id);
+    return res.sendStatus(204);
   }
   return res.status(401).json({ message: 'you cant delete this recipe' });
 });
