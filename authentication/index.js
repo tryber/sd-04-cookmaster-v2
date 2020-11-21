@@ -10,10 +10,10 @@ const secret = 'danielPantalenaSecret';
 const signToken = (payload) => jwt.sign(payload, secret, headers);
 
 const verifyToken = (req, res, next) => {
-  const { user } = req;
+  const { required, user } = req;
   const token = req.headers.authorization;
-  if (user) return next();
-  if (!token) {
+  if (!required || user) return next();
+  if (!token && required) {
     return res.status(401).json({ message: 'missing auth token' });
   }
   return res.status(401).json({ message: 'jwt malformed' });
