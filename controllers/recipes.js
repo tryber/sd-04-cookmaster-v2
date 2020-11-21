@@ -9,8 +9,8 @@ const router = express.Router();
 router.post('/', validateToken(), verifyToken, recipeFields, async (req, res) => {
   try {
     const { name, ingredients, preparation } = req.body;
-    const { _id } = req.user;
-    const recipe = await model.add('recipes', { name, ingredients, preparation, userId: _id });
+    const { _id: userId } = req.user;
+    const recipe = await model.add('recipes', { name, ingredients, preparation, userId });
     return res.status(201).json({ recipe });
   } catch (_e) {
     res.status(501).json({ message: 'Failed to register new recipe!' });

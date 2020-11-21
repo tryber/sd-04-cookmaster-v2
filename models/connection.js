@@ -1,6 +1,6 @@
 const mongo = require('mongodb').MongoClient;
 
-const EVALUATOR = true;
+const EVALUATOR = false;
 
 const DB_NAME = 'Cookmaster';
 const GIT_HUB_EVALUATOR = `mongodb://mongodb:27017/${DB_NAME}`;
