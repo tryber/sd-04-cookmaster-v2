@@ -1,12 +1,12 @@
 const express = require('express');
 const { recipeExists, recipeFields } = require('../middlewares/validations');
-const { validateToken, verifyToken } = require('../authentication');
+const { validateToken } = require('../authentication');
 const crud = require('../models');
 const upload = require('../services/upload');
 
 const router = express.Router();
 
-router.post('/', validateToken(), verifyToken, recipeFields, async (req, res) => {
+router.post('/', validateToken(), recipeFields, async (req, res) => {
   try {
     const { name, ingredients, preparation } = req.body;
     const { _id: userId } = req.user;
@@ -17,7 +17,7 @@ router.post('/', validateToken(), verifyToken, recipeFields, async (req, res) =>
   }
 });
 
-router.get('/', validateToken(false), verifyToken, async (_req, res) => {
+router.get('/', validateToken(false), async (_req, res) => {
   try {
     const recipes = await crud.findAll('recipes');
     res.status(200).json(recipes);
@@ -26,11 +26,11 @@ router.get('/', validateToken(false), verifyToken, async (_req, res) => {
   }
 });
 
-router.get('/:id', validateToken(false), verifyToken, recipeExists, async (req, res) =>
+router.get('/:id', validateToken(false), recipeExists, async (req, res) =>
   res.status(200).json(req.recipe),
 );
 
-router.put('/:id', validateToken(), verifyToken, async (req, res) => {
+router.put('/:id', validateToken(), async (req, res) => {
   const { id } = req.params;
   const { role, _id } = req.user;
   const { name, ingredients, preparation } = req.body;
@@ -47,7 +47,7 @@ router.put('/:id', validateToken(), verifyToken, async (req, res) => {
   return res.status(401).json({ message: 'Something went wrong.' });
 });
 
-router.delete('/:id', validateToken(), verifyToken, async (req, res) => {
+router.delete('/:id', validateToken(), async (req, res) => {
   const { id } = req.params;
   const { role, _id } = req.user;
 
@@ -60,7 +60,7 @@ router.delete('/:id', validateToken(), verifyToken, async (req, res) => {
   return res.status(401).json({ message: 'you cant delete this recipe' });
 });
 
-router.put('/:id/image/', recipeExists, validateToken(), verifyToken, upload, async (req, res) => {
+router.put('/:id/image/', recipeExists, validateToken(), upload, async (req, res) => {
   try {
     const { id } = req.params;
     const recipe = await crud.findById('recipes', id);
