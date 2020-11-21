@@ -1,5 +1,6 @@
 const express = require('express');
 const userRouter = require('./routes/userRouter');
+const loginRouter = require('./routes/loginRouter');
 
 const app = express();
 
@@ -12,5 +13,7 @@ app.get('/', (request, response) => {
 });
 
 app.use('/users', userRouter);
+
+app.use('/login', loginRouter);
 
 app.listen(PORT, () => console.log(`Escutando na porta ${PORT}`));
