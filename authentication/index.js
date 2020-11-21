@@ -20,14 +20,18 @@ const verifyToken = (req, res, next) => {
 };
 
 const validateToken = (required = true) => (req, _res, next) => {
+  if (!required) {
+    req.required = false;
+    return next();
+  }
   try {
     const token = req.headers.authorization;
     req.required = required;
     const user = jwt.verify(token, secret);
     req.user = user;
     return next();
-  } catch (_err) {
-    return next();
+  } catch ({ message }) {
+    return _res.status(401).json({ message });
   }
 };
 
