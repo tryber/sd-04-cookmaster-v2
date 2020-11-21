@@ -46,7 +46,7 @@ const update = async (collection, id, query) => {
   try {
     const db = await connection();
     const edit = await db.collection(collection).updateOne({ _id: ObjectId(id) }, { $set: query });
-    return edit
+    return edit;
   } catch (err) {
     throw err;
   }

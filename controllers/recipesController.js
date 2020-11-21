@@ -3,9 +3,9 @@ const recipesService = require('../services/recipesService');
 
 const addRecipe = async (req, res) => {
   const response = { ...req.recipe, userId: req.user._id };
-  const recipe = await await recipeModel.createOne('recipes', response);
-  if (recipe.err) throw create.err;
-  res.status(201).json({ recipe: recipe });
+  const recipes = await await recipeModel.createOne('recipes', response);
+  if (recipes.err) throw recipes.err;
+  res.status(201).json({ recipe: recipes });
 };
 
 const allRecipes = async (_req, res) => {
