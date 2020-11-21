@@ -30,8 +30,8 @@ const validateToken = (required = true) => (req, _res, next) => {
     const user = jwt.verify(token, secret);
     req.user = user;
     return next();
-  } catch ({ message }) {
-    return _res.status(401).json({ message });
+  } catch (_err) {
+    return _res.status(401).json({ message: 'missing auth token' });
   }
 };
 

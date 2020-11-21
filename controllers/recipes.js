@@ -44,7 +44,7 @@ router.put('/:id', validateToken(), verifyToken, async (req, res) => {
     return res.status(200).json(updatedRecipe);
   }
 
-  return res.status(401).json({ message: 'Something went wworn.' });
+  return res.status(401).json({ message: 'Something went wrong.' });
 });
 
 router.delete('/:id', validateToken(), verifyToken, async (req, res) => {
