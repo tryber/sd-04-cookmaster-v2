@@ -1,4 +1,3 @@
-const INVALID_ENTRIES = 'Invalid entries. Try again.';
 const emailRegex = (email) => /\S+@\S+\.\S+/.test(email);
 
 const validateName = (message) =>
