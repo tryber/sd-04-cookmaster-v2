@@ -24,12 +24,15 @@ const validateToken = (required = true) => (req, _res, next) => {
     req.required = false;
     return next();
   }
-
-  const token = req.headers.authorization;
-  req.required = required;
-  const user = jwt.verify(token, secret);
-  req.user = user;
-  return next();
+  try {
+    const token = req.headers.authorization;
+    req.required = required;
+    const user = jwt.verify(token, secret);
+    req.user = user;
+    return next();
+  } catch (_err) {
+    return next();
+  }
 };
 
 module.exports = { signToken, verifyToken, validateToken };
