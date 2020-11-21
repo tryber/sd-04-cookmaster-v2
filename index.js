@@ -29,6 +29,10 @@ app.post(
 
 app.get('/recipes', controller.allRecipes);
 
+app.get('/recipes/:id', controller.recipeById);
+
+app.put('/recipes/:id', middlewares.auth.validJwt, controller.editRecipe);
+
 app.use((err, _req, res, _next) => {
   res.status(405).json(err.message);
 });

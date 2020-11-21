@@ -1,4 +1,4 @@
 const { cadastro, login } = require('./userController');
-const { addRecipe, allRecipes } = require('./recipesController');
+const { addRecipe, allRecipes, recipeById, editRecipe } = require('./recipesController');
 
-module.exports = { cadastro, login, addRecipe, allRecipes };
+module.exports = { cadastro, login, addRecipe, allRecipes, recipeById, editRecipe };
