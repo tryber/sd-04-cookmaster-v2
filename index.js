@@ -11,7 +11,23 @@ app.get('/', (request, response) => {
   response.send();
 });
 
-app.post('/users', middlewares.validations.validarCadastro, middlewares.validations.existEmail, controller.cadastro);
+app.post(
+  '/users',
+  middlewares.validations.validarCadastro,
+  middlewares.validations.existEmail,
+  controller.cadastro,
+);
+
+app.post('/login', middlewares.validations.loginValidation, controller.login);
+
+app.post(
+  '/recipes',
+  middlewares.auth.validJwt,
+  middlewares.validations.validacaoReceita,
+  controller.addRecipe,
+);
+
+app.get('/recipes', controller.allRecipes);
 
 app.use((err, _req, res, _next) => {
   res.status(405).json(err.message);
