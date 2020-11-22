@@ -43,8 +43,17 @@ const editRecipe = async (req, res) => {
 
 const deletRecipe = async (req, res) => {
   const { id } = req.params;
-  await recipesService.deletRecipe(id);
-  return res.status(204).end();
+  const user = req.user;
+  try {
+    const deleteRecipeA = await recipesService.deleteAdmOrUser(id, user);
+    if (!deleteRecipeA) {
+      const deleteRecipeU = await recipesService.deleteAdmOrUser(id, user);
+      res.status(204).json(deleteRecipeU);
+    }
+    res.status(204).json(deleteRecipeA);
+  } catch (err) {
+    res.status(404).json({ message: 'recipe not found' });
+  }
 };
 
 module.exports = { addRecipe, allRecipes, recipeById, editRecipe, deletRecipe };
