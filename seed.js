@@ -1,3 +1,3 @@
-const { Db } = require("mongodb")
+const { Db } = require('mongodb');
 
 db.users.insertOne({ name: 'admin', email: 'root@email.com', password: 'admin', role: 'admin' });

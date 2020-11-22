@@ -5,6 +5,7 @@ const {
   recipeById,
   editRecipe,
   deletRecipe,
+  imageU,
 } = require('./recipesController');
 
 module.exports = {
@@ -16,4 +17,5 @@ module.exports = {
   recipeById,
   editRecipe,
   deletRecipe,
+  imageU,
 };

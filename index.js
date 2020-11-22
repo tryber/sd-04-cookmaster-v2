@@ -2,6 +2,9 @@ const express = require('express');
 const middlewares = require('./middlewares');
 const controller = require('./controllers');
 const bodyParser = require('body-parser');
+const multer = require('multer');
+
+const upload = multer({ dest: 'uploads' });
 
 const app = express();
 
@@ -43,6 +46,13 @@ app.get('/recipes/:id', controller.recipeById);
 app.put('/recipes/:id', middlewares.auth.validJwt, controller.editRecipe);
 
 app.delete('/recipes/:id', middlewares.auth.validJwt, controller.deletRecipe);
+
+app.put(
+  '/recipes/:id/image/',
+  middlewares.auth.validJwt,
+  upload.single('image'),
+  controller.imageU,
+);
 
 app.use((err, _req, res, _next) => {
   res.status(405).json(err.message);

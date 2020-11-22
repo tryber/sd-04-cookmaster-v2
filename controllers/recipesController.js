@@ -56,4 +56,19 @@ const deletRecipe = async (req, res) => {
   }
 };
 
-module.exports = { addRecipe, allRecipes, recipeById, editRecipe, deletRecipe };
+const imageU = async (req, res) => {
+  const { id } = req.params;
+  const { email } = req.user;
+
+  const user = await recipeModel.findOne('users', { email });
+
+  if (user) {
+    const result = await recipeModel.addImage(id);
+    if (result) {
+      const recipeUpdatedWithImage = await recipeModel.findById('recipes', id);
+      return res.status(200).json(recipeUpdatedWithImage);
+    }
+  }
+};
+
+module.exports = { addRecipe, allRecipes, recipeById, editRecipe, deletRecipe, imageU };
