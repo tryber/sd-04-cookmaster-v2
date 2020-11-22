@@ -8,9 +8,9 @@ router.post('/', async (req, res) => {
   const { name, email, password } = req.body;
   const userEmail = await findUserByEmail(email);
 
-  function validateEmail(email) {
-    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(email);
+  function validateEmail(e) {
+    const re = /\S+@\S+\.\S+/;
+    return re.test(e);
   }
 
   if (!name || !email || !password || !validateEmail(email)) {
