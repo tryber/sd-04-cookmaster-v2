@@ -1,17 +1,29 @@
-const { recipeModel: { createRecipeModel } } = require('../models');
+const { recipeModel: { createRecipeModel, getAllRecipes } } = require('../models');
 
 const createRecipeController = async ({ body: {
   name,
   ingredients,
   preparation,
 }, user: { userId } }, res) => {
-  const recipe = await createRecipeModel({ name, ingredients, preparation, userId });
+  try {
+    const recipe = await createRecipeModel({ name, ingredients, preparation, userId });
 
-  console.log(recipe);
+    res.status(201).json({ recipe });
+  } catch (_err) {
+    res.status(500).json({ message: 'unknow error' });
+  }
+};
 
-  res.status(201).json({ recipe });
+const getAllRecipesController = async (_req, res) => {
+  try {
+    const recipes = await getAllRecipes();
+    res.status(200).json(recipes);
+  } catch (_err) {
+    res.status(500).json({ message: 'unkown error' });
+  }
 };
 
 module.exports = {
   createRecipeController,
+  getAllRecipesController,
 };
