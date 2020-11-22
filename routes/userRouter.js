@@ -1,13 +1,16 @@
 const { Router } = require('express');
-const { userController } = require('../controllers');
+const { userController: { createUserController } } = require('../controllers');
 const { userMiddlewares:
   { validateName, validateEmail, validatePassword },
-} = require('../middlewares/index');
+} = require('../middlewares');
+const { INVALID_ENTRIES } = require('../utils/errorTypes');
 
 const userRouter = Router();
 
-const INVALID_ENTRIES = 'Invalid entries. Try again.';
-
-userRouter.post('/', validateName(400, INVALID_ENTRIES), validateEmail(400, INVALID_ENTRIES), validatePassword(400, INVALID_ENTRIES), userController.createUserController);
+userRouter.post('/',
+  validateName(400, INVALID_ENTRIES),
+  validateEmail(400, INVALID_ENTRIES),
+  validatePassword(400, INVALID_ENTRIES),
+  createUserController);
 
 module.exports = userRouter;

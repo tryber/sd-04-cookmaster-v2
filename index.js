@@ -1,6 +1,6 @@
 const express = require('express');
-const userRouter = require('./routes/userRouter');
-const loginRouter = require('./routes/loginRouter');
+
+const { userRouter, loginRouter, recipeRouter } = require('./routes');
 
 const app = express();
 
@@ -13,7 +13,7 @@ app.get('/', (request, response) => {
 });
 
 app.use('/users', userRouter);
-
 app.use('/login', loginRouter);
+app.use('/recipes', recipeRouter);
 
 app.listen(PORT, () => console.log(`Escutando na porta ${PORT}`));
