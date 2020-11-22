@@ -26,7 +26,7 @@ const registerAdmin = async (req, res) => {
     return res.status(403).json(registerAdm);
   }
 
-  return res.status(201).json({user:registerAdm});
+  return res.status(201).json({ user: registerAdm });
 };
 
 module.exports = { cadastro, login, registerAdmin };

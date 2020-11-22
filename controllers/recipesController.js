@@ -45,6 +45,6 @@ const deletRecipe = async (req, res) => {
   const { id } = req.params;
   await recipesService.deletRecipe(id);
   return res.status(204).end();
-}
+};
 
 module.exports = { addRecipe, allRecipes, recipeById, editRecipe, deletRecipe };

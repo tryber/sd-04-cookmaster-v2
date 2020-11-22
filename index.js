@@ -2,6 +2,7 @@ const express = require('express');
 const middlewares = require('./middlewares');
 const controller = require('./controllers');
 const bodyParser = require('body-parser');
+
 const app = express();
 
 app.use(bodyParser.json());
@@ -10,7 +11,6 @@ app.use(bodyParser.json());
 app.get('/', (request, response) => {
   response.send();
 });
-
 
 app.post(
   '/users/admin',
@@ -43,7 +43,6 @@ app.get('/recipes/:id', controller.recipeById);
 app.put('/recipes/:id', middlewares.auth.validJwt, controller.editRecipe);
 
 app.delete('/recipes/:id', middlewares.auth.validJwt, controller.deletRecipe);
-
 
 app.use((err, _req, res, _next) => {
   res.status(405).json(err.message);
