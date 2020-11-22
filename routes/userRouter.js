@@ -8,6 +8,6 @@ const userRouter = Router();
 
 const INVALID_ENTRIES = 'Invalid entries. Try again.';
 
-userRouter.post('/', validateName(INVALID_ENTRIES), validateEmail(INVALID_ENTRIES), validatePassword(INVALID_ENTRIES), userController.createUserController);
+userRouter.post('/', validateName(400, INVALID_ENTRIES), validateEmail(400, INVALID_ENTRIES), validatePassword(400, INVALID_ENTRIES), userController.createUserController);
 
 module.exports = userRouter;
