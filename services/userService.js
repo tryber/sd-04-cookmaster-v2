@@ -12,14 +12,15 @@ const createUser = async (name, email, password, role) => {
 const loginUser = async (email, password) => {
   const message = 'Incorrect username or password';
   const dbUser = await getUserByEmail(email);
-  console.log(dbUser);
 
   if (!dbUser) return { message };
 
   if (dbUser.password !== password) return { message };
 
+  const { _id } = dbUser;
+
   const token = await createToken({
-    userId: dbUser._id,
+    userId: _id,
     email,
     password,
   });
