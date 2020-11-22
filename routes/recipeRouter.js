@@ -1,5 +1,9 @@
 const { Router } = require('express');
-const { recipeController: { createRecipeController, getAllRecipesController } } = require('../controllers');
+const { recipeController: {
+  createRecipeController,
+  getAllRecipesController,
+  getRecipeByIdController,
+} } = require('../controllers');
 const { userMiddlewares: { validateName },
   recipeMiddlewares: { validateIngredients, validatePreparation },
   tokenAuth,
@@ -16,5 +20,7 @@ recipesRouter.post('/',
   createRecipeController);
 
 recipesRouter.get('/', getAllRecipesController);
+
+recipesRouter.get('/:id', getRecipeByIdController);
 
 module.exports = recipesRouter;

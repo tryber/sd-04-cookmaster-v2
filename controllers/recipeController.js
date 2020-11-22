@@ -1,4 +1,8 @@
-const { recipeModel: { createRecipeModel, getAllRecipes } } = require('../models');
+const { recipeModel: {
+  createRecipeModel,
+  getAllRecipes,
+  getRecipeById,
+} } = require('../models');
 
 const createRecipeController = async ({ body: {
   name,
@@ -23,7 +27,18 @@ const getAllRecipesController = async (_req, res) => {
   }
 };
 
+const getRecipeByIdController = async ({ params: { id } }, res) => {
+  try {
+    const recipe = await getRecipeById(id);
+
+    res.status(200).json(recipe);
+  } catch (_err) {
+    res.status(404).json({ message: 'recipe not found' });
+  }
+};
+
 module.exports = {
   createRecipeController,
   getAllRecipesController,
+  getRecipeByIdController,
 };
