@@ -30,9 +30,9 @@ const editRecipe = async (req, res) => {
   const { id } = req.params;
   const user = req.user;
   try {
-    const updateRecipe = await recipesService.updateAdm(id, user, req.body);
+    const updateRecipe = await recipesService.updateAdmOrUser(id, user, req.body);
     if (!updateRecipe) {
-      const updateUserR = await recipesService.updateUser(id, user, req.body);
+      const updateUserR = await recipesService.updateAdmOrUser(id, user, req.body);
       res.status(200).json(updateUserR);
     }
     res.status(200).json(updateRecipe);
@@ -41,4 +41,10 @@ const editRecipe = async (req, res) => {
   }
 };
 
-module.exports = { addRecipe, allRecipes, recipeById, editRecipe };
+const deletRecipe = async (req, res) => {
+  const { id } = req.params;
+  await recipesService.deletRecipe(id);
+  return res.status(204).end();
+}
+
+module.exports = { addRecipe, allRecipes, recipeById, editRecipe, deletRecipe };

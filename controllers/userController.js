@@ -16,4 +16,17 @@ const login = async (req, res) => {
   else res.status(401).json(token);
 };
 
-module.exports = { cadastro, login };
+const registerAdmin = async (req, res) => {
+  const { name, email, password } = req.body;
+  const { user } = req;
+
+  const registerAdm = await userService.registerAdmin(name, email, password, user);
+
+  if (registerAdm.message) {
+    return res.status(403).json(registerAdm);
+  }
+
+  return res.status(201).json({user:registerAdm});
+};
+
+module.exports = { cadastro, login, registerAdmin };

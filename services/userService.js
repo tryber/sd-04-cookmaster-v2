@@ -12,4 +12,17 @@ const loginService = async ({ email, password }) => {
   }
 };
 
-module.exports = { loginService };
+const registerAdmin = async (name, email, password, user) => {
+  const loggedUser = await userModel.findOne('users', { email: user.email });
+  if (loggedUser.role !== 'admin') return { message: 'Only admins can register new admins' };
+  const registeredUser = await userModel.createOne('users', {
+    name,
+    email,
+    password,
+    role: 'admin',
+  });
+
+  return registeredUser;
+};
+
+module.exports = { loginService, registerAdmin };

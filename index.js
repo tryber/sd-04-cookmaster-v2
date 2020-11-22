@@ -1,15 +1,24 @@
 const express = require('express');
 const middlewares = require('./middlewares');
 const controller = require('./controllers');
-
+const bodyParser = require('body-parser');
 const app = express();
 
-app.use(express.json());
+app.use(bodyParser.json());
 
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (request, response) => {
   response.send();
 });
+
+
+app.post(
+  '/users/admin',
+  middlewares.auth.validJwt,
+  middlewares.validations.validarCadastro,
+  middlewares.validations.existEmail,
+  controller.registerAdmin,
+);
 
 app.post(
   '/users',
@@ -32,6 +41,9 @@ app.get('/recipes', controller.allRecipes);
 app.get('/recipes/:id', controller.recipeById);
 
 app.put('/recipes/:id', middlewares.auth.validJwt, controller.editRecipe);
+
+app.delete('/recipes/:id', middlewares.auth.validJwt, controller.deletRecipe);
+
 
 app.use((err, _req, res, _next) => {
   res.status(405).json(err.message);
