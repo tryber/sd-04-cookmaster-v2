@@ -1,17 +1,14 @@
 const emailRegex = (email) => /\S+@\S+\.\S+/.test(email);
 
 const validateName = (status, message) =>
-  (req, res, next) => {
-    const { name } = req.body;
-
+  ({ body: name }, res, next) => {
     if (!name) return res.status(status).json({ message });
 
     next();
   };
 
 const validateEmail = (status, message) =>
-  (req, res, next) => {
-    const { email } = req.body;
+  ({ body: email }, res, next) => {
     const regexVerify = emailRegex(email);
 
     if (!email || !regexVerify) return res.status(status).json({ message });
@@ -20,9 +17,7 @@ const validateEmail = (status, message) =>
   };
 
 const validatePassword = (status, message) =>
-  (req, res, next) => {
-    const { password } = req.body;
-
+  ({ body: password }, res, next) => {
     if (!password) return res.status(status).json({ message });
 
     next();
