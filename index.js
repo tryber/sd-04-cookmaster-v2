@@ -1,8 +1,19 @@
 const express = require('express');
+const bodyParser = require('body-parser');
+
+const controllers = require('./controllers');
 
 const app = express();
+const port = 3000;
 
-// não remova esse endpoint, e para o avaliador funcionar
+app.use(bodyParser.json());
+
 app.get('/', (request, response) => {
   response.send();
 });
+
+app.use('/users', controllers.usersController);
+app.use('/login', controllers.loginController);
+
+
+app.listen(port, () => console.log(`Listening on ${port}`));
