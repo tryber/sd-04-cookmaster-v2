@@ -15,6 +15,11 @@ const readOne = async (id) => {
   return recipe;
 };
 
+const deleteOne = async (id) => {
+  const recipe = await recipesModel.del(id);
+  return recipe;
+};
+
 const updateOne = async (id, name, ingredients, preparation) => {
   const recipe = await recipesModel.update(id, name, ingredients, preparation);
   return recipe;
@@ -25,4 +30,5 @@ module.exports = {
   readAll,
   readOne,
   updateOne,
+  deleteOne,
 };

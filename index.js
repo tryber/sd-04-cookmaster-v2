@@ -23,14 +23,16 @@ app.route('/users')
   .get(usersController.readAll)
   .post(userValidator, usersController.createOne);
 
-// Recipes
+// Recipes - All
 app.route('/recipes')
   .get(recipesController.readAll)
   .post(checkAuth, verifyJWT, recipesValidator, recipesController.createOne);
 
+// Recipes - One
 app.route('/recipes/:id')
   .get(recipesController.readOne)
-  .put(checkAuth, verifyJWT, recipesController.updateOne);
+  .put(checkAuth, verifyJWT, recipesController.updateOne)
+  .delete(checkAuth, verifyJWT, recipesController.deleteOne);
 
 app.post('/login', usersController.login);
 

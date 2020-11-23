@@ -50,9 +50,26 @@ async (req, res) => {
   }
 });
 
+const deleteOne = ('/',
+async (req, res) => {
+  const { id } = req.params;
+  const { userRole, userId } = req.user;
+  try {
+    const { userId: recipeUser } = await recipesService.readOne(id);
+    if (recipeUser.toString() !== userId && userRole !== 'admin') {
+      return res.status(403).json({ message: 'not authroized' });
+    }
+    await recipesService.deleteOne(id);
+    return res.status(204);
+  } catch (e) {
+    return res.status(404).json({ message: 'recipe not found' });
+  }
+});
+
 module.exports = {
   createOne,
   readAll,
   readOne,
   updateOne,
+  deleteOne,
 };
