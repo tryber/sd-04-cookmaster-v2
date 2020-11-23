@@ -22,7 +22,7 @@ router.get('/', validateToken(false), verifyToken, async (_req, res) => {
     const recipes = await crud.findAll('recipes');
     res.status(200).json(recipes);
   } catch (_e) {
-    res.status(501).json({ message: 'Ops, something went worng!' });
+    res.status(501).json({ message: 'Ops, something went wrong!' });
   }
 });
 
@@ -54,8 +54,12 @@ router.delete('/:id', validateToken(), verifyToken, async (req, res) => {
   const recipe = await crud.findById('recipes', id);
 
   if (role === 'admin' || _id === recipe.userId) {
-    await crud.deleteOne('recipes', id);
-    return res.sendStatus(204);
+    try {
+      await crud.deleteOne('recipes', id);
+      return res.sendStatus(204);
+    } catch (_err) {
+      return res.status(501).json({ message: 'Something went wrong.' });
+    }
   }
   return res.status(401).json({ message: 'you cant delete this recipe' });
 });

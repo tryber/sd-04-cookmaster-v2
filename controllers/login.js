@@ -12,7 +12,6 @@ router.post(
     try {
       const { user } = req;
       const tokenSign = signToken(user);
-
       return res.status(200).json({ token: tokenSign });
     } catch (_e) {
       res.status(501).json({ message: 'Ops, something went wrong!' });
