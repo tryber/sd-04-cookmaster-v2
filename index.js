@@ -2,7 +2,8 @@ const express = require('express');
 const path = require('path');
 const usersController = require('./controllers/usersController');
 const userValidator = require('./middlewares/userValidation');
-const userAuth = require('./middlewares/userAuth');
+const checkAuth = require('./middlewares/checkAuth');
+const verifyJWT = require('./middlewares/verifyJWT');
 const recipesController = require('./controllers/recipesController');
 const recipesValidator = require('./middlewares/recipesValidation');
 
@@ -24,12 +25,12 @@ app.route('/users')
 
 // Recipes
 app.route('/recipes')
-  .get(userAuth(false), recipesController.readAll)
-  .post(userAuth(), recipesValidator, recipesController.createOne);
+  .get(recipesController.readAll)
+  .post(checkAuth, verifyJWT, recipesValidator, recipesController.createOne);
 
 app.route('/recipes/:id')
-  .get(userAuth(false), recipesController.readOne)
-  .put(userAuth(), recipesController.updateOne);
+  .get(recipesController.readOne)
+  .put(checkAuth, verifyJWT, recipesController.updateOne);
 
 app.post('/login', usersController.login);
 
