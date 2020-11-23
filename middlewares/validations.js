@@ -1,5 +1,4 @@
-const modelUser = require('../models/crud');
-const model = require('../models/crud');
+const crud = require('../models');
 
 const createMessage = (message) => ({ message });
 
@@ -16,7 +15,7 @@ const fields = async (req, res, next) => {
 const emailUnique = async (req, res, next) => {
   const { email } = req.body;
 
-  const emailExists = await modelUser.findByEmail('users', email);
+  const emailExists = await crud.findByEmail('users', email);
 
   if (emailExists) {
     return res.status(409).json(createMessage('Email already registered'));
@@ -48,7 +47,7 @@ const loginFields = async (req, res, next) => {
 const login = async (req, res, next) => {
   const { email: emailBody, password } = req.body;
 
-  const user = await modelUser.findByEmail('users', emailBody);
+  const user = await crud.findByEmail('users', emailBody);
 
   if (!user || password !== user.password) {
     return res.status(401).json(createMessage('Incorrect username or password'));
@@ -62,7 +61,7 @@ const login = async (req, res, next) => {
 
 const recipeExists = async (req, res, next) => {
   const { id } = req.params;
-  const recipe = await model.findById('recipes', id);
+  const recipe = await crud.findById('recipes', id);
 
   if (!recipe) return res.status(404).json(createMessage('recipe not found'));
 

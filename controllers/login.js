@@ -15,7 +15,7 @@ router.post(
 
       return res.status(200).json({ token: tokenSign });
     } catch (_e) {
-      res.status(501).json({ message: 'Ops, something went worng!' });
+      res.status(501).json({ message: 'Ops, something went wrong!' });
     }
   },
 );
