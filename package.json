@@ -13,7 +13,7 @@
     "url": "git+https://github.com/tryber/sd-0x-cookmaster-v2.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Djonata de Souza Dias",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/tryber/sd-0x-cookmaster-v2/issues"
@@ -21,7 +21,6 @@
   "homepage": "https://github.com/tryber/sd-0x-cookmaster-v2#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
-    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "frisby": "^2.1.2",
     "jest": "^26.4.1",
@@ -32,8 +31,13 @@
     "shelljs": "^0.8.4"
   },
   "devDependencies": {
+    "dotenv": "^8.2.0",
+    "email-validator": "^2.0.4",
     "eslint": "^7.4.0",
     "eslint-config-airbnb": "^18.2.0",
     "eslint-plugin-import": "^2.22.0"
+  },
+  "directories": {
+    "test": "test"
   }
 }

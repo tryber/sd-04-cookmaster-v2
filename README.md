@@ -195,7 +195,7 @@ A resposta do insert para ser retornada após a criação é esta:
 
 O projeto deve rodar na porta http://localhost/3000
 
-### 1 - Crie um endpoint para o cadastro de usuários
+## 1 - Crie um endpoint para o cadastro de usuários
 
 - A rota deve ser (`/users`).
 
@@ -261,7 +261,7 @@ Se o usuário for criado com sucesso o resultado retornado deverá ser conforme 
 
 ![Campo Role](./public/validarrole.png)
 
-### 2 - Crie um endpoint para o login de usuários
+## 2 - Crie um endpoint para o login de usuários
 
 - A rota deve ser (`/login`).
 
@@ -312,7 +312,7 @@ Se foi feito login com sucesso o resultado retornado deverá ser conforme exibid
 
 ![Login com Sucesso](./public/logincomsucesso.png)
 
-### 3 - Crie um endpoint para o cadastro de receitas
+## 3 - Crie um endpoint para o cadastro de receitas
 
 - A rota deve ser (`/recipes`).
 
@@ -368,7 +368,7 @@ O resultado retornado para cadastrar a receita com sucesso deverá ser conforme 
 
 ![Receita com Sucesso](./public/receitacomsucesso.png)
 
-### 4 - Crie um endpoint para a listagem de receitas
+## 4 - Crie um endpoint para a listagem de receitas
 
 - A rota deve ser (`/recipes`).
 
@@ -388,7 +388,7 @@ O resultado retornado para listar receitas com sucesso deverá ser conforme exib
 
 ![Receita com Sucesso](./public/listarreceitas.png)
 
-### 5 - Crie um endpoint para visualizar uma receita específica
+## 5 - Crie um endpoint para visualizar uma receita específica
 
 - A rota deve ser (`/recipes/:id`).
 
@@ -414,7 +414,7 @@ O resultado retornado para listar uma receita que não existe deverá ser confor
 
 ![Listar uma Receita inexistente](./public/receitanaoencontrada.png)
 
-### 6 - Permissões do usuário admin
+## 6 - Permissões do usuário admin
 
 Crie um arquivo `seed.js` na raiz do projeto com uma query do Mongo DB capaz de inserir um usuário na coleção _users_ com os seguintes valores:
 
@@ -422,7 +422,7 @@ Crie um arquivo `seed.js` na raiz do projeto com uma query do Mongo DB capaz de 
 
 Obs.: Esse usuário tem o poder de criar, deletar, atualizar ou remover qualquer receita, independente de quem a cadastrou. Isso será solicitado ao longo dos próximos requisitos.
 
-### 7 - Crie um endpoint para a edição de uma receita
+## 7 - Crie um endpoint para a edição de uma receita
 
 - A rota deve ser (`/recipes/:id`).
 
@@ -466,7 +466,7 @@ O resultado retornado para editar uma receita com sucesso deverá ser conforme e
 
 ![Editar uma Receita](./public/editarcomsucesso.png)
 
-### 8 - Crie um endpoint para a exclusão de uma receita
+## 8 - Crie um endpoint para a exclusão de uma receita
 
 - A rota deve ser (`/recipes/:id`).
 
@@ -494,7 +494,7 @@ O resultado retornado para excluir uma receita com sucesso deverá ser conforme 
 
 ![Excluir uma Receita](./public/excluircomsucesso.png)
 
-### 9 - Crie um endpoint para a adição de uma imagem a uma receita
+## 9 - Crie um endpoint para a adição de uma imagem a uma receita
 
 - A rota deve ser (`/recipes/:id/image/`).
 
@@ -538,7 +538,7 @@ O resultado retornado para adicionar uma foto na receita com sucesso deverá ser
 
 ![Foto Autenticada](./public/fotocomsucesso.png)
 
-### 10 - Crie um endpoint para acessar a imagem de uma receita
+## 10 - Crie um endpoint para acessar a imagem de uma receita
 
 - As imagens devem estar disponíveis através da rota `/images/<id-da-receita>.jpeg` na API.
 
@@ -553,7 +553,7 @@ O resultado retornado deverá ser do tipo imagem, com um status http `200`:
 
 ## Bônus
 
-### 11 - Cadastramento de admin
+## 11 - Cadastramento de admin
 
 - A rota deve ser (`/users/admin`).
 
