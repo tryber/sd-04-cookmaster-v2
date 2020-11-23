@@ -3,6 +3,7 @@ const { recipeModel: {
   getAllRecipes,
   getRecipeById,
 } } = require('../models');
+const { recipeService: { updateRecipe } } = require('../services');
 
 const createRecipeController = async ({ body: {
   name,
@@ -37,8 +38,24 @@ const getRecipeByIdController = async ({ params: { id } }, res) => {
   }
 };
 
+const updateRecipeByIdController = async ({ params: { id }, user: { userId, role }, body: {
+  name,
+  ingredients,
+  preparation,
+} }, res) => {
+  try {
+    console.log(userId, role);
+    const recipe = await updateRecipe(id, userId, role, name, ingredients, preparation);
+
+    return res.status(200).json(recipe);
+  } catch (_err) {
+    res.status(500).json({ message: 'unkown error' });
+  }
+};
+
 module.exports = {
   createRecipeController,
   getAllRecipesController,
   getRecipeByIdController,
+  updateRecipeByIdController,
 };

@@ -3,6 +3,7 @@ const { recipeController: {
   createRecipeController,
   getAllRecipesController,
   getRecipeByIdController,
+  updateRecipeByIdController,
 } } = require('../controllers');
 const { userMiddlewares: { validateName },
   recipeMiddlewares: { validateIngredients, validatePreparation },
@@ -22,5 +23,7 @@ recipesRouter.post('/',
 recipesRouter.get('/', getAllRecipesController);
 
 recipesRouter.get('/:id', getRecipeByIdController);
+
+recipesRouter.put('/:id', tokenAuth, updateRecipeByIdController);
 
 module.exports = recipesRouter;

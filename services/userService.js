@@ -17,12 +17,13 @@ const loginUser = async (email, password) => {
 
   if (dbUser.password !== password) return { message };
 
-  const { _id } = dbUser;
+  const { _id, role } = dbUser;
 
   const token = await createToken({
     userId: _id,
     email,
     password,
+    role,
   });
   return { token };
 };
