@@ -4,6 +4,7 @@ const usersController = require('./controllers/usersController');
 const userValidator = require('./middlewares/userValidation');
 const checkAuth = require('./middlewares/checkAuth');
 const verifyJWT = require('./middlewares/verifyJWT');
+const checkUser = require('./middlewares/checkUser');
 const recipesController = require('./controllers/recipesController');
 const recipesValidator = require('./middlewares/recipesValidation');
 
@@ -31,8 +32,8 @@ app.route('/recipes')
 // Recipes - One
 app.route('/recipes/:id')
   .get(recipesController.readOne)
-  .put(checkAuth, verifyJWT, recipesController.updateOne)
-  .delete(checkAuth, verifyJWT, recipesController.deleteOne);
+  .put(checkAuth, verifyJWT, checkUser, recipesController.updateOne)
+  .delete(checkAuth, verifyJWT, checkUser, recipesController.deleteOne);
 
 app.post('/login', usersController.login);
 
