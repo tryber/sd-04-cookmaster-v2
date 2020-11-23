@@ -16,14 +16,19 @@ app.use('/images', imgDirectory);
 app.get('/', (request, response) => {
   response.send('ok');
 });
+
 // Users
 app.route('/users')
   .get(usersController.getAll)
   .post(userValidator, usersController.add);
+
 // Recipes
 app.route('/recipes')
   .get(userAuth(false), recipesController.getAll)
   .post(userAuth(), recipesValidator, recipesController.add);
+
+app.route('/recipes/:id')
+  .get(userAuth(false), recipesController.getOne);
 
 app.post('/login', usersController.login);
 

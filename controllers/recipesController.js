@@ -19,7 +19,18 @@ const getAll = ('/', async (req, res) => {
   res.status(200).json(recipes);
 });
 
+const getOne = ('/', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const recipe = await recipesService.getOne(id);
+    return res.status(200).json(recipe);
+  } catch (e) {
+    return res.status(404).json({ message: 'recipe not found' });
+  }
+});
+
 module.exports = {
   add,
   getAll,
+  getOne,
 };
