@@ -8,7 +8,6 @@ const updateRecipe = async (id, userId, role, name, ingredients, preparation) =>
 
     const editedRecipe = await getRecipeById(id);
 
-    console.log(editedRecipe);
     return editedRecipe;
   }
 

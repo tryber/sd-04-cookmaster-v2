@@ -4,6 +4,7 @@ const { recipeController: {
   getAllRecipesController,
   getRecipeByIdController,
   updateRecipeByIdController,
+  deleteRecipeByIdController,
 } } = require('../controllers');
 const { userMiddlewares: { validateName },
   recipeMiddlewares: { validateIngredients, validatePreparation },
@@ -25,5 +26,7 @@ recipesRouter.get('/', getAllRecipesController);
 recipesRouter.get('/:id', getRecipeByIdController);
 
 recipesRouter.put('/:id', tokenAuth, updateRecipeByIdController);
+
+recipesRouter.delete('/:id', tokenAuth, deleteRecipeByIdController);
 
 module.exports = recipesRouter;

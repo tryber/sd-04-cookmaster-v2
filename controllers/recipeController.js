@@ -2,6 +2,7 @@ const { recipeModel: {
   createRecipeModel,
   getAllRecipes,
   getRecipeById,
+  deleteRecipeById,
 } } = require('../models');
 const { recipeService: { updateRecipe } } = require('../services');
 
@@ -53,9 +54,26 @@ const updateRecipeByIdController = async ({ params: { id }, user: { userId, role
   }
 };
 
+const deleteRecipeByIdController = async ({ params: { id }, user: { userId, role } }, res) => {
+  try {
+    const recipe = await getRecipeById(id);
+
+    if (userId === recipe.userId || role === 'admin') {
+      await deleteRecipeById(id);
+
+      return res.status(204).end();
+    }
+
+    return res.status(401).json({ message: 'missing auth token' });
+  } catch (_err) {
+    res.status(500).json({ message: 'unkown error' });
+  }
+};
+
 module.exports = {
   createRecipeController,
   getAllRecipesController,
   getRecipeByIdController,
   updateRecipeByIdController,
+  deleteRecipeByIdController,
 };
