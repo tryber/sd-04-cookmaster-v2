@@ -19,16 +19,17 @@ app.get('/', (request, response) => {
 
 // Users
 app.route('/users')
-  .get(usersController.getAll)
-  .post(userValidator, usersController.add);
+  .get(usersController.readAll)
+  .post(userValidator, usersController.createOne);
 
 // Recipes
 app.route('/recipes')
-  .get(userAuth(false), recipesController.getAll)
-  .post(userAuth(), recipesValidator, recipesController.add);
+  .get(userAuth(false), recipesController.readAll)
+  .post(userAuth(), recipesValidator, recipesController.createOne);
 
 app.route('/recipes/:id')
-  .get(userAuth(false), recipesController.getOne);
+  .get(userAuth(false), recipesController.readOne)
+  .put(userAuth(), recipesController.updateOne);
 
 app.post('/login', usersController.login);
 

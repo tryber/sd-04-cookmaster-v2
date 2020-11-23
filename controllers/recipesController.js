@@ -1,10 +1,11 @@
 const recipesService = require('../services/recipesService');
 
-const add = ('/', async (req, res) => {
+const createOne = ('/',
+async (req, res) => {
   const { name, ingredients, preparation } = req.body;
   const { userId } = req.user;
   try {
-    const recipe = await recipesService.add(name, ingredients, preparation, userId);
+    const recipe = await recipesService.createOne(name, ingredients, preparation, userId);
     if (!recipe) {
       return res.status(400).json({ message: 'User not found' });
     }
@@ -14,15 +15,35 @@ const add = ('/', async (req, res) => {
   }
 });
 
-const getAll = ('/', async (req, res) => {
-  const recipes = await recipesService.getAll();
+const readAll = ('/',
+async (req, res) => {
+  const recipes = await recipesService.readAll();
   res.status(200).json(recipes);
 });
 
-const getOne = ('/', async (req, res) => {
+const readOne = ('/',
+async (req, res) => {
   const { id } = req.params;
   try {
-    const recipe = await recipesService.getOne(id);
+    const recipe = await recipesService.readOne(id);
+    return res.status(200).json(recipe);
+  } catch (e) {
+    return res.status(404).json({ message: 'recipe not found' });
+  }
+});
+
+const updateOne = ('/',
+async (req, res) => {
+  const { id } = req.params;
+  const { name, ingredients, preparation } = req.body;
+  const { userRole, userId } = req.user;
+  try {
+    const { userId: recipeUser } = await recipesService.readOne(id);
+    if (recipeUser.toString() !== userId && userRole !== 'admin') {
+      return res.status(403).json({ message: 'not authroized' });
+    }
+    await recipesService.updateOne(id, name, ingredients, preparation);
+    const recipe = await recipesService.readOne(id);
     return res.status(200).json(recipe);
   } catch (e) {
     return res.status(404).json({ message: 'recipe not found' });
@@ -30,7 +51,8 @@ const getOne = ('/', async (req, res) => {
 });
 
 module.exports = {
-  add,
-  getAll,
-  getOne,
+  createOne,
+  readAll,
+  readOne,
+  updateOne,
 };
