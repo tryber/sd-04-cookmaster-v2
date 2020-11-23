@@ -57,10 +57,16 @@ const getRecipeById = async (id) => {
   }
 };
 
+const uploadImage = async (collection, id, image) =>
+  connection().then((db) =>
+    db.collection(collection).updateOne({ _id: ObjectID(id) }, { $set: { image } }),
+  );
+
 module.exports = {
   createRecipe,
   updateRecipe,
   deleteRecipe,
   getAllRecipes,
   getRecipeById,
+  uploadImage,
 };
