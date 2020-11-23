@@ -42,11 +42,6 @@ const deleteOne = async (collection, id) => {
   return result;
 };
 
-const uploadImage = async (collection, id, image) =>
-  connection().then((db) =>
-    db.collection(collection).updateOne({ _id: ObjectId(id) }, { $set: { image } }),
-  );
-
 module.exports = {
   create,
   findByName,
@@ -55,5 +50,4 @@ module.exports = {
   findAll,
   update,
   deleteOne,
-  uploadImage,
 };

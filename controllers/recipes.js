@@ -60,25 +60,35 @@ router.delete('/:id', validateToken(), verifyToken, async (req, res) => {
   return res.status(401).json({ message: 'you cant delete this recipe' });
 });
 
-router.put('/:id/image/', recipeExists, validateToken(), verifyToken, upload, async (req, res) => {
-  try {
-    const { id } = req.params;
-    const recipe = await crud.findById('recipes', id);
+router.put(
+  '/:id/image/',
+  recipeExists,
+  validateToken(),
+  verifyToken,
+  upload.single('image'),
+  async (req, res) => {
+    const {
+      params: { id },
+    } = req;
+    try {
+      const recipe = await crud.findById('recipes', id);
 
-    const image = `localhost:3000/images/${id}.jpeg`;
+      const image = `localhost:3000/images/${id}.jpeg`;
 
-    await crud.uploadImage('recipes', id, image);
+      await crud.update('recipes', id, { image });
 
-    const updatedRecipe = {
-      ...recipe,
-      image,
-    };
-    res.status(200).json(updatedRecipe);
-  } catch (_err) {
-    res.status(501).json({
-      message: 'Failed to upload image',
-    });
-  }
-});
+      const updatedRecipe = {
+        ...recipe,
+        image,
+      };
+
+      res.status(200).json(updatedRecipe);
+    } catch (_err) {
+      res.status(501).json({
+        message: 'Failed to upload image',
+      });
+    }
+  },
+);
 
 module.exports = router;
