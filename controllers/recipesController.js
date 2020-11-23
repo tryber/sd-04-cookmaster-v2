@@ -8,11 +8,12 @@ const {
   updateRecipe,
   getRecipeById,
   getAllRecipes,
+  uploadImage,
 } = require('../models/recipesModel');
-
 const {
   recipeDataValidationMiddleware,
   recipeValidationMiddleware,
+  uploadImageMiddleware,
 } = require('../services/recipesService');
 
 const router = express.Router();
@@ -38,9 +39,9 @@ router.get('/:id', recipeValidationMiddleware, async (req, res) => {
 
 router.put(
   '/:id',
+  auth,
   recipeValidationMiddleware,
   recipeDataValidationMiddleware,
-  auth,
   async (req, res) => {
     const { id } = req.params;
     const { name, ingredients, preparation } = req.body;
@@ -49,10 +50,32 @@ router.put(
   },
 );
 
-router.delete('/:id', recipeValidationMiddleware, auth, async (req, res) => {
+router.delete('/:id', auth, recipeValidationMiddleware, async (req, res) => {
   const { id } = req.params;
   const recipe = await deleteRecipe(id);
   return res.status(204).json(recipe);
+});
+
+router.put('/:id/image', auth, uploadImageMiddleware, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const recipe = await getRecipeById(id);
+
+    const image = `localhost:3000/images/${id}.jpeg`;
+
+    await uploadImage('recipes', id, image);
+
+    const updatedRecipe = {
+      ...recipe,
+      image,
+    };
+    res.status(200).json(updatedRecipe);
+  } catch (err) {
+    console.error(err);
+    res.status(501).json({
+      message: 'Failed to upload image',
+    });
+  }
 });
 
 module.exports = router;
