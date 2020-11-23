@@ -1,5 +1,7 @@
 const { getRecipeById } = require('../models/recipesModel');
 
+const multer = require('multer');
+
 const recipeDataValidationMiddleware = (req, res, next) => {
   const { name, ingredients, preparation } = req.body;
   if (!name || !ingredients || !preparation) {
@@ -20,4 +22,20 @@ const recipeValidationMiddleware = async (req, res, next) => {
   return next();
 };
 
-module.exports = { recipeDataValidationMiddleware, recipeValidationMiddleware };
+const storage = multer.diskStorage({
+  destination: 'images',
+  filename: (req, _file, callback) => {
+    const { id } = req.params;
+    callback(null, `${id}.jpeg`);
+  },
+});
+
+const upload = multer({ storage });
+
+const uploadImageMiddleware = upload.single('image');
+
+module.exports = {
+  recipeDataValidationMiddleware,
+  recipeValidationMiddleware,
+  uploadImageMiddleware,
+};
