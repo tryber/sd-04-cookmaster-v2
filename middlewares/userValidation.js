@@ -1,0 +1,44 @@
+const model = require('../models/model.js');
+
+const buildResponse = (message) => {
+  const resp = { message };
+  return resp;
+};
+
+const validateRequiredFields = async (req, res, next) => {
+  const { name, email, password } = req.body;
+
+  if (!name || !email || !password) {
+    return res.status(400).json(buildResponse('Invalid entries. Try again.'));
+  }
+
+  next();
+};
+
+const validateEmail = async (req, res, next) => {
+  const { email } = req.body;
+  const regexEmailValidate = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+  if (!regexEmailValidate.match(email)) {
+    return res.status(400).json(buildResponse('Invalid entries. Try again.'));
+  }
+
+  next();
+};
+
+const validateEmailIsUnique = async (req, res, next) => {
+  const { email } = req.body;
+
+  const emailExists = await model.findByEmail('users', email);
+
+  if (emailExists) {
+    return res.status(409).json(buildResponse('Email already registered'));
+  }
+
+  next();
+};
+
+module.exports = {
+  validateRequiredFields,
+  validateEmail,
+  validateEmailIsUnique,
+};
