@@ -21,13 +21,45 @@ router.post('/',
     return res.status(201).json(newRecipe);
   });
 
-router.get('/:id', async (req, res) => {
-  const { id } = req.params;
-  const recipe = await recipesModel.findById(id);
-  if (!recipe) {
-    return res.status(404).json({ message: 'recipe not found' });
-  }
-  return res.status(200).json(recipe);
-});
+router.get('/:id',
+  async (req, res) => {
+    const { id } = req.params;
+    const recipe = await recipesModel.findById(id);
+    if (!recipe) {
+      return res.status(404).json({ message: 'recipe not found' });
+    }
+    return res.status(200).json(recipe);
+  });
+
+router.put('/:id',
+  validations.validToken,
+  async (req, res) => {
+    const { id } = req.params;
+    const recipe = req.body;
+    const userForTest = req.user;
+
+    if (userForTest) {
+      await recipesModel.updateRecipe(id, recipe);
+      const updated = await recipesModel.findById(id);
+      return res.status(200).json(updated);
+    }
+    return res.status(401).json({ message: 'missing auth token' });
+  });
+
+router.delete('/:id',
+  validations.validToken,
+  async (req, res) => {
+    const { id } = req.params;
+    const userForTest = req.user;
+    const recipe = await recipesModel.findById(id);
+
+    if (!recipe) {
+      return res.status(401).json({ message: 'missing auth token' });
+    }
+    if (userForTest) {
+      await recipesModel.deleteRecipe(id);
+      return res.status(204).json();
+    }
+  });
 
 module.exports = router;
