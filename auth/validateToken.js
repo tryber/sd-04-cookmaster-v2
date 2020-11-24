@@ -2,8 +2,6 @@ const jwt = require('jsonwebtoken');
 
 const secret = 'mySecret';
 
-const validateToken = (token) => {
-  return jwt.verify(token, secret);
-};
+const validateToken = (token) => jwt.verify(token, secret);
 
 module.exports = validateToken;
