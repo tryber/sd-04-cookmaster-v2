@@ -1,3 +1,4 @@
+const multer = require('multer');
 const { recipeModel: {
   createRecipeModel,
   getAllRecipes,
@@ -39,14 +40,10 @@ const getRecipeByIdController = async ({ params: { id } }, res) => {
   }
 };
 
-const updateRecipeByIdController = async ({ params: { id }, user: { userId, role }, body: {
-  name,
-  ingredients,
-  preparation,
-} }, res) => {
+const updateRecipeByIdController = async ({ params: { id }, user: { userId, role }, body,
+}, res) => {
   try {
-    console.log(userId, role);
-    const recipe = await updateRecipe(id, userId, role, name, ingredients, preparation);
+    const recipe = await updateRecipe(id, userId, role, body);
 
     return res.status(200).json(recipe);
   } catch (_err) {
@@ -70,10 +67,21 @@ const deleteRecipeByIdController = async ({ params: { id }, user: { userId, role
   }
 };
 
+const insertImageController = async ({
+  params: { id },
+  user: { userId, role },
+  file: { path } },
+  res) => {
+  await updateRecipe(id, userId, role, { image: `localhost:3000/${path}` });
+  const recipe = await getRecipeById(id);
+  res.status(200).json(recipe);
+};
+
 module.exports = {
   createRecipeController,
   getAllRecipesController,
   getRecipeByIdController,
   updateRecipeByIdController,
   deleteRecipeByIdController,
+  insertImageController,
 };

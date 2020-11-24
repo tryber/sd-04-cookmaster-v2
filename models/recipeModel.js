@@ -17,11 +17,11 @@ const getRecipeById = async (id) => {
   return db.collection('recipes').findOne(ObjectID(id));
 };
 
-const updateRecipeById = async (id, name, ingredients, preparation) => {
+const updateRecipeById = async (id, recipe) => {
   const db = await connection();
   const result = await db.collection('recipes').updateOne(
     { _id: ObjectID(id) },
-    { $set: { name, ingredients, preparation } },
+    { $set: recipe },
   );
   return result;
 };

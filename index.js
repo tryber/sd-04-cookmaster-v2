@@ -1,10 +1,13 @@
 const express = require('express');
+const path = require('path');
 
 const { userRouter, loginRouter, recipeRouter } = require('./routes');
 
 const app = express();
 
 const PORT = 3000;
+
+app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 
 app.use(express.json());
 
