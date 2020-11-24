@@ -38,7 +38,7 @@ app.route('/recipes/:id')
 
 // Recipes - Add Image
 app.route('/recipes/:id/image')
-  .put(checkAuth, verifyJWT, checkUser, uploadImage, recipesController.updateOne);
+  .put(checkAuth, verifyJWT, checkUser, uploadImage, recipesController.createImage);
 
 app.post('/login', usersController.login);
 

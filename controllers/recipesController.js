@@ -20,6 +20,7 @@ async (req, res) => {
   try {
     const { id } = req.params;
     const recipe = await recipesService.readOne(id);
+    console.log(recipe);
 
     const imagePath = `localhost:3000/images/${id}.jpeg`;
 
@@ -29,8 +30,10 @@ async (req, res) => {
       ...recipe,
       image: imagePath,
     };
+    console.log(updatedRecipe);
     res.status(200).json(updatedRecipe);
   } catch (_e) {
+    console.log(_e);
     res.status(501).json({
       message: 'Failed to upload image',
     });
