@@ -21,4 +21,13 @@ router.post('/',
     return res.status(201).json(newRecipe);
   });
 
+router.get('/:id', async (req, res) => {
+  const { id } = req.params;
+  const recipe = await recipesModel.findById(id);
+  if (!recipe) {
+    return res.status(404).json({ message: 'recipe not found' });
+  }
+  return res.status(200).json(recipe);
+});
+
 module.exports = router;
