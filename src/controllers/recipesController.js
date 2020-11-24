@@ -18,7 +18,7 @@ router.post('/',
     const { _id: id } = req.user;
 
     const newRecipe = await recipesModel.createRecipe(name, ingredients, preparation, id);
-    return res.status(201).json({ newRecipe });
+    return res.status(201).json(newRecipe);
   });
 
 module.exports = router;
