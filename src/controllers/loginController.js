@@ -9,7 +9,6 @@ router.post('/',
   async (req, res) => {
     const { email, password } = req.body;
     const user = await userModel.findByEmail(email);
-    console.log(user);
 
     if (!email || !password) {
       return res.status(401).json({ message: 'All fields must be filled' });
