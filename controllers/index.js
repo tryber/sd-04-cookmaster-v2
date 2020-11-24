@@ -1,4 +1,4 @@
 const userController = require('./UserController');
-// const sales = require('./sales');
+const authenticateController = require('./AuthenticateController');
 
-module.exports = { userController };
+module.exports = { userController, authenticateController };

@@ -15,6 +15,6 @@ app.get('/', (request, response) => {
 const routes = require('./routes');
 
 app.use('/users', routes.userRouter);
-// app.use('/login', routes.salesRoutes);
+app.use('/login', routes.loginRouter);
 
-app.listen(3000,  () => console.log('Listening on 3000'));
+app.listen(3000, () => console.log('Listening on 3000'));
