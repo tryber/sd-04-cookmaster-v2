@@ -18,5 +18,6 @@ app.get('/', (request, response) => {
 app.use('/users', userRouter);
 app.use('/login', loginRouter);
 app.use('/recipes', recipeRouter);
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 app.listen(PORT, () => console.log(`Escutando na porta ${PORT}`));
