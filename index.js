@@ -16,6 +16,4 @@ app.use('/users', controllers.usersController);
 app.use('/login', controllers.loginController);
 app.use('/recipes', controllers.recipeController);
 
-
-
 app.listen(port, () => console.log(`Listening on ${port}`));
