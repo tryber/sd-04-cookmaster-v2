@@ -5,6 +5,11 @@ const createOne = async (name, ingredients, preparation, userId) => {
   return newRecipe;
 };
 
+const createImage = async (id, imagePath) => {
+  const recipe = await recipesModel.addImage(id, imagePath);
+  return recipe;
+};
+
 const readAll = async () => {
   const recipes = await recipesModel.getAll();
   return recipes;
@@ -27,6 +32,7 @@ const updateOne = async (id, name, ingredients, preparation) => {
 
 module.exports = {
   createOne,
+  createImage,
   readAll,
   readOne,
   updateOne,

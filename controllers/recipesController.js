@@ -15,6 +15,28 @@ async (req, res) => {
   }
 });
 
+const createImage = ('/',
+async (req, res) => {
+  try {
+    const { id } = req.params;
+    const recipe = await recipesService.readOne(id);
+
+    const imagePath = `localhost:3000/images/${id}.jpeg`;
+
+    await recipesService.createImage(id, imagePath);
+
+    const updatedRecipe = {
+      ...recipe,
+      image: imagePath,
+    };
+    res.status(200).json(updatedRecipe);
+  } catch (_e) {
+    res.status(501).json({
+      message: 'Failed to upload image',
+    });
+  }
+});
+
 const readAll = ('/',
 async (req, res) => {
   const recipes = await recipesService.readAll();
@@ -27,7 +49,7 @@ async (req, res) => {
   try {
     const recipe = await recipesService.readOne(id);
     return res.status(200).json(recipe);
-  } catch (e) {
+  } catch (_e) {
     return res.status(404).json({ message: 'recipe not found' });
   }
 });
@@ -40,7 +62,7 @@ async (req, res) => {
     await recipesService.updateOne(id, name, ingredients, preparation);
     const recipe = await recipesService.readOne(id);
     return res.status(200).json(recipe);
-  } catch (e) {
+  } catch (_e) {
     return res.status(404).json({ message: 'recipe not found' });
   }
 });
@@ -50,14 +72,15 @@ async (req, res) => {
   const { id } = req.params;
   try {
     await recipesService.deleteOne(id);
-    return res.status(204);
-  } catch (e) {
+    return res.status(204).json({});
+  } catch (_e) {
     return res.status(404).json({ message: 'recipe not found' });
   }
 });
 
 module.exports = {
   createOne,
+  createImage,
   readAll,
   readOne,
   updateOne,

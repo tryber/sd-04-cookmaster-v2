@@ -20,6 +20,11 @@ const add = async (name, ingredients, preparation, userId) => {
   return recipe;
 };
 
+const addImage = async (id, imagePath) => {
+  const db = await connection();
+  return db.collection('recipes').updateOne({ _id: ObjectId(id) }, { $set: { image: imagePath } });
+};
+
 const update = async (id, name, ingredients, preparation) => {
   const db = await connection();
   return db.collection('recipes').updateOne({ _id: ObjectId(id) }, { $set: { name, ingredients, preparation } });
@@ -32,6 +37,7 @@ const del = async (id) => {
 
 module.exports = {
   add,
+  addImage,
   del,
   getAll,
   getById,

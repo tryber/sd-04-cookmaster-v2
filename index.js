@@ -5,6 +5,7 @@ const userValidator = require('./middlewares/userValidation');
 const checkAuth = require('./middlewares/checkAuth');
 const verifyJWT = require('./middlewares/verifyJWT');
 const checkUser = require('./middlewares/checkUser');
+const uploadImage = require('./middlewares/uploadImage');
 const recipesController = require('./controllers/recipesController');
 const recipesValidator = require('./middlewares/recipesValidation');
 
@@ -34,6 +35,10 @@ app.route('/recipes/:id')
   .get(recipesController.readOne)
   .put(checkAuth, verifyJWT, checkUser, recipesController.updateOne)
   .delete(checkAuth, verifyJWT, checkUser, recipesController.deleteOne);
+
+// Recipes - Add Image
+app.route('/recipes/:id/image')
+  .put(checkAuth, verifyJWT, checkUser, uploadImage, recipesController.updateOne);
 
 app.post('/login', usersController.login);
 
