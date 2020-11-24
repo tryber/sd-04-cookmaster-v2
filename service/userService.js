@@ -10,7 +10,7 @@ const createUser = async (req, res, next) => {
     return res.status(409).json({ message: 'Email already registered' });
   }
 
-  return next;
+  return next();
 
   // const newUser = await userModel.addUser(name, email, password, 'user');
   // return newUser;
