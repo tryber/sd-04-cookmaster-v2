@@ -1,11 +1,17 @@
 const express = require('express');
 require('dotenv/config');
+const path = require('path');
 const controllers = require('./src/controllers');
 
 const app = express();
 const PORT = 3000;
 
 app.use(express.json());
+
+// images é o caminho da API onde as imagens estarão disponíveis
+// path.join(__dirname, 'uploads') é o caminho da pasta onde o multer salva suas imagens
+// ao realizar o upload
+app.use('/images', express.static(path.join(__dirname, 'uploads')));
 
 app.use('/users', controllers.usersController);
 app.use('/login', controllers.loginController);
