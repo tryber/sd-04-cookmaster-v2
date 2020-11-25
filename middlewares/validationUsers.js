@@ -2,6 +2,7 @@
 const messageJson = { message: 'Invalid entries. Try again.' }; // jogar o json na variavel
 
 const userModel = require('../models/userModel'); // importando o userModel
+
 const messageEmailJson = { message: 'Email already registered' }; // jogar o json na variavel
 const validator = require('validator'); // biblioteca de validação de email
 
