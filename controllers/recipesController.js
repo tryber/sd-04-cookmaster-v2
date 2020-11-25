@@ -22,4 +22,10 @@ router.post(
   },
 );
 
+router.get('/', async (_req, res) => {
+  const recipes = await model.findAll('recipes');
+
+  res.status(200).json(recipes);
+});
+
 module.exports = router;
