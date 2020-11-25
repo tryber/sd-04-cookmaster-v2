@@ -11,9 +11,6 @@ const createUser = async (req, res, next) => {
   }
 
   return next();
-
-  // const newUser = await userModel.addUser(name, email, password, 'user');
-  // return newUser;
 };
 
 module.exports = {
