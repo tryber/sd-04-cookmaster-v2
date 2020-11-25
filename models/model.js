@@ -18,8 +18,8 @@ const findByEmail = async (collection, email) => {
 
 const findById = async (collection, id) => {
   if (!ObjectId.isValid(id)) return null;
-
   const result = await connection().then((db) => db.collection(collection).findOne(ObjectId(id)));
+
   return result;
 };
 
@@ -42,6 +42,11 @@ const deleteItem = async (collection, id) => {
   return result;
 };
 
+const addImage = async (collection, id, imagePath) =>
+  connection().then((db) =>
+    db.collection(collection).updateOne({ _id: ObjectId(id) }, { $set: { image: imagePath } }),
+  );
+
 module.exports = {
   add,
   findByName,
@@ -50,4 +55,5 @@ module.exports = {
   findAll,
   update,
   deleteItem,
+  addImage,
 };

@@ -4,10 +4,9 @@ const model = require('../models/model');
 
 const router = express.Router();
 
-// Add new user
 router.post(
   '/',
-  userValidations.validateFields,
+  userValidations.validateReqiredFields,
   userValidations.validateEmail,
   userValidations.validateEmailIsUnique,
   async (req, res) => {
