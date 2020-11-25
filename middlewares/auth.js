@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-const secret = 'SoLongAndThanksForAllTheFish';
+const secret = 'NinguemNuncaVaiDescobrirEsteTokenSecreto';
 
 const authMiddleware = (req, res, next) => {
   const token = req.headers.authorization;
@@ -13,6 +13,7 @@ const authMiddleware = (req, res, next) => {
     const decode = jwt.verify(token, secret);
     const user = decode.data;
     if (!user) {
+      console.log(user);
       return res.status(401).json({ message: 'Erro ao procurar usuario do token' });
     }
     req.user = user;
