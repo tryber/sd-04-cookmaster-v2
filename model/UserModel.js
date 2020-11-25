@@ -14,11 +14,11 @@ const create = (user) =>
 const findByEmail = (email) =>
   connection()
   .then(async (schema) => {
-    const userResp = await schema.collection('users').findOne({ email });
-    if (!userResp) {
+    const user = await schema.collection('users').findOne({ email });
+    if (!user) {
       throw new Error('Incorrect username or password');
     }
-    return userResp;
+    return user;
   });
 
 module.exports = { create, findByEmail };

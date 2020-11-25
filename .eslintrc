@@ -8,6 +8,7 @@
     "quotes": [2, "single"],
     "implicit-arrow-linebreak": "off",
     "no-useless-escape":"off",
+    "prefer-template":"off",
     "consistent-return": "off",
     "padded-blocks":"off",
     "no-unused-vars": [

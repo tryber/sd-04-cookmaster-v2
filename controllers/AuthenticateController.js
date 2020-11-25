@@ -17,7 +17,7 @@ const index = async (request, response) => {
     }
     user.password = undefined;
 
-    return response.status(200).json({ user, token: GenerateToken(user) });
+    return response.status(200).json({ user, token: 'Bearer ' + GenerateToken(user) });
 
   } catch (err) {
     response.status(401).send({ message: err.message });

@@ -26,7 +26,7 @@ describe('3 - Crie um endpoint para o cadastro de receitas', () => {
       {
         name: 'Erick Jacquin',
         email: 'erickjacquin@gmail.com',
-        password: '12345678',
+        password: '$2a$10$OsSdXEpKvs4xhPwZfdKX0O6pnalosQeDEowzpkaH..A34eYnfWvG.',
         role: 'user',
       },
     ];
@@ -207,7 +207,7 @@ describe('4 - Crie um endpoint para a listagem de receitas', () => {
       {
         name: 'Erick Jacquin',
         email: 'erickjacquin@gmail.com',
-        password: '12345678',
+        password: '$2a$10$OsSdXEpKvs4xhPwZfdKX0O6pnalosQeDEowzpkaH..A34eYnfWvG.',
         role: 'user',
       },
     ];
@@ -323,7 +323,7 @@ describe('5 - Crie um endpoint para visualizar uma receita específica', () => {
       {
         name: 'Erick Jacquin',
         email: 'erickjacquin@gmail.com',
-        password: '12345678',
+        password: '$2a$10$OsSdXEpKvs4xhPwZfdKX0O6pnalosQeDEowzpkaH..A34eYnfWvG.',
         role: 'user',
       },
     ];
