@@ -1,12 +1,17 @@
 const { recipesModel } = require('../model');
 
-const createRecipe = (req, res, next) => {
-  const { name, ingredients, preparation } = req.body;
-  if (!name || !ingredients || !preparation) {
-    return res.status(400).json({ message: 'Invalid entries. Try again.' });
-  }
+const createRecipe = async (name, ingredients, preparation) => {
+  const recipe = await recipesModel.addRecipe(name, ingredients, preparation);
+  const err = { err: { message: 'Invalid entries. Try again.' }, error: true };
+  if (!name || !ingredients || !preparation) return err;
 
-  return next();
+  return recipe;
+};
+
+const getAll = async () => {
+  const recipe = await recipesModel.getAll();
+  if (!recipe) return null;
+  return recipe;
 };
 
 const getById = async (req, res, next) => {
@@ -22,5 +27,6 @@ const getById = async (req, res, next) => {
 
 module.exports = {
   createRecipe,
+  getAll,
   getById,
 };
