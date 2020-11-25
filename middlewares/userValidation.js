@@ -5,7 +5,8 @@ const buildResponse = (message) => {
   return resp;
 };
 
-const validateRequiredFields = async (req, res, next) => {
+// os campos "name", "email" e "password" são obrigatórios
+const validateFields = async (req, res, next) => {
   const { name, email, password } = req.body;
 
   if (!name || !email || !password) {
@@ -15,16 +16,18 @@ const validateRequiredFields = async (req, res, next) => {
   next();
 };
 
+// não é possível cadastrar usuário com o campo email inválido
 const validateEmail = async (req, res, next) => {
   const { email } = req.body;
-  const regexEmailValidate = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
-  if (!regexEmailValidate.match(email)) {
+  const regex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+  if (!regex.test(email)) {
     return res.status(400).json(buildResponse('Invalid entries. Try again.'));
   }
 
   next();
 };
 
+// o campo "email" deve ser único
 const validateEmailIsUnique = async (req, res, next) => {
   const { email } = req.body;
 
@@ -37,6 +40,7 @@ const validateEmailIsUnique = async (req, res, next) => {
   next();
 };
 
+// os campos "email" e "password" são obrigatórios
 const validateLoginFields = async (req, res, next) => {
   const { email, password } = req.body;
 
@@ -47,6 +51,7 @@ const validateLoginFields = async (req, res, next) => {
   next();
 };
 
+// não é possível fazer login com um "email" ou "password" inválidos
 const validateLogin = async (req, res, next) => {
   const { email, password } = req.body;
 
@@ -63,7 +68,7 @@ const validateLogin = async (req, res, next) => {
 };
 
 module.exports = {
-  validateRequiredFields,
+  validateFields,
   validateEmail,
   validateEmailIsUnique,
   validateLoginFields,
