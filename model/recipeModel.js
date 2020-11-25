@@ -33,4 +33,22 @@ const getById = (id) =>
     return recipe;
   });
 
-module.exports = { create, findByEmail, getAll, getById };
+const update = (recipeId, recipeData) => {
+  const { name, ingredients, preparation } = recipeData;
+  if (!ObjectId.isValid(recipeId)) return Promise.reject(new Error('Wrong id format'));
+
+  return connection().then((db) =>
+    db.collection('recipes').updateOne({ _id: ObjectId(recipeId) }, { $set: { name, ingredients, preparation } }))
+    .then(() => getById(recipeId));
+};
+
+const deleteRecipe = (recipeId) => {
+  console.log(recipeId);
+  if (!ObjectId.isValid(recipeId)) return Promise.reject(new Error('Wrong id format'));
+  console.log(recipeId);
+  return connection().then((db) =>
+    db.collection('recipes').deleteOne({ _id: ObjectId(recipeId) }))
+    .then(() => true);
+};
+
+module.exports = { create, findByEmail, getAll, getById, update, deleteRecipe };

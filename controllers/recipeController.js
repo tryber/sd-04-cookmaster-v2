@@ -30,23 +30,47 @@ const getById = async (request, response) => {
       response.status(404).send({ message: 'recipe not found' }));
 };
 
-/* const update = async (request, response) => {
+const update = async (request, response) => {
   const recipeId = request.params.id;
+
   const { _id: userId, role } = request.user;
-console.log("cdcd", userId);
 
-const recipe = await recipeModel.getById(recipeId);
-console.log("re", recipe.userId);
+  const recipeData = request.body;
 
-if (userId.toString() !== recipe.userId.toString() && role !== 'admin') {
-  return res.status(401).send({ message: 'Usuário não pode editar a receita' });
-}
-   productModel
-    .update(id, productData)
-    .then(() =>
+  const { userId: userIdRecipe } = await recipeModel.getById(recipeId);
+
+  if (userId.toString() !== userIdRecipe.toString() && role !== 'admin') {
+    return response.status(401).send({ message: 'User cannot edit this recipe' });
+  }
+
+  recipeModel
+    .update(recipeId, recipeData)
+    .then((result) =>
       response
         .status(200)
-        .json(response.json({ _id: id, name: productData.name, quantity: productData.quantity })));
+        .json(response.json(result)))
+    .catch(() =>
+      response.status(404).send({ message: 'recipe not found' }));
 };
-*/
-module.exports = { create, getAll, getById };
+
+const deleteRecipe = async (request, response) => {
+  const recipeId = request.params.id;
+  const { _id: userId, role } = request.user;
+
+  const { userId: userIdRecipe } = await recipeModel.getById(recipeId);
+
+  if (userId.toString() !== userIdRecipe.toString() && role !== 'admin') {
+    return response.status(401).send({ message: 'User cannot exclude this recipe' });
+  }
+  recipeModel
+    .deleteRecipe(recipeId)
+    .then(() =>
+      response
+        .status(204)
+        .json(response.json()))
+    .catch(() =>
+      response.status(404).send({ message: 'recipe not found' }));
+};
+
+
+module.exports = { create, getAll, getById, update, deleteRecipe };

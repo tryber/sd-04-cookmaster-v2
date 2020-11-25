@@ -15,6 +15,11 @@ const index = async (request, response) => {
     if (!(await bcryptjs.compare(password, user.password))) {
       return response.status(401).send({ message: 'Incorrect username or password' });
     }
+    // para os testes passarem
+    /* if (!user || password !== user.password) {
+      return res.status(401).send({ message: 'Incorrect username or password' });
+    } */
+
     user.password = undefined;
 
     return response.status(200).json({ user, token: 'Bearer ' + GenerateToken(user) });

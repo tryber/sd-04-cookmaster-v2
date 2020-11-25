@@ -2,7 +2,7 @@ const userModel = require('../model/UserModel');
 const bcryptjs = require('bcryptjs');
 
 const create = async (request, response) => {
-  const { name, email, password } = request.body;
+  const { name, email, password, role: roleRequest } = request.body;
 
   const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
@@ -16,7 +16,7 @@ const create = async (request, response) => {
     name,
     email,
     password: await bcryptjs.hash(password, 10),
-    role: 'user',
+    role: roleRequest || 'user',
   };
 
   userModel
