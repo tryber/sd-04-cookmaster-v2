@@ -13,6 +13,7 @@ app.get('/', (request, response) => {
 });
 
 app.use('/users', controllers.userControler);
+app.use('/login', controllers.loginControler);
 // app.use('/sales', controllers.salesController);
 
 app.listen(port, () => console.log(`Listening on ${port}`));
