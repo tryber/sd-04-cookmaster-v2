@@ -1,16 +1,18 @@
 const express = require('express');
 
-const auth = require('../middlewares/auth');
+const { authMiddleware } = require('../middlewares/auth');
 
 const { recipesModel } = require('../model');
 const { recipesService } = require('../service');
 
 const router = express.Router();
 
-router.post('/', auth, recipesService.createRecipe, async (req, res) => {
+router.post('/', authMiddleware, async (req, res) => {
   const { name, ingredients, preparation } = req.body;
-  // const user = req.user;
-  console.log('oi');
+  if (!name || !ingredients || !preparation) {
+    return res.status(400).json({ message: 'Invalid entries. Try again.' });
+  }
+
   const recipe = await recipesModel.addRecipe(name, ingredients, preparation);
 
   res.status(201).json({ recipe });

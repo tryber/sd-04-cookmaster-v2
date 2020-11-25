@@ -14,7 +14,7 @@ const secret = 'SoLongAndThanksForAllTheFish';
 router.post('/', userService.userLogin, async (req, res) => {
   const { email } = req.body;
   const user = await userModel.findByEmail(email);
-  const token = jwt.sign({ date: user }, secret, jwtConfig);
+  const token = jwt.sign({ data: user }, secret, jwtConfig);
   res.status(200).json({ token });
 });
 
