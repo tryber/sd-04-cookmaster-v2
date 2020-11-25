@@ -1,4 +1,4 @@
-const model = require('../models/model.js');
+const model = require('../models/model');
 
 const buildResponse = (message) => {
   const resp = { message };
@@ -47,7 +47,6 @@ const validateLoginFields = async (req, res, next) => {
   next();
 };
 
-
 const validateLogin = async (req, res, next) => {
   const { email, password } = req.body;
 
@@ -67,6 +66,6 @@ module.exports = {
   validateRequiredFields,
   validateEmail,
   validateEmailIsUnique,
-  validateLogin,
   validateLoginFields,
+  validateLogin,
 };
