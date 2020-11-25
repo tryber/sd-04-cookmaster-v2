@@ -25,7 +25,19 @@ const createAdmin = async (req, res, next) => {
   return res.status(201).json(resultAdmin);
 };
 
+const login = async (req, res, next) => {
+  const { info } = req;
+  const test = await usersService.login(info);
+
+  if (!test) {
+    return next(boom.unauthorized('Incorrect username or password'));
+  }
+
+  return res.status(200).json({ token: test });
+};
+
 module.exports = {
   createUser,
   createAdmin,
+  login,
 };
