@@ -1,7 +1,5 @@
 const express = require('express');
 const multer = require('multer');
-const FormData = require('form-data');
-const form = new FormData();
 const { validate } = require('../middlewares/validateJWT');
 const {
   createRecipe,
