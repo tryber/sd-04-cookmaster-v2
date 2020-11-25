@@ -16,6 +16,7 @@ const validate = (req, res, next) => {
       return res.status(401).json({ message: 'jwt malformed' });
     }
 
+    req.user = data;
     return next();
   } catch (err) {
     return res.status(401).json({ message: 'jwt malformed' });
