@@ -1,7 +1,10 @@
 const express = require('express');
-const validationUsers = require('../middlewares/validationUsers'); // importando o validationUsers do Middleware
-const userModel = require('../models/userModel'); // importando o userModel do model
-const router = express.Router(); // criando a rota
+// importando o validationUsers do Middleware
+const validationUsers = require('../middlewares/validationUsers');
+// importando o userModel do model
+const userModel = require('../models/userModel');
+// criando a rota
+const router = express.Router();
 
 const validations = [
   validationUsers.validationNameEmailPassword,
