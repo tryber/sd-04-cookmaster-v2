@@ -4,6 +4,7 @@
   "description": "Você já usa o GitHub diariamente para desenvolver os exercícios, certo? Agora, para desenvolver os projetos, você deverá seguir as instruções a seguir. Fique atento a cada passo, e se tiver qualquer dúvida, nos envie por Slack! #vqv 🚀",
   "main": "index.js",
   "scripts": {
+    "dev": "nodemon index.js",
     "test": "jest --runInBand",
     "start": "node index.js",
     "start:watch": "nodemon index.js"
@@ -26,10 +27,12 @@
     "frisby": "^2.1.2",
     "jest": "^26.4.1",
     "jsonwebtoken": "^8.5.1",
-    "mongodb": "^3.5.9",
+    "mongodb": "^3.6.3",
     "multer": "^1.4.2",
-    "nodemon": "^2.0.4",
-    "shelljs": "^0.8.4"
+    "node-fetch": "^2.6.1",
+    "nodemon": "^2.0.6",
+    "shelljs": "^0.8.4",
+    "validator": "^13.1.17"
   },
   "devDependencies": {
     "eslint": "^7.4.0",
