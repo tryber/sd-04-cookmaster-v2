@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const path = require('path');
 
 const controllers = require('./controllers');
 
@@ -12,6 +13,7 @@ app.get('/', (request, response) => {
   response.send();
 });
 
+app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use('/users', controllers.usersController);
 app.use('/login', controllers.loginController);
 app.use('/recipes', controllers.recipeController);
