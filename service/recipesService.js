@@ -4,7 +4,6 @@ const createRecipe = async (name, ingredients, preparation, id) => {
   const recipe = await recipesModel.addRecipe(name, ingredients, preparation, id);
   const err = { err: { message: 'Invalid entries. Try again.' }, error: true };
   if (!name || !ingredients || !preparation) return err;
-  // console.log(recipe);
 
   return recipe;
 };
@@ -35,10 +34,17 @@ const getById = async (id) => {
   return recipe;
 };
 
+const updateImage = async (id, image) => {
+  const recipe = await recipesModel.updateImage(id, image);
+  if (!recipe) return null;
+  return recipe;
+};
+
 module.exports = {
   createRecipe,
   updateRecipe,
   deleteRecipe,
   getAll,
   getById,
+  updateImage,
 };

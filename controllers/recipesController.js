@@ -1,4 +1,5 @@
 const express = require('express');
+const multer = require('multer');
 
 const { authMiddleware } = require('../middlewares/auth');
 
@@ -9,7 +10,7 @@ const router = express.Router();
 router.post('/', authMiddleware, async (req, res) => {
   const { name, ingredients, preparation } = req.body;
   const { _id: id } = req.user.data;
-  // console.log(req.user);
+ 
   const recipe = await recipesService.createRecipe(name, ingredients, preparation, id);
 
   if (recipe.error) return res.status(400).json(recipe.err);
@@ -44,6 +45,31 @@ router.delete('/:id', authMiddleware, async (req, res) => {
   const product = await recipesService.deleteRecipe(id);
 
   res.status(204).json(product);
+});
+
+const storage = multer.diskStorage({
+  destination: 'images',
+  filename: (req, _fille, callback) => {
+    const { id } = req.params;
+    callback(null, `${id}.jpeg`);
+  },
+});
+
+const upload = multer({ storage });
+
+router.put('/:id/image', authMiddleware, upload.single('image'), async (req, res) => {
+  const { id } = req.params;
+  const { _id: userId, role } = req.user.data;
+  const image = `localhost:3000/${req.file.path}`;
+
+  const recipe = recipesService.getById(id);
+  const recipeImage = recipesService.updateImage(id, image);
+
+  if (recipe.userId === userId || role === 'admin') {
+    return res.status(200).json(recipeImage);
+  }
+
+  res.status(200).json(recipe);
 });
 
 module.exports = router;
