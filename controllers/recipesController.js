@@ -2,7 +2,6 @@ const express = require('express');
 
 const { authMiddleware } = require('../middlewares/auth');
 
-const { recipesModel } = require('../model');
 const { recipesService } = require('../service');
 
 const router = express.Router();
@@ -23,10 +22,21 @@ router.get('/', async (req, res) => {
   res.status(200).json(recipe);
 });
 
-router.get('/:id', recipesService.getById, async (req, res) => {
+router.get('/:id', async (req, res) => {
   const { id } = req.params;
-  const recipe = await recipesModel.findById(id);
-  return res.status(200).json(recipe);
+  const recipe = await recipesService.getById(id);
+
+  if (recipe.error) return res.status(404).json(recipe.err);
+
+  res.status(200).json(recipe);
+});
+
+router.put('/:id', authMiddleware, async (req, res) => {
+  const { id } = req.params;
+  const { name, ingredients, preparation } = req.body;
+
+  const recipe = await recipesService.updateRecipe(id, name, ingredients, preparation);
+  res.status(200).json(recipe);
 });
 
 module.exports = router;
