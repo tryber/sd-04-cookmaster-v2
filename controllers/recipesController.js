@@ -49,7 +49,7 @@ router.delete('/:id', authMiddleware, async (req, res) => {
 
 const storage = multer.diskStorage({
   destination: 'images',
-  filename: (req, _fille, callback) => {
+  filename: (req, _file, callback) => {
     const { id } = req.params;
     callback(null, `${id}.jpeg`);
   },
@@ -61,12 +61,10 @@ router.put('/:id/image', authMiddleware, upload.single('image'), async (req, res
   const { id } = req.params;
   const recipe = await recipesService.getById(id);
   const { _id: userId, role } = req.user.data;
-  console.log(recipe);
   const image = `localhost:3000/${req.file.path}`;
 
-  const recipeImage = recipesService.updateImage(id, image);
-
   if (recipe.userId === userId || role === 'admin') {
+    const recipeImage = await recipesService.updateImage(id, image);
     return res.status(200).json(recipeImage);
   }
 
