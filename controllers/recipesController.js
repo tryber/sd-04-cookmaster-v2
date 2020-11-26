@@ -39,4 +39,11 @@ router.put('/:id', authMiddleware, async (req, res) => {
   res.status(200).json(recipe);
 });
 
+router.delete('/:id', authMiddleware, async (req, res) => {
+  const { id } = req.params;
+  const product = await recipesService.deleteRecipe(id);
+
+  res.status(204).json(product);
+});
+
 module.exports = router;
