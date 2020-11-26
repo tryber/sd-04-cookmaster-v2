@@ -10,7 +10,7 @@ const router = express.Router();
 router.post('/', authMiddleware, async (req, res) => {
   const { name, ingredients, preparation } = req.body;
   const { _id: id } = req.user.data;
- 
+
   const recipe = await recipesService.createRecipe(name, ingredients, preparation, id);
 
   if (recipe.error) return res.status(400).json(recipe.err);
@@ -59,10 +59,11 @@ const upload = multer({ storage });
 
 router.put('/:id/image', authMiddleware, upload.single('image'), async (req, res) => {
   const { id } = req.params;
+  const recipe = recipesService.getById(id);
   const { _id: userId, role } = req.user.data;
+  console.log(recipe);
   const image = `localhost:3000/${req.file.path}`;
 
-  const recipe = recipesService.getById(id);
   const recipeImage = recipesService.updateImage(id, image);
 
   if (recipe.userId === userId || role === 'admin') {
