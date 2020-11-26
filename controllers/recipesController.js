@@ -59,7 +59,7 @@ const upload = multer({ storage });
 
 router.put('/:id/image', authMiddleware, upload.single('image'), async (req, res) => {
   const { id } = req.params;
-  const recipe = recipesService.getById(id);
+  const recipe = await recipesService.getById(id);
   const { _id: userId, role } = req.user.data;
   console.log(recipe);
   const image = `localhost:3000/${req.file.path}`;
