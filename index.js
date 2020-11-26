@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const path = require('path');
 
 const controllers = require('./controllers');
 
@@ -15,5 +16,6 @@ app.get('/', (request, response) => {
 app.use('/users', controllers.userControler);
 app.use('/login', controllers.loginControler);
 app.use('/recipes', controllers.recipesController);
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 app.listen(port, () => console.log(`Listening on ${port}`));
