@@ -1,10 +1,9 @@
-// importando o useModel
-const messageJson = { message: 'Invalid entries. Try again.' }; // jogar o json na variavel
-
 const userModel = require('../models/userModel'); // importando o userModel
 
-const messageEmailJson = { message: 'Email already registered' }; // jogar o json na variavel
 const validator = require('validator'); // biblioteca de validação de email
+
+const messageJson = { message: 'Invalid entries. Try again.' }; // jogar o json na variavel
+const messageEmailJson = { message: 'Email already registered' }; // jogar o json na variavel
 
 // verifica se name, email e password existe
 const validationNameEmailPassword = (req, res, next) => {

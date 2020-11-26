@@ -1,6 +1,9 @@
 const express = require('express');
 
+// importando userController do controller
 const userController = require('./controllers/userController');
+// importando login do controller
+const login = require('./controllers/login');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -16,8 +19,6 @@ app.get('/', (request, response) => {
 
 app.use('/users', userController);
 
-app.use('/login', (req, res) => {
-  res.send('<h1><i>login</i></h1>');
-});
+app.use('/login', login);
 
 app.listen(port, () => console.log(`Rodando no localhost:${port}...`));
