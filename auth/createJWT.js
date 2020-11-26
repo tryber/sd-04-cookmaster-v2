@@ -9,7 +9,6 @@ const createToken = (payload) => {
   };
 
   const toker = jwt.sign(payload, secret, headers);
-  console.log(toker)
   return toker;
 };
 
