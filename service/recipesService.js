@@ -1,9 +1,10 @@
 const { recipesModel } = require('../model');
 
-const createRecipe = async (name, ingredients, preparation) => {
-  const recipe = await recipesModel.addRecipe(name, ingredients, preparation);
+const createRecipe = async (name, ingredients, preparation, id) => {
   const err = { err: { message: 'Invalid entries. Try again.' }, error: true };
   if (!name || !ingredients || !preparation) return err;
+  const recipe = await recipesModel.addRecipe(name, ingredients, preparation, id);
+  // console.log(recipe);
 
   return recipe;
 };
