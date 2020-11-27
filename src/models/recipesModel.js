@@ -32,7 +32,7 @@ const deleteRecipe = async (id) => {
 
 const updateImageOfRecipe = async (id, image) => {
   const db = await connection();
-  const updatedRecipe = await db.collection('recipes').updateOne({ _id: ObjectId(id) }, { $set: image });
+  const updatedRecipe = await db.collection('recipes').updateOne({ _id: ObjectId(id) }, { $set: { image } });
   return updatedRecipe;
 };
 

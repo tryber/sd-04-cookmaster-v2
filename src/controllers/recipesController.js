@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const recipesModel = require('../models/recipesModel');
 const validations = require('../middlewares/validations');
+const uploads = require('../middlewares/uploads');
 
 router.get('/', async (req, res) => {
   const allRecipes = await recipesModel.showAllRecipes();
@@ -60,6 +61,23 @@ router.delete('/:id',
       await recipesModel.deleteRecipe(id);
       return res.status(204).json();
     }
+  });
+
+router.put('/:id/image/',
+  validations.validToken,
+  uploads,
+  async (req, res) => {
+    const theUser = req.user;
+    const { id } = req.params;
+    const { filename } = req.file;
+    const image = `localhost:3000/images/${filename}`;
+
+    if (!theUser) {
+      return res.status(401).json({ message: 'missing auth token' });
+    }
+    await recipesModel.updateImageOfRecipe(id, image);
+    const recipe = await recipesModel.findById(id);
+    return res.status(200).json(recipe);
   });
 
 module.exports = router;
