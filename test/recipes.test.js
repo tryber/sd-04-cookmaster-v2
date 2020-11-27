@@ -977,11 +977,11 @@ describe('9 - Crie um endpoint para a adição de uma imagem a uma receita', () 
     await db.collection('users').deleteMany({});
     await db.collection('recipes').deleteMany({});
     const users = [
-      { name: 'admin', email: 'root@email.com', password: 'admin', role: 'admin' },
+      { name: 'admin', email: 'root@email.com', password: '$2a$10$IgQkBJ7DSR148glBGYNkNur68yY4KmR905e3UWBaZaxGKF90Odz.e', role: 'admin' },
       {
         name: 'Erick Jacquin',
         email: 'erickjacquin@gmail.com',
-        password: '12345678',
+        password: '$2a$10$OsSdXEpKvs4xhPwZfdKX0O6pnalosQeDEowzpkaH..A34eYnfWvG.',
         role: 'user',
       },
     ];
@@ -1243,11 +1243,11 @@ describe('10 - Crie ume endpoint para visualizar a imagem de uma receita', () =>
     await db.collection('users').deleteMany({});
     await db.collection('recipes').deleteMany({});
     const users = [
-      { name: 'admin', email: 'root@email.com', password: 'admin', role: 'admin' },
+      { name: 'admin', email: 'root@email.com', password: '$2a$10$IgQkBJ7DSR148glBGYNkNur68yY4KmR905e3UWBaZaxGKF90Odz.e', role: 'admin' },
       {
         name: 'Erick Jacquin',
         email: 'erickjacquin@gmail.com',
-        password: '12345678',
+        password: '$2a$10$OsSdXEpKvs4xhPwZfdKX0O6pnalosQeDEowzpkaH..A34eYnfWvG.',
         role: 'user',
       },
     ];

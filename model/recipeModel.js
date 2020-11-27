@@ -34,11 +34,10 @@ const getById = (id) =>
   });
 
 const update = (recipeId, recipeData) => {
-  const { name, ingredients, preparation } = recipeData;
   if (!ObjectId.isValid(recipeId)) return Promise.reject(new Error('Wrong id format'));
 
   return connection().then((db) =>
-    db.collection('recipes').updateOne({ _id: ObjectId(recipeId) }, { $set: { name, ingredients, preparation } }))
+    db.collection('recipes').updateOne({ _id: ObjectId(recipeId) }, { $set: recipeData }))
     .then(() => getById(recipeId));
 };
 

@@ -72,5 +72,29 @@ const deleteRecipe = async (request, response) => {
       response.status(404).send({ message: 'recipe not found' }));
 };
 
+const insertImage = async (request, response) => {
+  const recipeId = request.params.id;
+  const { _id: userId, role } = request.user;
+  const { image } = request;
 
-module.exports = { create, getAll, getById, update, deleteRecipe };
+  const { userId: userIdRecipe } = await recipeModel.getById(recipeId);
+
+  if (userId.toString() !== userIdRecipe.toString() && role !== 'admin') {
+    return response.status(401).send({ message: 'User cannot edit this recipe' });
+  }
+
+  recipeModel
+    .update(recipeId, { image })
+    .then((result) =>
+      response
+        .status(200)
+        .json(response.json(result)))
+    .catch(() =>
+      response.status(404).send({ message: 'recipe not found' }));
+};
+
+const getImage = (_req, res) => {
+  res.status(200).send('Sucesso');
+};
+
+module.exports = { create, getAll, getById, update, deleteRecipe, insertImage, getImage };
