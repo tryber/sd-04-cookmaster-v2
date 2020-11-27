@@ -1,5 +1,5 @@
 const userModel = require('../model/UserModel');
-const bcryptjs = require('bcryptjs');
+// const bcryptjs = require('bcryptjs');
 
 const create = async (request, response) => {
   const { name, email, password, role: roleRequest } = request.body;
@@ -15,7 +15,7 @@ const create = async (request, response) => {
   const userResult = {
     name,
     email,
-    password: await bcryptjs.hash(password, 10),
+    password, // await bcryptjs.hash(password, 10),
     role: roleRequest || 'user',
   };
 

@@ -1,5 +1,5 @@
 const userModel = require('../model/UserModel');
-const bcryptjs = require('bcryptjs');
+// const bcryptjs = require('bcryptjs');
 const { GenerateToken } = require('../utils/GenerateToken');
 
 const index = async (request, response) => {
@@ -12,12 +12,12 @@ const index = async (request, response) => {
   try {
     const user = await userModel.findByEmail(email);
 
-    if (!(await bcryptjs.compare(password, user.password))) {
+    if (!user || password !== user.password) {
       return response.status(401).send({ message: 'Incorrect username or password' });
     }
-    // para os testes passarem
-    /* if (!user || password !== user.password) {
-      return res.status(401).send({ message: 'Incorrect username or password' });
+
+/*     if (!(await bcryptjs.compare(password, user.password))) {
+      return response.status(401).send({ message: 'Incorrect username or password' });
     } */
 
     user.password = undefined;
