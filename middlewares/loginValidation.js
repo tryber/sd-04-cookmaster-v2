@@ -1,6 +1,6 @@
 const usersModel = require('../models/usersModel');
 
-const requiredFields = async (req, res, next) => {
+const validateRequiredFields = async (req, res, next) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
@@ -23,4 +23,4 @@ const validateEmailPassword = async (req, res, next) => {
   return next();
 };
 
-module.exports = { requiredFields, validateEmailPassword };
+module.exports = { validateRequiredFields, validateEmailPassword };

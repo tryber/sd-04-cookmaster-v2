@@ -1,6 +1,6 @@
 const express = require('express');
 const { validateToken } = require('../services/auth');
-const { validateUser, requiredFields } = require('../middlewares/recipeValidation');
+const { validateUser, validateRequiredFields } = require('../middlewares/recipeValidation');
 const multer = require('multer');
 const controller = require('../controllers/recipesController');
 
@@ -8,7 +8,7 @@ const router = express.Router();
 const upload = multer({ dest: 'uploads' });
 
 
-router.post('/', requiredFields, validateToken, controller.post);
+router.post('/', validateRequiredFields, validateToken, controller.post);
 router.get('/', controller.get);
 router.get('/:id', controller.getById);
 router.put('/:id', validateUser, validateToken, controller.put);

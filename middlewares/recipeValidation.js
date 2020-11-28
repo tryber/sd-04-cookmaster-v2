@@ -1,4 +1,4 @@
-const requiredFields = async (req, res, next) => {
+const validateRequiredFields = async (req, res, next) => {
   const { name, ingredients, preparation } = req.body;
 
   if (!name || !ingredients || !preparation) {
@@ -18,4 +18,4 @@ const validateUser = async (req, res, next) => {
   return next();
 };
 
-module.exports = { requiredFields, validateUser };
+module.exports = { validateRequiredFields, validateUser };
