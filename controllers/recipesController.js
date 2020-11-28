@@ -1,15 +1,8 @@
 const express = require('express');
-const multer = require('multer');
 const recipesModel = require('../models/recipesModel');
 const usersModel = require('../models/usersModel');
-const recipeValidation = require('../middlewares/recipeValidation');
-const validateToken = require('../auth/validateJWT');
 
-const upload = multer({ dest: 'uploads' });
-
-const router = express.Router();
-
-router.post('/', recipeValidation.requiredFields, validateToken, async (req, res) => {
+exports.post = async (req, res) => {
   const { name, ingredients, preparation } = req.body;
 
   const { email } = req.user;
@@ -21,15 +14,15 @@ router.post('/', recipeValidation.requiredFields, validateToken, async (req, res
   const recipe = await recipesModel.registerRecipe(name, ingredients, preparation, _id);
 
   return res.status(201).json({ recipe });
-});
+};
 
-router.get('/', async (_req, res) => {
+exports.get = async (_req, res) => {
   const recipes = await recipesModel.getRecipes();
 
   return res.status(200).json(recipes);
-});
+};
 
-router.get('/:id', async (req, res) => {
+exports.getById = async (req, res) => {
   const { id } = req.params;
 
   const recipe = await recipesModel.getRecipeById(id);
@@ -39,9 +32,9 @@ router.get('/:id', async (req, res) => {
   }
 
   return res.status(200).json(recipe);
-});
+};
 
-router.put('/:id', recipeValidation.validateUser, validateToken, async (req, res) => {
+exports.put = async (req, res) => {
   const { name, ingredients, preparation } = req.body;
   const { id } = req.params;
   const { email } = req.user;
@@ -55,9 +48,9 @@ router.put('/:id', recipeValidation.validateUser, validateToken, async (req, res
       return res.status(200).json(recipeUpdated);
     }
   }
-});
+};
 
-router.delete('/:id', recipeValidation.validateUser, validateToken, async (req, res) => {
+exports.delete = async (req, res) => {
   const { id } = req.params;
 
   const { email } = req.user;
@@ -70,27 +63,19 @@ router.delete('/:id', recipeValidation.validateUser, validateToken, async (req, 
       return res.status(204).json({ message: 'deleted' });
     }
   }
-});
+};
 
-router.put(
-  '/:id/image/',
-  recipeValidation.validateUser,
-  validateToken,
-  upload.single('image'),
-  async (req, res) => {
-    const { id } = req.params;
-    const { email } = req.user;
+exports.putImage = async (req, res) => {
+  const { id } = req.params;
+  const { email } = req.user;
 
-    const user = await usersModel.findUserByEmail(email);
+  const user = await usersModel.findUserByEmail(email);
 
-    if (user) {
-      const result = await recipesModel.addImage(id);
-      if (result) {
-        const recipeUpdatedWithImage = await recipesModel.getRecipeById(id);
-        return res.status(200).json(recipeUpdatedWithImage);
-      }
+  if (user) {
+    const result = await recipesModel.addImage(id);
+    if (result) {
+      const recipeUpdatedWithImage = await recipesModel.getRecipeById(id);
+      return res.status(200).json(recipeUpdatedWithImage);
     }
-  },
-);
-
-module.exports = router;
+  }
+};

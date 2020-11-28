@@ -1,20 +1,10 @@
 const express = require('express');
-const loginValidation = require('../middlewares/loginValidation');
-const createToken = require('../auth/createJWT');
+const { createToken } = require('../services/auth');
 
-const router = express.Router();
+exports.post = async (req, res) => {
+  const { email, password } = req.body;
 
-router.post(
-  '/',
-  loginValidation.requiredFields,
-  loginValidation.validateEmailPassword,
-  async (req, res) => {
-    const { email, password } = req.body;
+  const token = createToken({ email, password });
 
-    const token = createToken({ email, password });
-
-    return res.status(200).json({ token });
-  },
-);
-
-module.exports = router;
+  return res.status(200).json({ token });
+};

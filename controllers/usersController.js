@@ -1,19 +1,9 @@
 const express = require('express');
 const usersModel = require('../models/usersModel');
-const userValidations = require('../middlewares/userValidations');
 
-const router = express.Router();
+exports.post = async (req, res) => {
+  const { name, email, password } = req.body;
+  const user = await usersModel.registerUser(name, email, password);
 
-router.post(
-  '/',
-  userValidations.requiredFields,
-  userValidations.validateEmail,
-  async (req, res) => {
-    const { name, email, password } = req.body;
-    const user = await usersModel.registerUser(name, email, password);
-
-    return res.status(201).json({ user });
-  },
-);
-
-module.exports = router;
+  return res.status(201).json({ user });
+};
