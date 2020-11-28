@@ -11,8 +11,8 @@ const PORT = 3000;
 
 app.use(bodyParser.json());
 
-app.get('/', (req, res) => {
-  response.send();
+app.get('/', (_req, res) => {
+  res.send();
 });
 
 // Routes
