@@ -1,4 +1,3 @@
-const express = require('express');
 const usersModel = require('../models/usersModel');
 
 exports.post = async (req, res) => {

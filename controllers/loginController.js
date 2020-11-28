@@ -1,4 +1,3 @@
-const express = require('express');
 const { createToken } = require('../services/auth');
 
 exports.post = async (req, res) => {

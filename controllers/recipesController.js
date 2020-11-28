@@ -1,4 +1,3 @@
-const express = require('express');
 const recipesModel = require('../models/recipesModel');
 const usersModel = require('../models/usersModel');
 
