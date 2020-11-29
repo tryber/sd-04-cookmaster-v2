@@ -11,6 +11,6 @@ module.exports = (req, _res, next) => {
     return next(boom.badRequest('Invalid entries. Try again.'));
   }
 
-  req.info = { name, email, password };
+  req.userInfo = { name, email, password };
   next();
 };

@@ -1,9 +1,13 @@
-const errorHandler = require('./errorHandler');
-const usersValidation = require('./usersValidation');
+const errorHandler = require('./error');
+const auth = require('./auth');
+const recipeValidation = require('./recipeValidation');
 const loginValidation = require('./loginValidation');
+const userValidation = require('./userValidation');
 
 module.exports = {
   errorHandler,
-  usersValidation,
+  auth,
+  recipeValidation,
   loginValidation,
+  userValidation,
 };
