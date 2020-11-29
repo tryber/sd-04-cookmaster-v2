@@ -14,8 +14,8 @@ const validationRecipe = [validationRecipes.showRecipes];
 router.post('/', validateJWT, validationData, async (req, res) => {
   try {
     const { name, ingredients, preparation } = req.body;
-    const recipe = await recipeModel.addRecipe(name, ingredients, preparation);
-    return res.status(201).json({ recipe: recipe });
+    const recipes = await recipeModel.addRecipe(name, ingredients, preparation);
+    return res.status(201).json({ recipe: recipes });
   } catch (_e) {
     return res.status(400).json(messageJson);
   }
