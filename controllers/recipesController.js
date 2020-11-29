@@ -61,7 +61,7 @@ const editOne = async (req, res) => {
 const deleteOne = async (req, res) => {
   try {
     const { id } = req.params;
-    
+
     await recipesModel.removeRecipe(id);
 
     return res.status(204).end();
@@ -70,4 +70,19 @@ const deleteOne = async (req, res) => {
   }
 };
 
-module.exports = { register, getAll, getOne, editOne, deleteOne };
+const edit2Image = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { filename } = req.file;
+    const imgUrl = `localhost:3000/images/${filename}`;
+
+    await recipesModel.updateImageRecipe(id, imgUrl);
+    const recipe = await recipesModel.findById(id);
+
+    return res.status(200).json(recipe);
+  } catch (_err) {
+    res.status(500).json({ message: 'Error in controller edit2Image' });
+  }
+};
+
+module.exports = { register, getAll, getOne, editOne, deleteOne, edit2Image };

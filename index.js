@@ -12,7 +12,7 @@ app.get('/', (request, response) => {
   response.send();
 });
 
-app.use('/images', express.static('images'));
+app.use('/images', express.static('uploads'));
 
 app.use(routes);
 
