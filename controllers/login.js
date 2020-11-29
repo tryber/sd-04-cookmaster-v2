@@ -1,6 +1,3 @@
-//const express = require('express');
-
-const { use } = require('frisby');
 const createToken = require('../auth/createJWT');
 
 // importando o userModel do model
