@@ -37,18 +37,6 @@ const deleteData = async (collection, id) =>
   connection()
     .then((db) => db.collection(collection).deleteOne({ _id: ObjectId(id) }));
 
-  // const updateProductQuantity = async (collection, id, quantidade, isSales = false) => {
-//   if (isSales) {
-//     await connection().then((db) =>
-//       db.collection(collection).updateOne({ _id: ObjectId(id) }, { $inc: { quantity: -quantidade } }),
-//     );
-//   } else {
-//     await connection().then((db) =>
-//       db.collection(collection).updateOne({ _id: ObjectId(id) }, { $inc: { quantity: +quantidade } }),
-//     );
-//   }
-// };
-
 module.exports = {
   findById,
   findByName,
@@ -58,5 +46,3 @@ module.exports = {
   update,
   deleteData,
 };
-
-// { "_id" : ObjectId("5f46914677df66035f61a355"), "name" : "Erick Jacquin", "email" : "erickjacquin@gmail.com", "password" : "12345678", "role" : "user" }
