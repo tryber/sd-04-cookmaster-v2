@@ -8,11 +8,16 @@ const login = require('./controllers/login');
 // importando recipesController
 const recipesController = require('./controllers/recipesController');
 
+//img
+
+
 const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use('/images', express.static('images'));
 
 app.use('/users', userController);
 
@@ -24,5 +29,6 @@ app.use('/recipes', recipesController);
 app.get('/', (request, response) => {
   response.send();
 });
+
 
 app.listen(port, () => console.log(`Rodando no localhost:${port}...`));
