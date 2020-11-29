@@ -28,9 +28,10 @@ router.post('/admin',
   validateEmail,
   async (req, res) => {
     const { body } = req;
+    console.log('body',body);
     body.role = 'admin';
 
-    const user = await crudModel.createOne('users', body);
+    const user = await create('users', body);
 
     res.status(201).json({ user });
   });

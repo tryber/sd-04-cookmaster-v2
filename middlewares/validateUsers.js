@@ -57,6 +57,7 @@ const validateLogin = async (req, res, next) => {
 
 const validateAdminNewRegister = async (req, res, next) => {
   const { user } = req;
+  console.log(user);
 
   if (user.role !== 'admin') {
     return res.status(403).json(buildResponse('Only admins can register new admins'));
