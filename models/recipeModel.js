@@ -12,9 +12,9 @@ const showRecipes = async () => {
   return result;
 };
 
-const showRecipeByid = async (id)=>{
-    const result = await connection().then((db)=> db.collection('recipes').findOne(ObjectId(id)))
-    return result;
-}
+const showRecipeByid = async (id) => {
+  const result = await connection().then((db) => db.collection('recipes').findOne(ObjectId(id)));
+  return result;
+};
 
 module.exports = { addRecipe, showRecipes, showRecipeByid };
