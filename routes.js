@@ -7,4 +7,6 @@ const routes = Router();
 
 routes.post('/users', validate.register, userController.register);
 
+routes.post('/login', validate.login, userController.login);
+
 module.exports = routes;

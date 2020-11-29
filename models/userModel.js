@@ -12,4 +12,7 @@ const addUser = async (name, email, password) => {
 const findByName = async (name) =>
   connection().then((db) => db.collection('users').findOne({ name }));
 
-module.exports = { addUser, findByName };
+const findByEmail = async (email) =>
+  connection().then((db) => db.collection('users').findOne({ email }));
+
+module.exports = { addUser, findByName, findByEmail };

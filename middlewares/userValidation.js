@@ -1,4 +1,5 @@
 const userModel = require('../models/userModel');
+const encrypt = require('./auth');
 
 const register = async (req, res, next) => {
   const { name, email, password } = req.body;
@@ -17,4 +18,29 @@ const register = async (req, res, next) => {
   return next();
 };
 
-module.exports = { register };
+const login = async (req, res, next) => {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    return res.status(401).json({
+      message: 'All fields must be filled',
+    });
+  }
+
+  const userFound = await userModel.findByEmail(email);
+
+  if (!userFound || userFound.password !== password) {
+    return res.status(401).json({
+      message: 'Incorrect username or password',
+    });
+  }
+
+  return next();
+};
+
+const backToken = async (email) => {
+  const user = await userModel.findByEmail(email);
+  return encrypt.createToken(user);
+};
+
+module.exports = { register, login, backToken };
