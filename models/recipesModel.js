@@ -14,4 +14,9 @@ const getRecipes = async () => {
   return products;
 };
 
-module.exports = { addRecipe, getRecipes };
+const findById = async (id) => {
+  if (!ObjectId.isValid(id)) return null;
+  return connection().then((db) => db.collection('recipes').findOne(ObjectId(id)));
+};
+
+module.exports = { addRecipe, getRecipes, findById };
