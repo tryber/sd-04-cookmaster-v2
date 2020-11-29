@@ -4,7 +4,7 @@ const model = require('../models/models');
 
 const router = express.Router();
 
-// Register new recipe
+// Register new recipe OK TESTAD
 router.post(
   '/',
   recipesValidations.validateAuthenticity,
