@@ -8,6 +8,7 @@ const createToken = (payload) => {
     algorithm: 'HS256',
   };
 
+  // criando o Token
   const toker = jwt.sign(payload, secret, headers);
   return toker;
 };
