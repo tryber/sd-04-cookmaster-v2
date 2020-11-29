@@ -14,4 +14,14 @@ const register = async (req, res) => {
   }
 };
 
-module.exports = { register };
+const getAll = async (_req, res) => {
+  try {
+    const recipes = await recipesModel.getRecipes();
+
+    return res.status(200).json(recipes);
+  } catch (_err) {
+    res.status(500).json({ message: 'Error in controller getAll' });
+  }
+};
+
+module.exports = { register, getAll };

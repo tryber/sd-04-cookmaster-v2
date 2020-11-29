@@ -12,5 +12,6 @@ routes.post('/users', validateUser.register, userController.register);
 routes.post('/login', validateUser.login, userController.login);
 
 routes.post('/recipes', encrypt.validateJWT, validateRecipe.register, recipeController.register);
+routes.get('/recipes', recipeController.getAll);
 
 module.exports = routes;
