@@ -11,11 +11,12 @@ const validationData = (req, res, next) => {
   next();
 };
 
-const showRecipe = async (_req, res, next) => {
+const showRecipes = async (_req, res, next) => {
   const showRecipe = await recipeModel.showRecipes();
   if (showRecipe) {
     return res.status(200).json(showRecipe);
   }
+  next();
 };
 
-module.exports = { validationData, showRecipe };
+module.exports = { validationData, showRecipes };

@@ -10,7 +10,7 @@ const router = express.Router();
 const messageJson = { message: 'Ivalid entries.' }; // jogar o json na variavel
 
 const validationData = [validationRecipes.validationData]; // jogar a validação em uma variável
-const validationRecipe = [validationRecipes.showRecipe];
+const validationRecipe = [validationRecipes.showRecipes];
 router.post('/', validateJWT, validationData, async (req, res) => {
   try {
     const { name, ingredients, preparation } = req.body;

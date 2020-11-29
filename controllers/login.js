@@ -1,4 +1,3 @@
-const { use } = require('frisby');
 const createToken = require('../auth/createJWT');
 // const createJWT = require('../auth/createJWT');
 
@@ -20,8 +19,6 @@ module.exports = async (req, res) => {
     }
     // tirando a senha do payload
     const { password: _, ...userWhitoutPassword } = user;
-    console.log('user com password amostra:',user);
-    console.log('user com password oculto :', userWhitoutPassword);
     const token = createToken(userWhitoutPassword);
     return res.status(200).json({ token });
   } catch (_e) {
