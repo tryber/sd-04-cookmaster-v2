@@ -5,9 +5,8 @@ const buildResponse = (message) => {
   return resp;
 };
 
-const ValidateFields = async (req, res, next) => {
+const validateRequiredFields = async (req, res, next) => {
   const { name, email, password } = req.body;
-
   if (!name || !email || !password) {
     return res.status(400).json(buildResponse('Invalid entries. Try again.'));
   }
@@ -37,7 +36,7 @@ const validateEmailIsUnique = async (req, res, next) => {
   next();
 };
 
-const validateLoginFields = async (req, res, next) => {
+const validateRequiredLoginFields = async (req, res, next) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
@@ -63,9 +62,9 @@ const validateLogin = async (req, res, next) => {
 };
 
 module.exports = {
-  ValidateFields,
+  validateRequiredLoginFields,
   validateEmail,
   validateEmailIsUnique,
   validateLogin,
-  validateLoginFields,
+  validateRequiredFields,
 };

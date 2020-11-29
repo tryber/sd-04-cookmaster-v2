@@ -1,14 +1,12 @@
 const express = require('express');
 const userValidations = require('../middlewares/userValidation');
 const createToken = require('../auth/createToken');
-// const model = require('../models/model');
 
 const router = express.Router();
 
-// Log user in
 router.post(
   '/',
-  userValidations.validateLoginFields,
+  userValidations.validateRequiredLoginFields,
   userValidations.validateLogin,
   async (req, res) => {
     try {

@@ -1,24 +1,11 @@
-const validateToken = require('../auth/validateToken');
+const model = require('../models/models');
 
 const buildResponse = (message) => {
   const resp = { message };
   return resp;
 };
 
-const validateAuthenticity = (req, res, next) => {
-  try {
-    const token = req.headers.authorization;
-
-    const user = validateToken(token);
-    req.user = user;
-
-    next();
-  } catch (_err) {
-    res.status(401).json(buildResponse('jwt malformed'));
-  }
-};
-
-const validateFields = async (req, res, next) => {
+const validateRequiredFields = async (req, res, next) => {
   const { name, ingredients, preparation } = req.body;
 
   if (!name || !ingredients || !preparation) {
@@ -27,8 +14,19 @@ const validateFields = async (req, res, next) => {
 
   next();
 };
+const validateRecipeExistence = async (req, res, next) => {
+  const { id } = req.params;
+  const recipe = await model.findById('recipes', id);
+
+  if (!recipe) {
+    return res.status(404).json(buildResponse('recipe not found'));
+  }
+  req.recipe = recipe;
+
+  next();
+};
 
 module.exports = {
-  validateAuthenticity,
-  validateFields,
+  validateRequiredFields,
+  validateRecipeExistence,
 };

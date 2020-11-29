@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.post(
   '/',
-  userValidations.ValidateFields,
+  userValidations.validateRequiredFields,
   userValidations.validateEmail,
   userValidations.validateEmailIsUnique,
   async (req, res) => {
