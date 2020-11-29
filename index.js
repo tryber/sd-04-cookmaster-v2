@@ -8,9 +8,6 @@ const login = require('./controllers/login');
 // importando recipesController
 const recipesController = require('./controllers/recipesController');
 
-//img
-
-
 const app = express();
 const port = process.env.PORT || 3000;
 
