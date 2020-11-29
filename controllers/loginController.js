@@ -8,8 +8,9 @@ router.post('/',
   verifyLoginFields,
   validateLogin,
   (req, res) => {
-    const user = req.user
+    const user = req.user;
     const token = createToken(user);
+
     res.status(200).json({ token });
   });
 

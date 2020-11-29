@@ -20,7 +20,7 @@ validateToken(false),
 verifyToken,
 async (_req, res) => {
   const ListAllRecipes = await findAll('recipes');
-  
+
   return res.status(200).json(ListAllRecipes);
 });
 
@@ -29,11 +29,11 @@ validateToken(false),
 verifyToken,
 async (req, res) => {
   const { id } = req.params;
-  
+
   const recipe = await findById('recipes', id);
-  
+
   if (!recipe) return res.status(404).json({ message: 'recipe not found' });
-  
+
   return res.status(200).json(recipe);
 });
 

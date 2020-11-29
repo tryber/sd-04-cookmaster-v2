@@ -28,7 +28,6 @@ router.post('/admin',
   validateEmail,
   async (req, res) => {
     const { body } = req;
-    console.log('body',body);
     body.role = 'admin';
 
     const user = await create('users', body);

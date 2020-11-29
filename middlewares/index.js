@@ -16,4 +16,4 @@ module.exports = {
   validateLogin,
   validateAdminNewRegister,
   verifyRecipeFields,
-}
+};

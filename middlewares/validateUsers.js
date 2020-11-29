@@ -12,8 +12,8 @@ const verifyRegisterFields = (req, res, next) => {
 
 const verifyUserByEmail = async (req, res, next) => {
   const { email } = req.body;
-  const user = await findByEmail('users', email );
-  
+  const user = await findByEmail('users', email);
+
   if (user) {
     return res.status(409).json(buildResponse('Email already registered'));
   }

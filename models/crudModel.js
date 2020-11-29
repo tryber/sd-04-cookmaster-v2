@@ -1,9 +1,11 @@
 const { ObjectId } = require('mongodb');
 const connection = require('./connection');
 
+// CRUD feito com auxilio de Lucas Ribas e baseado em apresentações de alunos.
+
 const findById = async (collection, id) => {
   if (!ObjectId.isValid(id)) return null;
-  
+
   return connection()
   .then((db) => db.collection(collection).findOne(ObjectId(id)));
 };
