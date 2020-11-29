@@ -7,8 +7,6 @@ const jwtConfig = {
 };
 
 const secret = process.env.SECRET;
-// const secret = 'testando uma parada aqui';
-console.log(secret);
 
 const createToken = (payload) => {
   const token = jwt.sign(payload, secret, jwtConfig);

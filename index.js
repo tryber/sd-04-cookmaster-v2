@@ -1,13 +1,13 @@
 const express = require('express');
 const path = require('path');
 
-const { userController, loginController, recipesController } = require('./controllers');
+const { usersController, loginController, recipesController } = require('./controllers');
 
 const app = express();
 const PORT = 3000;
 app.use(express.json());
 
-app.use('/users', userController);
+app.use('/users', usersController);
 app.use('/login', loginController);
 app.use('/recipes', recipesController);
 app.use('/images', express.static(path.join(__dirname, '/images')));
