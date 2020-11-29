@@ -18,7 +18,6 @@ const validateAuthenticity = (req, res, next) => {
   }
 };
 
-// os campos "name", "ingredients" e "preparation" são obrigatórios OK TESTADO
 const validateFields = async (req, res, next) => {
   const { name, ingredients, preparation } = req.body;
 

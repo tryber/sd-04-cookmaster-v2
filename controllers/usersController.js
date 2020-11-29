@@ -4,7 +4,6 @@ const model = require('../models/models');
 
 const router = express.Router();
 
-// Add new user OK TESTADO
 router.post(
   '/',
   userValidations.ValidateFields,

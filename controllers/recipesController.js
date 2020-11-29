@@ -4,7 +4,6 @@ const model = require('../models/models');
 
 const router = express.Router();
 
-// Register new recipe OK TESTAD
 router.post(
   '/',
   recipesValidations.validateAuthenticity,
@@ -21,5 +20,11 @@ router.post(
     }
   },
 );
+
+router.get('/', async (_req, res) => {
+  const recipes = await model.findAll('recipes');
+
+  res.status(200).json(recipes);
+});
 
 module.exports = router;
