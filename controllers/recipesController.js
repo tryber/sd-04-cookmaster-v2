@@ -38,8 +38,8 @@ async (req, res) => {
 });
 
 router.post('/',
-  verifyToken,
   validateToken(),
+  verifyToken,
   verifyRecipeFields,
   async (req, res) => {
     const { name, ingredients, preparation } = req.body;
@@ -51,7 +51,7 @@ router.post('/',
   });
 
 router.put('/:id',
-  validateToken(false),
+  validateToken(),
   verifyToken,
   async (req, res) => {
     const { id } = req.params;
@@ -71,7 +71,7 @@ router.put('/:id',
   });
 
 router.put('/:id/image',
-  validateToken(false),
+  validateToken(),
   verifyToken,
   upload.single('image'),
   async (req, res) => {
@@ -79,13 +79,13 @@ router.put('/:id/image',
 
     await update('recipes', id, { image: `localhost:3000/${req.file.path}` });
 
-    const result = await crudModel.findById('recipes', id);
+    const result = await findById('recipes', id);
 
     res.status(200).json(result);
   });
 
 router.delete('/:id',
-  validateToken(false),
+  validateToken(),
   verifyToken,
   async (req, res) => {
     const { id } = req.params;
