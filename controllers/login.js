@@ -1,6 +1,6 @@
 //const express = require('express');
 
-const {use} =require('frisby');
+const { use } = require('frisby');
 const createToken = require('../auth/createJWT');
 
 // importando o userModel do model
@@ -13,7 +13,7 @@ module.exports = async (req, res) => {
   try {
     const { email, password } = req.body;
     if (!email || !password) {
-      console.log(req.body)
+      console.log(req.body);
       return res.status(401).json(messageJson1);
     }
     const user = await userModel.findEmail(email);
@@ -22,7 +22,7 @@ module.exports = async (req, res) => {
     }
     // tirando a senha do payload
     const { password: _, ...userWhitoutPassword } = user;
-    console.log('user com password amostra:',user);
+    console.log('user com password amostra:', user);
     console.log('user com password oculto :', userWhitoutPassword);
     const token = createToken(userWhitoutPassword);
     return res.status(200).json({ token });
@@ -30,4 +30,3 @@ module.exports = async (req, res) => {
     return res.status(401).json(messageJson2);
   }
 };
-
