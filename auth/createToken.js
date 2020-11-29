@@ -16,4 +16,4 @@ const createToken = (payload) => {
   return token;
 };
 
-module.exports = createToken;
+module.exports = { createToken };
