@@ -1,12 +1,16 @@
 const { Router } = require('express');
 const recipeController = require('./controllers/recipesController');
 const userController = require('./controllers/userController');
-const validate = require('./middlewares/userValidation');
+const validateUser = require('./middlewares/userValidation');
+const validateRecipe = require('./middlewares/recipeValidation');
+const encrypt = require('./middlewares/auth');
 
 const routes = Router();
 
-routes.post('/users', validate.register, userController.register);
+routes.post('/users', validateUser.register, userController.register);
 
-routes.post('/login', validate.login, userController.login);
+routes.post('/login', validateUser.login, userController.login);
+
+routes.post('/recipes', encrypt.validateJWT, validateRecipe.register, recipeController.register);
 
 module.exports = routes;
