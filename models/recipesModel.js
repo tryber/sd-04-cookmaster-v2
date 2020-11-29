@@ -1,6 +1,5 @@
 const connection = require('./connection');
 const { ObjectId } = require('mongodb');
-const { backToken } = require('../middlewares/userValidation');
 
 const addRecipe = async (name, ingredients, preparation, userId) => {
   const result = await connection().then((db) =>
