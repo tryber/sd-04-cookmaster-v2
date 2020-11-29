@@ -10,7 +10,7 @@ const validationData = (req, res, next) => {
   }
   next();
 };
-
+// mostra as recitas
 const showRecipes = async (_req, res, next) => {
   const showRecipe = await recipeModel.showRecipes();
   if (showRecipe) {

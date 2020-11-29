@@ -1,5 +1,5 @@
 const express = require('express');
-const validateJWT = require('../auth/validateJWT');
+const { validateJWT, existToken } = require('../auth/validateJWT');
 // importando o validationRecipes do Middleware
 const validationRecipes = require('../middlewares/validationRecipes');
 // importando o recipeModel do Model
@@ -9,6 +9,7 @@ const router = express.Router();
 
 const messageJson1 = { message: 'Ivalid entries.' }; // jogar o json na variavel
 const messageJson2 = { message: 'recipe not found' };
+const messageJson3 = { message: 'missing auth token' };
 
 const validationData = [validationRecipes.validationData]; // jogar a validação em uma variável
 const validationRecipe = [validationRecipes.showRecipes];
@@ -31,6 +32,17 @@ router.get('/:id', async (req, res) => {
     return res.status(200).json(recipeById);
   } catch (_e) {
     return res.status(404).json(messageJson2);
+  }
+});
+
+router.put('/:id', existToken, validateJWT, async (req, res) => {
+  try {
+    const { name, ingredients, preparation } = req.body;
+    await recipeModel.editRecipe(req.params.id, name, ingredients, preparation);
+    const updateRecipe = await recipeModel.showRecipeByid(req.params.id);
+    res.status(200).json(updateRecipe);
+  } catch (_e) {
+    res.status(401).json(messageJson3);
   }
 });
 
