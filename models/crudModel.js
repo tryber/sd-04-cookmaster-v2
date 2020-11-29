@@ -8,13 +8,9 @@ const findById = async (collection, id) => {
   .then((db) => db.collection(collection).findOne(ObjectId(id)));
 };
 
-const findByName = async (collection, name) =>
-connection()
-.then((db) => db.collection(collection).findOne({ name }));
-
 const findByEmail = async (collection, email) =>
-connection()
-.then((db) => db.collection(collection).findOne({ email }));
+  connection()
+    .then((db) => db.collection(collection).findOne({ email }));
 
 const findAll = async (collection) =>
   connection()
@@ -39,7 +35,6 @@ const deleteData = async (collection, id) =>
 
 module.exports = {
   findById,
-  findByName,
   findByEmail,
   findAll,
   create,

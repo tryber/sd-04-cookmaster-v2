@@ -12,9 +12,11 @@ const verifyRegisterFields = (req, res, next) => {
 
 const verifyUserByEmail = async (req, res, next) => {
   const { email } = req.body;
-  const user = await findByEmail('users', { email });
-
-  if (user) return res.status(409).json(buildResponse('Email already registered'));
+  const user = await findByEmail('users', email );
+  
+  if (user) {
+    return res.status(409).json(buildResponse('Email already registered'));
+  }
 
   return next();
 };
@@ -41,7 +43,7 @@ const verifyLoginFields = (req, res, next) => {
 const validateLogin = async (req, res, next) => {
   const { email, password } = req.body;
 
-  const user = await findByEmail('users', { email });
+  const user = await findByEmail('users', email);
 
   if (!user || password !== user.password) {
     return res.status(401).json(buildResponse('Incorrect username or password'));
