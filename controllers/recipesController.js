@@ -15,6 +15,28 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
+router.get('/',
+validateToken(false),
+verifyToken,
+async (_req, res) => {
+  const ListAllRecipes = await findAll('recipes');
+  
+  return res.status(200).json(ListAllRecipes);
+});
+
+router.get('/:id',
+validateToken(false),
+verifyToken,
+async (req, res) => {
+  const { id } = req.params;
+  
+  const recipe = await findById('recipes', id);
+  
+  if (!recipe) return res.status(404).json({ message: 'recipe not found' });
+  
+  return res.status(200).json(recipe);
+});
+
 router.post('/',
   verifyToken,
   validateToken(),
@@ -26,28 +48,6 @@ router.post('/',
     const recipe = await create('recipes', { name, ingredients, preparation, userId: _id });
 
     res.status(201).json({ recipe });
-  });
-
-router.get('/',
-  validateToken(false),
-  verifyToken,
-  async (_req, res) => {
-    const ListAllRecipes = await findAll('recipes');
-
-    return res.status(200).json(ListAllRecipes);
-  });
-
-router.get('/:id',
-  validateToken(false),
-  verifyToken,
-  async (req, res) => {
-    const { id } = req.params;
-
-    const recipe = await findById('recipes', id);
-
-    if (!recipe) return res.status(404).json({ message: 'recipe not found' });
-
-    return res.status(200).json(recipe);
   });
 
 router.put('/:id',
@@ -70,6 +70,20 @@ router.put('/:id',
     return res.status(401).json({ message: 'you cant update this recipe' });
   });
 
+router.put('/:id/image',
+  validateToken(false),
+  verifyToken,
+  upload.single('image'),
+  async (req, res) => {
+    const { id } = req.params;
+
+    await update('recipes', id, { image: `localhost:3000/${req.file.path}` });
+
+    const result = await crudModel.findById('recipes', id);
+
+    res.status(200).json(result);
+  });
+
 router.delete('/:id',
   validateToken(false),
   verifyToken,
@@ -85,20 +99,6 @@ router.delete('/:id',
       return res.status(204).json();
     }
     return res.status(401).json({ message: 'you cant delete this recipe' });
-  });
-
-router.put('/:id/image',
-  validateToken(false),
-  verifyToken,
-  upload.single('image'),
-  async (req, res) => {
-    const { id } = req.params;
-
-    await update('recipes', id, { image: `localhost:3000/${req.file.path}` });
-
-    const result = await crudModel.findById('recipes', id);
-
-    res.status(200).json(result);
   });
 
 module.exports = router;
