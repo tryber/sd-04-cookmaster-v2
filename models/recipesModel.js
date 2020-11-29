@@ -16,21 +16,24 @@ const getRecipes = async () => {
 
 const findById = async (id) => {
   if (!ObjectId.isValid(id)) return null;
-  return connection().then((db) => db.collection('recipes').findOne(ObjectId(id)));
+  return await connection().then((db) => db.collection('recipes').findOne(ObjectId(id)));
 };
 
 const updateRecipe = async (id, name, ingredients, preparation) => {
   if (!ObjectId.isValid(id)) return null;
-  connection().then((db) =>
+  await connection().then((db) =>
     db
       .collection('recipes')
       .updateOne({ _id: ObjectId(id) }, { $set: { name, ingredients, preparation } }),
   );
 };
 
-const deleteRecipe = async (id) => {
+const removeRecipe = async (id) => {
   if (!ObjectId.isValid(id)) return null;
-  return connection().then((db) => db.collection('recipes').findOne(ObjectId(id)));
+  await connection().then((db) =>
+    db.collection('recipes').deleteOne({ _id: ObjectId(id) }),
+  );
+  return true;
 };
 
-module.exports = { addRecipe, getRecipes, findById, updateRecipe, deleteRecipe };
+module.exports = { addRecipe, getRecipes, findById, updateRecipe, removeRecipe };
