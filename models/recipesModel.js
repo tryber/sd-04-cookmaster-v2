@@ -1,5 +1,6 @@
 const connection = require('./connection');
 const { ObjectId } = require('mongodb');
+const { backToken } = require('../middlewares/userValidation');
 
 const addRecipe = async (name, ingredients, preparation, userId) => {
   const result = await connection().then((db) =>
@@ -16,7 +17,8 @@ const getRecipes = async () => {
 
 const findById = async (id) => {
   if (!ObjectId.isValid(id)) return null;
-  return await connection().then((db) => db.collection('recipes').findOne(ObjectId(id)));
+  const backData = await connection().then((db) => db.collection('recipes').findOne(ObjectId(id)));
+  return backData;
 };
 
 const updateRecipe = async (id, name, ingredients, preparation) => {
@@ -37,9 +39,7 @@ const removeRecipe = async (id) => {
 const updateImageRecipe = async (id, image) => {
   if (!ObjectId.isValid(id)) return null;
   await connection().then((db) =>
-    db
-      .collection('recipes')
-      .updateOne({ _id: ObjectId(id) }, { $set: { image } }),
+    db.collection('recipes').updateOne({ _id: ObjectId(id) }, { $set: { image } }),
   );
 };
 
