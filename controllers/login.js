@@ -14,15 +14,12 @@ const messageJson2 = { message: 'Incorrect username or password' }; // jogar o j
 router.post('/', async (req, res) => {
   try {
     const { email, password } = req.body;
-    // const email = req.body.email;
-    // const password = req.body.password;
-   console.log(req.body);
-    console.log('login linha 13',req.body)
+    // console.log(req.body);
+    // console.log('login linha 13', req.body);
     if (!email || !password) {
       return res.status(401).json(messageJson1);
     }
     const user = await userModel.findEmail(email);
-    console.log('teste',user)
     if (!user || user.password !== password) {
       return res.status(401).json(messageJson2);
     }
