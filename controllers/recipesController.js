@@ -40,4 +40,38 @@ const getOne = async (req, res) => {
   }
 };
 
-module.exports = { register, getAll, getOne };
+const editOne = async (req, res) => {
+  try {
+    const { name, ingredients, preparation } = req.body;
+    const { id } = req.params;
+
+    await recipesModel.updateRecipe(id, name, ingredients, preparation);
+    const recipe = await recipesModel.findById(id);
+
+    if (!recipe) {
+      return res.status(404).json({ message: 'recipe not found' });
+    }
+
+    return res.status(200).json(recipe);
+  } catch (err) {
+    res.status(500).json({ message: 'Error in controller getOne', err });
+  }
+};
+
+const deleteOne = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    await recipesModel.deleteRecipe(id);
+
+    if (!recipe) {
+      return res.status(404).json({ message: 'recipe not found' });
+    }
+
+    return res.status(200).json(recipe);
+  } catch (err) {
+    res.status(500).json({ message: 'Error in controller getOne', err });
+  }
+};
+
+module.exports = { register, getAll, getOne, editOne, deleteOne };

@@ -15,5 +15,7 @@ routes.post('/recipes', encrypt.validateJWT, validateRecipe.register, recipeCont
 routes.get('/recipes', recipeController.getAll);
 
 routes.get('/recipes/:id', recipeController.getOne);
+routes.put('/recipes/:id', encrypt.validateJWT, recipeController.editOne);
+routes.delete('/recipes/:id', encrypt.validateJWT, recipeController.deleteOne);
 
 module.exports = routes;
