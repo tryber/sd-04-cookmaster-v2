@@ -4,7 +4,7 @@ const { validateUser, validateRequiredFields } = require('../middlewares/recipeV
 const controller = require('../controllers/recipesController');
 const multer = require('multer');
 
-const upload = multer({ dest: 'uploads/' });
+const upload = multer({ dest: 'images/' });
 
 const router = express.Router();
 
