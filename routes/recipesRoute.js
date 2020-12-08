@@ -2,7 +2,7 @@ const express = require('express');
 const { validateToken } = require('../services/auth');
 const { validateUser, validateRequiredFields } = require('../middlewares/recipeValidation');
 const controller = require('../controllers/recipesController');
-const upload = require('../services/upload');
+const upload = multer({ dest: 'uploads/' })
 
 const router = express.Router();
 
