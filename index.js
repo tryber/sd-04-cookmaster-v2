@@ -19,6 +19,6 @@ app.get('/', (_req, res) => {
 app.use('/users', usersRoute);
 app.use('/login', loginRoute);
 app.use('/recipes', recipesRoute);
-app.use('/images', express.static(path.join(__dirname, '/images'))); // Definindo nova pasta pública
+app.use('/images', express.static(path.join(__dirname, 'images'))); // Definindo nova pasta pública
 
 app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
